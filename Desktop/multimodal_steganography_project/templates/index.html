@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multimodal Steganography</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Multimodal Steganography</h1>
+    
+    <h2>Encrypt Message</h2>
+    <form action="/encrypt" method="POST">
+        <textarea name="message" placeholder="Enter your message"></textarea><br>
+        <button type="submit">Encrypt</button>
+    </form>
+
+    <h2>Decrypt Message</h2>
+    <form action="/decrypt" method="POST">
+        <input type="text" name="encrypted_message" placeholder="Enter encrypted message"><br>
+        <button type="submit">Decrypt</button>
+    </form>
+
+    <h2>Hide Message in Image</h2>
+    <form action="/hide_image_message" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*"><br>
+        <textarea name="message" placeholder="Enter message to hide"></textarea><br>
+        <button type="submit">Hide Message</button>
+    </form>
+
+    <h2>Extract Message from Image</h2>
+    <form action="/extract_image_message" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*"><br>
+        <button type="submit">Extract Message</button>
+    </form>
+
+    <h2>Hide Message in Audio</h2>
+    <form action="/hide_audio_message" method="POST" enctype="multipart/form-data">
+        <input type="file" name="audio" accept="audio/*"><br>
+        <textarea name="message" placeholder="Enter message to hide"></textarea><br>
+        <button type="submit">Hide Message</button>
+    </form>
+
+    <h2>Extract Message from Audio</h2>
+    <form action="/extract_audio_message" method="POST" enctype="multipart/form-data">
+        <input type="file" name="audio" accept="audio/*"><br>
+        <button type="submit">Extract Message</button>
+    </form>
+
+    <h2>Hide Message in Text</h2>
+    <form action="/hide_text_message" method="POST">
+        <textarea name="message" placeholder="Enter message to hide"></textarea><br>
+        <button type="submit">Hide Message</button>
+    </form>
+
+    <h2>Extract Message from Text</h2>
+    <form action="/extract_text_message" method="POST">
+        <textarea name="hidden_message" placeholder="Enter hidden message"></textarea><br>
+        <button type="submit">Extract Message</button>
+    </form>
+</body>
+</html>
