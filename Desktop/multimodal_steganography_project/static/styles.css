@@ -145,6 +145,84 @@ header h1 {
     font-size: 1.2rem;
     margin: 2rem 0;
     color: var(--danger-color);
+    padding: 1rem;
+    background-color: rgba(231, 76, 60, 0.1);
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--danger-color);
+}
+
+/* Result Card */
+.result-card {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.success-message {
+    font-size: 1.2rem;
+    margin: 2rem 0;
+    color: var(--success-color);
+    padding: 1rem;
+    background-color: rgba(46, 204, 113, 0.1);
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--success-color);
+}
+
+.result-content {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background-color: var(--light-color);
+    border-radius: var(--border-radius);
+}
+
+.result-content h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+}
+
+.image-container {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.result-image {
+    max-width: 100%;
+    max-height: 500px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.audio-container {
+    margin-bottom: 1.5rem;
+}
+
+.audio-container audio {
+    width: 100%;
+}
+
+.text-container, .message-container {
+    margin-bottom: 1.5rem;
+}
+
+.result-text, .result-message {
+    width: 100%;
+    min-height: 150px;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border: 1px solid #ddd;
+    background-color: white;
+    font-family: monospace;
+    resize: vertical;
+}
+
+.download-container, .copy-container {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.back-container {
+    text-align: center;
+    margin-top: 2rem;
 }
 
 /* Container */

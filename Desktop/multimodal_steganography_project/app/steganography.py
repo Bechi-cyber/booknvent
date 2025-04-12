@@ -134,25 +134,34 @@ def extract_message_from_image(image, password=None):
                 if len(binary_data) % 8 == 0:
                     # Convert binary to bytes
                     byte_data = bytearray()
-                    for i in range(0, len(binary_data), 8):
-                        if i + 8 <= len(binary_data):
-                            byte = int(binary_data[i:i+8], 2)
+                    for idx in range(0, len(binary_data), 8):
+                        if idx + 8 <= len(binary_data):
+                            byte = int(binary_data[idx:idx+8], 2)
                             byte_data.append(byte)
 
                     # Check if we've reached the null terminator
                     try:
                         if password:
                             # Try to decrypt if password was provided
-                            decrypted = decrypt_message(bytes(byte_data))
-                            if '\0' in decrypted:
-                                return decrypted.split('\0')[0]
+                            try:
+                                decrypted = decrypt_message(bytes(byte_data))
+                                if '\0' in decrypted:
+                                    return decrypted.split('\0')[0]
+                            except Exception:
+                                # If we have enough data but decryption fails, it's likely a wrong password
+                                if len(byte_data) > 32:  # Reasonable size for an encrypted message
+                                    raise ValueError("Incorrect password. Please try again with the correct password.")
+                                # Otherwise continue extracting
                         else:
                             # Try to decode without decryption
                             text = byte_data.decode('utf-8', errors='ignore')
                             if '\0' in text:
                                 return text.split('\0')[0]
-                    except:
-                        # Continue extracting if decryption/decoding fails
+                    except ValueError as e:
+                        # Re-raise password errors
+                        if "password" in str(e).lower():
+                            raise
+                        # Continue extracting for other errors
                         pass
 
     # If we've extracted all bits but found no terminator, try to decode the whole message
@@ -280,16 +289,25 @@ def extract_message_from_audio(audio, password=None):
             try:
                 if password:
                     # Try to decrypt if password was provided
-                    decrypted = decrypt_message(bytes(byte_data))
-                    if '\0' in decrypted:
-                        return decrypted.split('\0')[0]
+                    try:
+                        decrypted = decrypt_message(bytes(byte_data))
+                        if '\0' in decrypted:
+                            return decrypted.split('\0')[0]
+                    except Exception:
+                        # If we have enough data but decryption fails, it's likely a wrong password
+                        if len(byte_data) > 32:  # Reasonable size for an encrypted message
+                            raise ValueError("Incorrect password. Please try again with the correct password.")
+                        # Otherwise continue extracting
                 else:
                     # Try to decode without decryption
                     text = byte_data.decode('utf-8', errors='ignore')
                     if '\0' in text:
                         return text.split('\0')[0]
-            except:
-                # Continue extracting if decryption/decoding fails
+            except ValueError as e:
+                # Re-raise password errors
+                if "password" in str(e).lower():
+                    raise
+                # Continue extracting for other errors
                 pass
 
     # If we've extracted all bits but found no terminator, try to decode the whole message
@@ -405,13 +423,25 @@ def extract_message_from_text(hidden_message, password=None):
             # Try to convert from hex to bytes
             encrypted_bytes = bytes.fromhex(extracted_text)
             # Decrypt the message
-            decrypted = decrypt_message(encrypted_bytes)
-            # Remove null terminator
-            if '\0' in decrypted:
-                return decrypted.split('\0')[0]
-            return decrypted
-        except Exception:
-            # If decryption fails, return the raw extracted text
+            try:
+                decrypted = decrypt_message(encrypted_bytes)
+                # Remove null terminator
+                if '\0' in decrypted:
+                    return decrypted.split('\0')[0]
+                return decrypted
+            except Exception:
+                # If decryption fails with a reasonable amount of data, it's likely a wrong password
+                if len(encrypted_bytes) > 16:  # Reasonable size for an encrypted message
+                    raise ValueError("Incorrect password. Please try again with the correct password.")
+                # Otherwise return the raw text
+                if '\0' in extracted_text:
+                    return extracted_text.split('\0')[0]
+                return extracted_text
+        except ValueError as e:
+            # Re-raise password errors
+            if "password" in str(e).lower():
+                raise
+            # For other errors, return the raw text
             if '\0' in extracted_text:
                 return extracted_text.split('\0')[0]
             return extracted_text

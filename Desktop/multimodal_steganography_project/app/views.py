@@ -7,7 +7,7 @@ It handles user requests, processes form data, and returns responses.
 """
 
 import os
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from app.encryption import encrypt_message, decrypt_message
 from app.steganography import hide_message_in_image, extract_message_from_image, hide_message_in_audio, extract_message_from_audio, hide_message_in_text, extract_message_from_text
 
@@ -74,20 +74,14 @@ def encrypt():
         # Encrypt the message
         encrypted_message = encrypt_message(message)
 
-        # Return the encrypted message as a hex string
-        return jsonify({
-            'success': True,
-            'encrypted_message': encrypted_message.hex()
-        })
+        # Render the result template with the encrypted message
+        return render_template('result.html', encrypted_message=encrypted_message.hex())
     except Exception as e:
         # Log the error (in a production app)
         print(f"Encryption error: {str(e)}")
 
-        # Return an error response
-        return jsonify({
-            'success': False,
-            'error': f"Failed to encrypt message: {str(e)}"
-        }), 500
+        # Render the result template with the error
+        return render_template('result.html', error=f"Failed to encrypt message: {str(e)}"), 500
 
 # Route for decryption
 @views.route('/decrypt', methods=['POST'])
@@ -113,22 +107,20 @@ def decrypt():
             return jsonify({'error': 'Invalid encrypted message format'}), 400
 
         # Decrypt the message
-        decrypted_message = decrypt_message(encrypted_bytes)
+        try:
+            decrypted_message = decrypt_message(encrypted_bytes)
 
-        # Return the decrypted message
-        return jsonify({
-            'success': True,
-            'decrypted_message': decrypted_message
-        })
+            # Render the result template with the decrypted message
+            return render_template('result.html', decrypted_message=decrypted_message)
+        except Exception as e:
+            # Handle decryption errors (likely wrong password)
+            return render_template('result.html', password_error="Incorrect password. Please try again with the correct password.")
     except Exception as e:
         # Log the error (in a production app)
         print(f"Decryption error: {str(e)}")
 
-        # Return an error response
-        return jsonify({
-            'success': False,
-            'error': f"Failed to decrypt message: {str(e)}"
-        }), 500
+        # Render the result template with the error
+        return render_template('result.html', error=f"Failed to decrypt message: {str(e)}"), 500
 
 # Route for image steganography (Hide message in image)
 @views.route('/hide_image_message', methods=['POST'])
@@ -165,20 +157,14 @@ def hide_image_message():
         # Hide the message in the image
         hidden_image_path = hide_message_in_image(image, message, password)
 
-        # Return the path to the image with hidden message
-        return jsonify({
-            'success': True,
-            'hidden_image': hidden_image_path
-        })
+        # Render the result template with the image
+        return render_template('result.html', hidden_image=hidden_image_path)
     except Exception as e:
         # Log the error (in a production app)
         print(f"Image hiding error: {str(e)}")
 
-        # Return an error response
-        return jsonify({
-            'success': False,
-            'error': f"Failed to hide message in image: {str(e)}"
-        }), 500
+        # Render the result template with the error
+        return render_template('result.html', error=f"Failed to hide message in image: {str(e)}"), 500
 
 @views.route('/extract_image_message', methods=['POST'])
 def extract_image_message():
@@ -205,22 +191,24 @@ def extract_image_message():
             return jsonify({'error': 'File type not allowed'}), 400
 
         # Extract the message from the image
-        hidden_message = extract_message_from_image(image, password)
+        try:
+            hidden_message = extract_message_from_image(image, password)
 
-        # Return the extracted message
-        return jsonify({
-            'success': True,
-            'hidden_message': hidden_message
-        })
+            # Render the result template with the extracted message
+            return render_template('result.html', hidden_message=hidden_message)
+        except ValueError as e:
+            # Check if it's a password error
+            if "password" in str(e).lower():
+                # Render the result template with the password error
+                return render_template('result.html', password_error=str(e))
+            # Re-raise other errors
+            raise
     except Exception as e:
         # Log the error (in a production app)
         print(f"Image extraction error: {str(e)}")
 
-        # Return an error response
-        return jsonify({
-            'success': False,
-            'error': f"Failed to extract message from image: {str(e)}"
-        }), 500
+        # Render the result template with the error
+        return render_template('result.html', error=f"Failed to extract message from image: {str(e)}"), 500
 
 # Route for audio steganography (Hide message in audio)
 @views.route('/hide_audio_message', methods=['POST'])
@@ -257,20 +245,14 @@ def hide_audio_message():
         # Hide the message in the audio
         hidden_audio_path = hide_message_in_audio(audio, message, password)
 
-        # Return the path to the audio with hidden message
-        return jsonify({
-            'success': True,
-            'hidden_audio': hidden_audio_path
-        })
+        # Render the result template with the audio
+        return render_template('result.html', hidden_audio=hidden_audio_path)
     except Exception as e:
         # Log the error (in a production app)
         print(f"Audio hiding error: {str(e)}")
 
-        # Return an error response
-        return jsonify({
-            'success': False,
-            'error': f"Failed to hide message in audio: {str(e)}"
-        }), 500
+        # Render the result template with the error
+        return render_template('result.html', error=f"Failed to hide message in audio: {str(e)}"), 500
 
 @views.route('/extract_audio_message', methods=['POST'])
 def extract_audio_message():
@@ -297,22 +279,24 @@ def extract_audio_message():
             return jsonify({'error': 'File type not allowed'}), 400
 
         # Extract the message from the audio
-        hidden_message = extract_message_from_audio(audio, password)
+        try:
+            hidden_message = extract_message_from_audio(audio, password)
 
-        # Return the extracted message
-        return jsonify({
-            'success': True,
-            'hidden_message': hidden_message
-        })
+            # Return the extracted message
+            return render_template('result.html', hidden_message=hidden_message)
+        except ValueError as e:
+            # Check if it's a password error
+            if "password" in str(e).lower():
+                # Render the result template with the password error
+                return render_template('result.html', password_error=str(e))
+            # Re-raise other errors
+            raise
     except Exception as e:
         # Log the error (in a production app)
         print(f"Audio extraction error: {str(e)}")
 
-        # Return an error response
-        return jsonify({
-            'success': False,
-            'error': f"Failed to extract message from audio: {str(e)}"
-        }), 500
+        # Render the result template with the error
+        return render_template('result.html', error=f"Failed to extract message from audio: {str(e)}"), 500
 
 # Route for text steganography (Hide message in text)
 @views.route('/hide_text_message', methods=['POST'])
@@ -336,20 +320,14 @@ def hide_text_message():
         # Hide the message in text
         hidden_text = hide_message_in_text(message, password, cover_text)
 
-        # Return the text with hidden message
-        return jsonify({
-            'success': True,
-            'hidden_text': hidden_text
-        })
+        # Render the result template with the hidden text
+        return render_template('result.html', hidden_text=hidden_text)
     except Exception as e:
         # Log the error (in a production app)
         print(f"Text hiding error: {str(e)}")
 
-        # Return an error response
-        return jsonify({
-            'success': False,
-            'error': f"Failed to hide message in text: {str(e)}"
-        }), 500
+        # Render the result template with the error
+        return render_template('result.html', error=f"Failed to hide message in text: {str(e)}"), 500
 
 @views.route('/extract_text_message', methods=['POST'])
 def extract_text_message():
@@ -369,19 +347,21 @@ def extract_text_message():
             return jsonify({'error': 'No text provided'}), 400
 
         # Extract the message from the text
-        extracted_message = extract_message_from_text(hidden_message, password)
+        try:
+            extracted_message = extract_message_from_text(hidden_message, password)
 
-        # Return the extracted message
-        return jsonify({
-            'success': True,
-            'hidden_message': extracted_message
-        })
+            # Render the result template with the extracted message
+            return render_template('result.html', hidden_message=extracted_message)
+        except ValueError as e:
+            # Check if it's a password error
+            if "password" in str(e).lower():
+                # Render the result template with the password error
+                return render_template('result.html', password_error=str(e))
+            # Re-raise other errors
+            raise
     except Exception as e:
         # Log the error (in a production app)
         print(f"Text extraction error: {str(e)}")
 
-        # Return an error response
-        return jsonify({
-            'success': False,
-            'error': f"Failed to extract message from text: {str(e)}"
-        }), 500
+        # Render the result template with the error
+        return render_template('result.html', error=f"Failed to extract message from text: {str(e)}"), 500
