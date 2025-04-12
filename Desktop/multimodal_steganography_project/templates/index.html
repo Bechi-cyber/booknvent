@@ -5,58 +5,193 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multimodal Steganography</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <h1>Multimodal Steganography</h1>
-    
-    <h2>Encrypt Message</h2>
-    <form action="/encrypt" method="POST">
-        <textarea name="message" placeholder="Enter your message"></textarea><br>
-        <button type="submit">Encrypt</button>
-    </form>
+    <header>
+        <h1><i class="fas fa-user-secret"></i> Multimodal Steganography</h1>
+        <p class="subtitle">Hide your messages in images, audio, and text</p>
+        <div class="auth-nav">
+            {% if session.username %}
+            <span class="welcome-message">Welcome, {{ session.username }}!</span>
+            <a href="{{ url_for('auth.profile') }}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+            <a href="{{ url_for('auth.logout') }}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            {% else %}
+            <a href="{{ url_for('auth.login') }}" class="nav-link"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a href="{{ url_for('auth.register') }}" class="nav-link"><i class="fas fa-user-plus"></i> Register</a>
+            {% endif %}
+        </div>
+    </header>
 
-    <h2>Decrypt Message</h2>
-    <form action="/decrypt" method="POST">
-        <input type="text" name="encrypted_message" placeholder="Enter encrypted message"><br>
-        <button type="submit">Decrypt</button>
-    </form>
+    <div class="tabs">
+        <button type="button" class="tab-btn active" onclick="openTab(event, 'encryption')"><i class="fas fa-lock"></i> Encryption</button>
+        <button type="button" class="tab-btn" onclick="openTab(event, 'image')"><i class="fas fa-image"></i> Image</button>
+        <button type="button" class="tab-btn" onclick="openTab(event, 'audio')"><i class="fas fa-music"></i> Audio</button>
+        <button type="button" class="tab-btn" onclick="openTab(event, 'text')"><i class="fas fa-font"></i> Text</button>
+    </div>
 
-    <h2>Hide Message in Image</h2>
-    <form action="/hide_image_message" method="POST" enctype="multipart/form-data">
-        <input type="file" name="image" accept="image/*"><br>
-        <textarea name="message" placeholder="Enter message to hide"></textarea><br>
-        <button type="submit">Hide Message</button>
-    </form>
+    <div id="encryption" class="tab-content active">
+        <div class="card">
+            <h2><i class="fas fa-lock"></i> Encrypt Message</h2>
+            <form action="/encrypt" method="POST">
+                <div class="form-group">
+                    <label for="encrypt-message">Message to encrypt:</label>
+                    <textarea id="encrypt-message" name="message" placeholder="Enter your message"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="encrypt-password">Password (optional):</label>
+                    <input type="password" id="encrypt-password" name="password" placeholder="Enter password for additional security">
+                </div>
+                <button type="submit" class="btn primary"><i class="fas fa-lock"></i> Encrypt</button>
+            </form>
+        </div>
 
-    <h2>Extract Message from Image</h2>
-    <form action="/extract_image_message" method="POST" enctype="multipart/form-data">
-        <input type="file" name="image" accept="image/*"><br>
-        <button type="submit">Extract Message</button>
-    </form>
+        <div class="card">
+            <h2><i class="fas fa-unlock"></i> Decrypt Message</h2>
+            <form action="/decrypt" method="POST">
+                <div class="form-group">
+                    <label for="decrypt-message">Encrypted message:</label>
+                    <input type="text" id="decrypt-message" name="encrypted_message" placeholder="Enter encrypted message">
+                </div>
+                <div class="form-group">
+                    <label for="decrypt-password">Password (if used during encryption):</label>
+                    <input type="password" id="decrypt-password" name="password" placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn primary"><i class="fas fa-unlock"></i> Decrypt</button>
+            </form>
+        </div>
+    </div>
 
-    <h2>Hide Message in Audio</h2>
-    <form action="/hide_audio_message" method="POST" enctype="multipart/form-data">
-        <input type="file" name="audio" accept="audio/*"><br>
-        <textarea name="message" placeholder="Enter message to hide"></textarea><br>
-        <button type="submit">Hide Message</button>
-    </form>
+    <div id="image" class="tab-content">
+        <div class="card">
+            <h2><i class="fas fa-file-image"></i> Hide Message in Image</h2>
+            <form action="/hide_image_message" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="hide-image-file">Select image:</label>
+                    <input type="file" id="hide-image-file" name="image" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="hide-image-message">Message to hide:</label>
+                    <textarea id="hide-image-message" name="message" placeholder="Enter message to hide"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="hide-image-password">Password (optional):</label>
+                    <input type="password" id="hide-image-password" name="password" placeholder="Enter password for additional security">
+                </div>
+                <button type="submit" class="btn primary"><i class="fas fa-eye-slash"></i> Hide Message</button>
+            </form>
+        </div>
 
-    <h2>Extract Message from Audio</h2>
-    <form action="/extract_audio_message" method="POST" enctype="multipart/form-data">
-        <input type="file" name="audio" accept="audio/*"><br>
-        <button type="submit">Extract Message</button>
-    </form>
+        <div class="card">
+            <h2><i class="fas fa-search"></i> Extract Message from Image</h2>
+            <form action="/extract_image_message" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="extract-image-file">Select image with hidden message:</label>
+                    <input type="file" id="extract-image-file" name="image" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="extract-image-password">Password (if used during hiding):</label>
+                    <input type="password" id="extract-image-password" name="password" placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn primary"><i class="fas fa-search"></i> Extract Message</button>
+            </form>
+        </div>
+    </div>
 
-    <h2>Hide Message in Text</h2>
-    <form action="/hide_text_message" method="POST">
-        <textarea name="message" placeholder="Enter message to hide"></textarea><br>
-        <button type="submit">Hide Message</button>
-    </form>
+    <div id="audio" class="tab-content">
+        <div class="card">
+            <h2><i class="fas fa-file-audio"></i> Hide Message in Audio</h2>
+            <form action="/hide_audio_message" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="hide-audio-file">Select audio file:</label>
+                    <input type="file" id="hide-audio-file" name="audio" accept="audio/*">
+                </div>
+                <div class="form-group">
+                    <label for="hide-audio-message">Message to hide:</label>
+                    <textarea id="hide-audio-message" name="message" placeholder="Enter message to hide"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="hide-audio-password">Password (optional):</label>
+                    <input type="password" id="hide-audio-password" name="password" placeholder="Enter password for additional security">
+                </div>
+                <button type="submit" class="btn primary"><i class="fas fa-eye-slash"></i> Hide Message</button>
+            </form>
+        </div>
 
-    <h2>Extract Message from Text</h2>
-    <form action="/extract_text_message" method="POST">
-        <textarea name="hidden_message" placeholder="Enter hidden message"></textarea><br>
-        <button type="submit">Extract Message</button>
-    </form>
+        <div class="card">
+            <h2><i class="fas fa-headphones"></i> Extract Message from Audio</h2>
+            <form action="/extract_audio_message" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="extract-audio-file">Select audio with hidden message:</label>
+                    <input type="file" id="extract-audio-file" name="audio" accept="audio/*">
+                </div>
+                <div class="form-group">
+                    <label for="extract-audio-password">Password (if used during hiding):</label>
+                    <input type="password" id="extract-audio-password" name="password" placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn primary"><i class="fas fa-search"></i> Extract Message</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="text" class="tab-content">
+        <div class="card">
+            <h2><i class="fas fa-file-alt"></i> Hide Message in Text</h2>
+            <form action="/hide_text_message" method="POST">
+                <div class="form-group">
+                    <label for="hide-text-message">Message to hide:</label>
+                    <textarea id="hide-text-message" name="message" placeholder="Enter message to hide"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="hide-text-cover">Cover text (optional):</label>
+                    <textarea id="hide-text-cover" name="cover_text" placeholder="Enter custom cover text or leave blank for default"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="hide-text-password">Password (optional):</label>
+                    <input type="password" id="hide-text-password" name="password" placeholder="Enter password for additional security">
+                </div>
+                <button type="submit" class="btn primary"><i class="fas fa-eye-slash"></i> Hide Message</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-file-signature"></i> Extract Message from Text</h2>
+            <form action="/extract_text_message" method="POST">
+                <div class="form-group">
+                    <label for="extract-text-message">Text with hidden message:</label>
+                    <textarea id="extract-text-message" name="hidden_message" placeholder="Enter text with hidden message"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="extract-text-password">Password (if used during hiding):</label>
+                    <input type="password" id="extract-text-password" name="password" placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn primary"><i class="fas fa-search"></i> Extract Message</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Multimodal Steganography Project</p>
+    </footer>
+
+    <script>
+        function openTab(evt, tabName) {
+            // Hide all tab content
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            // Remove active class from all tab buttons
+            var tabButtons = document.getElementsByClassName("tab-btn");
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+
+            // Show the selected tab content and mark the button as active
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
 </body>
 </html>
