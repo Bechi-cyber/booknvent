@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
     <title>Register - Multimodal Steganography</title>
     <link rel="stylesheet" href="/static/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -12,11 +13,11 @@
         <h1><i class="fas fa-user-secret"></i> Multimodal Steganography</h1>
         <p class="subtitle">Hide your messages in images, audio, and text</p>
     </header>
-    
+
     <div class="container">
         <div class="card auth-card">
             <h2><i class="fas fa-user-plus"></i> Register</h2>
-            
+
             {% if get_flashed_messages() %}
             <div class="flash-messages">
                 {% for message in get_flashed_messages() %}
@@ -24,31 +25,46 @@
                 {% endfor %}
             </div>
             {% endif %}
-            
-            <form action="{{ url_for('auth.register') }}" method="POST">
+
+            <form action="{{ url_for('auth.register') }}" method="POST" autocomplete="off">
                 <div class="form-group">
                     <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" placeholder="Choose a username" required>
+                    <input type="text" id="username" name="username" placeholder="Choose a username" autocomplete="username" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" placeholder="Choose a password" required>
+                    <input type="password" id="password" name="password" placeholder="Choose a password" autocomplete="new-password" required>
                 </div>
                 <div class="form-group">
                     <label for="confirm_password">Confirm Password:</label>
-                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" autocomplete="new-password" required>
                 </div>
                 <button type="submit" class="btn primary"><i class="fas fa-user-plus"></i> Register</button>
             </form>
-            
+
             <div class="auth-links">
                 <p>Already have an account? <a href="{{ url_for('auth.login') }}">Login</a></p>
             </div>
         </div>
     </div>
-    
+
     <footer>
         <p>&copy; 2025 Multimodal Steganography Project</p>
     </footer>
+
+    <script>
+        // Prevent password autofill
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prevent password autofill
+            var passwordFields = document.querySelectorAll('input[type="password"]');
+            passwordFields.forEach(function(field) {
+                // Set a random value and then clear it to prevent autofill
+                field.value = Math.random().toString(36).substring(2);
+                setTimeout(function() {
+                    field.value = '';
+                }, 1);
+            });
+        });
+    </script>
 </body>
 </html>
