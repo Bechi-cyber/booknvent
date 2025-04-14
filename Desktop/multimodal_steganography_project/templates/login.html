@@ -12,19 +12,24 @@
         <h1><i class="fas fa-user-secret"></i> Multimodal Steganography</h1>
         <p class="subtitle">Hide your messages in images, audio, and text</p>
     </header>
-    
+
     <div class="container">
         <div class="card auth-card">
             <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
-            
-            {% if get_flashed_messages() %}
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
             <div class="flash-messages">
-                {% for message in get_flashed_messages() %}
-                <div class="flash-message">{{ message }}</div>
+                {% for category, message in messages %}
+                <div class="flash-message {% if category == 'error' %}flash-error{% else %}flash-info{% endif %}">
+                    <i class="fas {% if category == 'error' %}fa-exclamation-circle{% else %}fa-info-circle{% endif %}"></i>
+                    {{ message }}
+                </div>
                 {% endfor %}
             </div>
             {% endif %}
-            
+            {% endwith %}
+
             <form action="{{ url_for('auth.login') }}" method="POST">
                 <div class="form-group">
                     <label for="username">Username:</label>
@@ -34,15 +39,22 @@
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" placeholder="Enter your password" required>
                 </div>
+                <div class="form-group remember-me">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="remember" name="remember" value="1">
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
+                </div>
                 <button type="submit" class="btn primary"><i class="fas fa-sign-in-alt"></i> Login</button>
             </form>
-            
+
             <div class="auth-links">
                 <p>Don't have an account? <a href="{{ url_for('auth.register') }}">Register</a></p>
             </div>
         </div>
     </div>
-    
+
     <footer>
         <p>&copy; 2025 Multimodal Steganography Project</p>
     </footer>

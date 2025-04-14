@@ -7,8 +7,7 @@ It handles user requests, processes form data, and returns responses.
 """
 
 import os
-from flask import Blueprint, render_template, request, jsonify, redirect, url_for
-from app.encryption import encrypt_message, decrypt_message
+from flask import Blueprint, render_template, request, jsonify
 from app.steganography import hide_message_in_image, extract_message_from_image, hide_message_in_audio, extract_message_from_audio, hide_message_in_text, extract_message_from_text
 
 # Create a Blueprint for the views
@@ -54,73 +53,7 @@ def home():
     """
     return render_template('index.html')
 
-# Route for encryption
-@views.route('/encrypt', methods=['POST'])
-def encrypt():
-    """
-    Encrypt a message.
 
-    Returns:
-        JSON response with the encrypted message
-    """
-    try:
-        # Get form data
-        message = request.form.get('message', '')
-
-        # Validate input
-        if not message:
-            return jsonify({'error': 'No message provided'}), 400
-
-        # Encrypt the message
-        encrypted_message = encrypt_message(message)
-
-        # Render the result template with the encrypted message
-        return render_template('result.html', encrypted_message=encrypted_message.hex())
-    except Exception as e:
-        # Log the error (in a production app)
-        print(f"Encryption error: {str(e)}")
-
-        # Render the result template with the error
-        return render_template('result.html', error=f"Failed to encrypt message: {str(e)}"), 500
-
-# Route for decryption
-@views.route('/decrypt', methods=['POST'])
-def decrypt():
-    """
-    Decrypt a message.
-
-    Returns:
-        JSON response with the decrypted message
-    """
-    try:
-        # Get form data
-        encrypted_message = request.form.get('encrypted_message', '')
-
-        # Validate input
-        if not encrypted_message:
-            return jsonify({'error': 'No encrypted message provided'}), 400
-
-        # Convert hex string to bytes
-        try:
-            encrypted_bytes = bytes.fromhex(encrypted_message)
-        except ValueError:
-            return jsonify({'error': 'Invalid encrypted message format'}), 400
-
-        # Decrypt the message
-        try:
-            decrypted_message = decrypt_message(encrypted_bytes)
-
-            # Render the result template with the decrypted message
-            return render_template('result.html', decrypted_message=decrypted_message)
-        except Exception as e:
-            # Handle decryption errors (likely wrong password)
-            return render_template('result.html', password_error="Incorrect password. Please try again with the correct password.")
-    except Exception as e:
-        # Log the error (in a production app)
-        print(f"Decryption error: {str(e)}")
-
-        # Render the result template with the error
-        return render_template('result.html', error=f"Failed to decrypt message: {str(e)}"), 500
 
 # Route for image steganography (Hide message in image)
 @views.route('/hide_image_message', methods=['POST'])
@@ -348,14 +281,24 @@ def extract_text_message():
 
         # Extract the message from the text
         try:
+            # Add debug logging
+            print(f"DEBUG: Attempting to extract message with password: {password}")
+
             extracted_message = extract_message_from_text(hidden_message, password)
+
+            # Add more debug logging
+            print(f"DEBUG: Successfully extracted message: {extracted_message}")
 
             # Render the result template with the extracted message
             return render_template('result.html', hidden_message=extracted_message)
         except ValueError as e:
+            # Add debug logging for errors
+            print(f"DEBUG: ValueError caught: {str(e)}")
+
             # Check if it's a password error
             if "password" in str(e).lower():
                 # Render the result template with the password error
+                print(f"DEBUG: Returning password error to user")
                 return render_template('result.html', password_error=str(e))
             # Re-raise other errors
             raise

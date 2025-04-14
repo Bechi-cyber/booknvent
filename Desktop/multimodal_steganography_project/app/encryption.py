@@ -134,34 +134,46 @@ def encrypt_message(message: str, mode: int = DEFAULT_MODE) -> bytes:
         raise RuntimeError(f"Encryption error: {str(e)}")
 
 # Decryption function
-def decrypt_message(encrypted_message: bytes, mode: int = DEFAULT_MODE) -> str:
+def decrypt_message(encrypted_message: bytes, mode: int = DEFAULT_MODE, password: str = None) -> str:
     """
     Decrypt a message using AES encryption.
 
     Args:
         encrypted_message: The encrypted message (IV/nonce + ciphertext)
         mode: The AES mode to use (default: MODE_CBC)
+        password: Optional password for validation (not used for actual decryption)
 
     Returns:
         str: The decrypted message
     """
+    # Add debug logging
+    print(f"DEBUG: Attempting to decrypt message with password: {password is not None}")
+
     try:
         if mode == AES.MODE_CBC or mode == AES.MODE_CFB:
             iv = encrypted_message[:16]
             ct = encrypted_message[16:]
             cipher = AES.new(key, mode, iv)
             pt = unpad(cipher.decrypt(ct), AES.block_size)
-            return pt.decode('utf-8')
+            result = pt.decode('utf-8')
+            print(f"DEBUG: Successfully decrypted message: {result[:50]}...")
+            return result
         elif mode == AES.MODE_EAX or mode == AES.MODE_GCM:
             nonce = encrypted_message[:16]
             tag = encrypted_message[16:32]
             ct = encrypted_message[32:]
             cipher = AES.new(key, mode, nonce)
             pt = cipher.decrypt_and_verify(ct, tag)
-            return pt.decode('utf-8')
+            result = pt.decode('utf-8')
+            print(f"DEBUG: Successfully decrypted message: {result[:50]}...")
+            return result
         else:
             raise ValueError(f"Unsupported mode: {mode}")
     except Exception as e:
+        print(f"DEBUG: Decryption failed: {str(e)}")
+        # If a password was provided, always treat decryption errors as password errors
+        if password is not None:
+            raise ValueError("Incorrect password. Please try again with the correct password.")
         raise RuntimeError(f"Decryption error: {str(e)}")
 
 # Helper function to get available encryption modes

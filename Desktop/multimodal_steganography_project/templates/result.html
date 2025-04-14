@@ -94,29 +94,7 @@
             </div>
             {% endif %}
 
-            {% if encrypted_message %}
-            <div class="result-content">
-                <h3>Encrypted Message</h3>
-                <div class="message-container">
-                    <textarea readonly class="result-message">{{ encrypted_message }}</textarea>
-                </div>
-                <div class="copy-container">
-                    <button onclick="copyEncrypted()" class="btn primary"><i class="fas fa-copy"></i> Copy Encrypted Message</button>
-                </div>
-            </div>
-            {% endif %}
 
-            {% if decrypted_message %}
-            <div class="result-content">
-                <h3>Decrypted Message</h3>
-                <div class="message-container">
-                    <textarea readonly class="result-message">{{ decrypted_message }}</textarea>
-                </div>
-                <div class="copy-container">
-                    <button onclick="copyDecrypted()" class="btn primary"><i class="fas fa-copy"></i> Copy Decrypted Message</button>
-                </div>
-            </div>
-            {% endif %}
 
             <div class="back-container">
                 <a href="/" class="btn secondary"><i class="fas fa-arrow-left"></i> Back to Home</a>
@@ -210,35 +188,7 @@
             }).showToast();
         }
 
-        function copyEncrypted() {
-            var encrypted = document.querySelector('.result-message');
-            encrypted.select();
-            document.execCommand('copy');
 
-            Toastify({
-                text: "Encrypted message copied to clipboard!",
-                duration: 3000,
-                gravity: "bottom",
-                position: "right",
-                backgroundColor: "#3498db",
-                stopOnFocus: true
-            }).showToast();
-        }
-
-        function copyDecrypted() {
-            var decrypted = document.querySelector('.result-message');
-            decrypted.select();
-            document.execCommand('copy');
-
-            Toastify({
-                text: "Decrypted message copied to clipboard!",
-                duration: 3000,
-                gravity: "bottom",
-                position: "right",
-                backgroundColor: "#3498db",
-                stopOnFocus: true
-            }).showToast();
-        }
     </script>
 </body>
 </html>

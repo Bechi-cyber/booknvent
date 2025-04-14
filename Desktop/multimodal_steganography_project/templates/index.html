@@ -24,45 +24,14 @@
     </header>
 
     <div class="tabs">
-        <button type="button" class="tab-btn active" onclick="openTab(event, 'encryption')"><i class="fas fa-lock"></i> Encryption</button>
-        <button type="button" class="tab-btn" onclick="openTab(event, 'image')"><i class="fas fa-image"></i> Image</button>
+        <button type="button" class="tab-btn active" onclick="openTab(event, 'image')"><i class="fas fa-image"></i> Image</button>
         <button type="button" class="tab-btn" onclick="openTab(event, 'audio')"><i class="fas fa-music"></i> Audio</button>
         <button type="button" class="tab-btn" onclick="openTab(event, 'text')"><i class="fas fa-font"></i> Text</button>
     </div>
 
-    <div id="encryption" class="tab-content active">
-        <div class="card">
-            <h2><i class="fas fa-lock"></i> Encrypt Message</h2>
-            <form action="/encrypt" method="POST">
-                <div class="form-group">
-                    <label for="encrypt-message">Message to encrypt:</label>
-                    <textarea id="encrypt-message" name="message" placeholder="Enter your message"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="encrypt-password">Password (optional):</label>
-                    <input type="password" id="encrypt-password" name="password" placeholder="Enter password for additional security">
-                </div>
-                <button type="submit" class="btn primary"><i class="fas fa-lock"></i> Encrypt</button>
-            </form>
-        </div>
 
-        <div class="card">
-            <h2><i class="fas fa-unlock"></i> Decrypt Message</h2>
-            <form action="/decrypt" method="POST">
-                <div class="form-group">
-                    <label for="decrypt-message">Encrypted message:</label>
-                    <input type="text" id="decrypt-message" name="encrypted_message" placeholder="Enter encrypted message">
-                </div>
-                <div class="form-group">
-                    <label for="decrypt-password">Password (if used during encryption):</label>
-                    <input type="password" id="decrypt-password" name="password" placeholder="Enter password">
-                </div>
-                <button type="submit" class="btn primary"><i class="fas fa-unlock"></i> Decrypt</button>
-            </form>
-        </div>
-    </div>
 
-    <div id="image" class="tab-content">
+    <div id="image" class="tab-content active">
         <div class="card">
             <h2><i class="fas fa-file-image"></i> Hide Message in Image</h2>
             <form action="/hide_image_message" method="POST" enctype="multipart/form-data">

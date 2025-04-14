@@ -144,10 +144,12 @@ def extract_message_from_image(image, password=None):
                         if password:
                             # Try to decrypt if password was provided
                             try:
-                                decrypted = decrypt_message(bytes(byte_data))
+                                # Pass the password to the decrypt_message function
+                                decrypted = decrypt_message(bytes(byte_data), password=password)
                                 if '\0' in decrypted:
                                     return decrypted.split('\0')[0]
-                            except Exception:
+                            except Exception as e:
+                                print(f"DEBUG: Image decryption failed: {str(e)}")
                                 # If we have enough data but decryption fails, it's likely a wrong password
                                 if len(byte_data) > 32:  # Reasonable size for an encrypted message
                                     raise ValueError("Incorrect password. Please try again with the correct password.")
@@ -290,10 +292,12 @@ def extract_message_from_audio(audio, password=None):
                 if password:
                     # Try to decrypt if password was provided
                     try:
-                        decrypted = decrypt_message(bytes(byte_data))
+                        # Pass the password to the decrypt_message function
+                        decrypted = decrypt_message(bytes(byte_data), password=password)
                         if '\0' in decrypted:
                             return decrypted.split('\0')[0]
-                    except Exception:
+                    except Exception as e:
+                        print(f"DEBUG: Audio decryption failed: {str(e)}")
                         # If we have enough data but decryption fails, it's likely a wrong password
                         if len(byte_data) > 32:  # Reasonable size for an encrypted message
                             raise ValueError("Incorrect password. Please try again with the correct password.")
@@ -396,6 +400,17 @@ def extract_message_from_text(hidden_message, password=None):
     Returns:
         str: The extracted message
     """
+    # Add debug logging
+    print(f"DEBUG: Starting text extraction with password: {password}")
+
+    # Force password validation for text with invisible characters
+    if password is None and '\u200B' in hidden_message or '\u200C' in hidden_message or '\u200D' in hidden_message or '\u2060' in hidden_message:
+        # Count invisible characters to see if it's likely encrypted
+        invisible_count = sum(1 for c in hidden_message if c in ['\u200B', '\u200C', '\u200D', '\u2060'])
+        if invisible_count > 20:  # If there are many invisible characters, it's likely encrypted
+            print(f"DEBUG: Found {invisible_count} invisible characters but no password provided")
+            raise ValueError("This message appears to be encrypted. Please provide a password.")
+
     # Define the invisible characters used for encoding
     invisible_chars = {
         '\u200B': '00',  # Zero-width space
@@ -406,9 +421,15 @@ def extract_message_from_text(hidden_message, password=None):
 
     # Extract the binary data
     binary = ''
+    invisible_count = 0
     for char in hidden_message:
         if char in invisible_chars:
             binary += invisible_chars[char]
+            invisible_count += 1
+
+    # Add debug logging
+    print(f"DEBUG: Found {invisible_count} invisible characters")
+    print(f"DEBUG: Extracted binary data length: {len(binary)}")
 
     # Convert binary to text (8 bits per character)
     extracted_text = ''
@@ -417,36 +438,67 @@ def extract_message_from_text(hidden_message, password=None):
             byte = binary[i:i+8]
             extracted_text += chr(int(byte, 2))
 
+    # Add debug logging
+    if extracted_text:
+        print(f"DEBUG: Converted to text (first 50 chars): {extracted_text[:50]}...")
+    else:
+        print("DEBUG: No text was extracted from binary data")
+
     # Handle encrypted message
     if password:
+        print(f"DEBUG: Password provided, checking if text is encrypted")
+        # Force password validation for all text extraction attempts
         try:
-            # Try to convert from hex to bytes
-            encrypted_bytes = bytes.fromhex(extracted_text)
-            # Decrypt the message
-            try:
-                decrypted = decrypt_message(encrypted_bytes)
-                # Remove null terminator
-                if '\0' in decrypted:
-                    return decrypted.split('\0')[0]
-                return decrypted
-            except Exception:
-                # If decryption fails with a reasonable amount of data, it's likely a wrong password
-                if len(encrypted_bytes) > 16:  # Reasonable size for an encrypted message
-                    raise ValueError("Incorrect password. Please try again with the correct password.")
-                # Otherwise return the raw text
-                if '\0' in extracted_text:
-                    return extracted_text.split('\0')[0]
-                return extracted_text
-        except ValueError as e:
-            # Re-raise password errors
-            if "password" in str(e).lower():
-                raise
-            # For other errors, return the raw text
-            if '\0' in extracted_text:
-                return extracted_text.split('\0')[0]
-            return extracted_text
+            # First, check if it looks like hex (which would indicate encryption)
+            is_hex = all(c in '0123456789abcdefABCDEF' for c in extracted_text.strip())
+            print(f"DEBUG: Text looks like hex: {is_hex}")
+
+            if is_hex:
+                try:
+                    # Try to convert from hex to bytes
+                    encrypted_bytes = bytes.fromhex(extracted_text)
+                    print(f"DEBUG: Successfully converted to bytes, length: {len(encrypted_bytes)}")
+
+                    # Attempt to decrypt
+                    try:
+                        # Pass the password to the decrypt_message function
+                        decrypted = decrypt_message(encrypted_bytes, password=password)
+                        print(f"DEBUG: Successfully decrypted: {decrypted[:50]}...")
+
+                        # Remove null terminator
+                        if '\0' in decrypted:
+                            return decrypted.split('\0')[0]
+                        return decrypted
+                    except Exception as e:
+                        print(f"DEBUG: Decryption failed: {str(e)}")
+                        # Always raise password error when decryption fails
+                        raise ValueError("Incorrect password. Please try again with the correct password.")
+                except ValueError as e:
+                    print(f"DEBUG: Hex conversion failed: {str(e)}")
+                    # For hex conversion errors
+                    raise ValueError("Incorrect password or the message was not encrypted properly.")
+            else:
+                # If it doesn't look like hex but password was provided
+                print("DEBUG: Text doesn't look like hex but password was provided")
+                raise ValueError("Incorrect password or the message was not encrypted.")
+        except Exception as e:
+            if not "password" in str(e).lower():
+                print(f"DEBUG: Raising generic password error")
+                raise ValueError("Incorrect password. Please try again with the correct password.")
+            raise
     else:
+        print("DEBUG: No password provided, returning as unencrypted")
         # Handle unencrypted message
+        # If password is not provided but the text looks like hex (encrypted),
+        # suggest that a password might be needed
+        if len(extracted_text) > 16 and all(c in '0123456789abcdefABCDEF' for c in extracted_text[:16]):
+            print("DEBUG: Text looks encrypted but no password provided")
+            raise ValueError("This message appears to be encrypted. Please provide a password.")
+
+        # Otherwise return the extracted text
         if '\0' in extracted_text:
-            return extracted_text.split('\0')[0]
+            result = extracted_text.split('\0')[0]
+            print(f"DEBUG: Returning unencrypted result: {result}")
+            return result
+        print(f"DEBUG: Returning full unencrypted text")
         return extracted_text
