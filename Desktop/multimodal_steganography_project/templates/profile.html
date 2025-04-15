@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - Multimodal Steganography</title>
+    <title>Profile - SELATA</title>
     <link rel="stylesheet" href="/static/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1><i class="fas fa-user-secret"></i> Multimodal Steganography</h1>
-        <p class="subtitle">Hide your messages in images, audio, and text</p>
+        <h1><i class="fas fa-user-secret"></i> SELATA</h1>
+        <p class="subtitle">Secure Layered Text and Audio Transmission Application</p>
     </header>
-    
+
     <div class="container">
         <div class="card profile-card">
             <h2><i class="fas fa-user"></i> User Profile</h2>
-            
+
             {% if get_flashed_messages() %}
             <div class="flash-messages">
                 {% for message in get_flashed_messages() %}
@@ -24,20 +24,20 @@
                 {% endfor %}
             </div>
             {% endif %}
-            
+
             <div class="profile-info">
                 <p><strong>Username:</strong> {{ username }}</p>
             </div>
-            
+
             <div class="profile-actions">
                 <a href="{{ url_for('views.home') }}" class="btn secondary"><i class="fas fa-home"></i> Home</a>
                 <a href="{{ url_for('auth.logout') }}" class="btn primary"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>
     </div>
-    
+
     <footer>
-        <p>&copy; 2025 Multimodal Steganography Project</p>
+        <p>&copy; 2025 SELATA - Secure Layered Text and Audio Transmission Application</p>
     </footer>
 </body>
 </html>

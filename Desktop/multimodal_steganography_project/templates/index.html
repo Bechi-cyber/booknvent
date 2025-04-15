@@ -3,14 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multimodal Steganography</title>
+    <title>SELATA - Multimodal Steganography</title>
     <link rel="stylesheet" href="/static/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .welcome-banner {
+            text-align: center;
+            padding: 3rem 1rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #7f8c8d;
+        }
+
+        .auth-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .auth-button {
+            padding: 0.75rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .login-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+        }
+
+        .register-btn {
+            background-color: white;
+            color: #3498db;
+            border: 2px solid #3498db;
+        }
+
+        .login-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+
+        .register-btn:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-3px);
+        }
+
+        .hero-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+            z-index: -1;
+        }
+    </style>
 </head>
 <body>
+    <div class="hero-background"></div>
+
     <header>
-        <h1><i class="fas fa-user-secret"></i> Multimodal Steganography</h1>
-        <p class="subtitle">Hide your messages in images, audio, and text</p>
+        <h1><i class="fas fa-user-secret"></i> SELATA</h1>
+        <p class="subtitle">Secure Layered Text and Audio Transmission Application</p>
         <div class="auth-nav">
             {% if session.username %}
             <span class="welcome-message">Welcome, {{ session.username }}!</span>
@@ -23,14 +97,26 @@
         </div>
     </header>
 
+    {% if not session.username %}
+    <div class="welcome-banner">
+        <h1 class="welcome-title">WELCOME TO SELATA</h1>
+        <p class="welcome-subtitle">The most secure way to hide your messages in images, audio, and text</p>
+        <div class="auth-buttons">
+            <a href="{{ url_for('auth.login') }}" class="btn auth-button login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a href="{{ url_for('auth.register') }}" class="btn auth-button register-btn"><i class="fas fa-user-plus"></i> Register</a>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if session.username %}
     <div class="tabs">
         <button type="button" class="tab-btn active" onclick="openTab(event, 'image')"><i class="fas fa-image"></i> Image</button>
         <button type="button" class="tab-btn" onclick="openTab(event, 'audio')"><i class="fas fa-music"></i> Audio</button>
         <button type="button" class="tab-btn" onclick="openTab(event, 'text')"><i class="fas fa-font"></i> Text</button>
     </div>
+    {% endif %}
 
-
-
+    {% if session.username %}
     <div id="image" class="tab-content active">
         <div class="card">
             <h2><i class="fas fa-file-image"></i> Hide Message in Image</h2>
@@ -140,8 +226,10 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Multimodal Steganography Project</p>
+        <p>&copy; 2025 SELATA - Secure Layered Text and Audio Transmission Application</p>
     </footer>
+
+    {% endif %}
 
     <script>
         function openTab(evt, tabName) {
