@@ -9,7 +9,7 @@
     <style>
         .welcome-banner {
             text-align: center;
-            padding: 3rem 1rem;
+            padding: 3.5rem 2rem;
             margin: 2rem auto;
             max-width: 800px;
             background-color: rgba(8, 15, 40, 0.85);
@@ -21,7 +21,7 @@
             overflow: hidden;
         }
 
-        /* Add a mysterious cybersecurity overlay with digital elements */
+        /* Add a safe-like overlay with digital elements */
         .welcome-banner::before {
             content: '';
             position: absolute;
@@ -53,18 +53,23 @@
             margin-bottom: 1.5rem;
             color: #ffffff;
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
             position: relative;
             z-index: 1;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
 
         .welcome-subtitle {
             font-size: 1.5rem;
-            margin-bottom: 2rem;
-            color: #a3c5e8;
+            margin-bottom: 2.5rem;
+            color: rgba(255, 255, 255, 0.8);
             position: relative;
             z-index: 1;
+            font-family: 'Calibri', 'Segoe UI', sans-serif;
+            font-weight: bold;
+            font-style: italic;
+            letter-spacing: 0.5px;
         }
 
         .auth-buttons {
@@ -85,21 +90,23 @@
         }
 
         .login-btn {
-            background-color: var(--secondary-gradient);
+            background-color: rgba(255, 255, 255, 0.08);
             color: white;
-            border: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
         }
 
         .register-btn {
-            background-color: rgba(255, 255, 255, 0.9);
-            color: var(--secondary-gradient);
-            border: 2px solid var(--secondary-gradient);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.85);
+            color: #1e2636;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
         }
 
         .login-btn:hover {
-            background-color: var(--secondary-color);
+            background-color: rgba(255, 255, 255, 0.15);
             transform: translateY(-3px);
         }
 
@@ -114,7 +121,32 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #050b1a 0%, #0f2952 100%);
+            background: linear-gradient(135deg, #1a1a24 0%, #1e2636 50%, #233148 100%);
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        /* Add a digital safe-like background */
+        .hero-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                /* Digital circuit lines */
+                linear-gradient(90deg, rgba(41, 128, 185, 0.05) 1px, transparent 1px),
+                linear-gradient(rgba(41, 128, 185, 0.05) 1px, transparent 1px),
+                /* Circular safe dial */
+                radial-gradient(circle at 85% 20%, rgba(41, 128, 185, 0.2) 0%, rgba(41, 128, 185, 0.1) 20%, transparent 60%),
+                /* Lock mechanism */
+                radial-gradient(circle at 15% 85%, rgba(41, 128, 185, 0.15) 0%, rgba(41, 128, 185, 0.05) 30%, transparent 70%),
+                /* Digital code pattern */
+                repeating-linear-gradient(45deg, rgba(41, 128, 185, 0.03) 0px, rgba(41, 128, 185, 0.03) 2px, transparent 2px, transparent 4px),
+                repeating-linear-gradient(-45deg, rgba(41, 128, 185, 0.03) 0px, rgba(41, 128, 185, 0.03) 2px, transparent 2px, transparent 4px);
+            background-size: 50px 50px, 50px 50px, auto, auto, auto, auto;
+            opacity: 1;
             z-index: -1;
         }
 
@@ -128,6 +160,7 @@
             height: 100%;
             background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48ZGVmcz48L2RlZnM+PHBhdGggZD0iTTEwLDEwIEw5MCwxMCIgc3Ryb2tlPSIjMjk4MGI5IiBzdHJva2Utd2lkdGg9IjAuMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxwYXRoIGQ9Ik0xMCw5MCBMOTAsOTAiIHN0cm9rZT0iIzI5ODBiOSIgc3Ryb2tlLXdpZHRoPSIwLjMiIHN0cm9rZS1vcGFjaXR5PSIwLjEiLz48cGF0aCBkPSJNMTAsMTAgTDEwLDkwIiBzdHJva2U9IiMyOTgwYjkiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PHBhdGggZD0iTTkwLDEwIEw5MCw5MCIgc3Ryb2tlPSIjMjk4MGI5IiBzdHJva2Utd2lkdGg9IjAuMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjMwIiBzdHJva2U9IiMyOTgwYjkiIHN0cm9rZS13aWR0aD0iMC41IiBmaWxsPSJub25lIiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMjAiIHN0cm9rZT0iIzI5ODBiOSIgc3Ryb2tlLXdpZHRoPSIwLjUiIGZpbGw9Im5vbmUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxMCIgc3Ryb2tlPSIjMjk4MGI5IiBzdHJva2Utd2lkdGg9IjAuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxwYXRoIGQ9Ik0yMCwyMCBMODAsODAiIHN0cm9rZT0iIzI5ODBiOSIgc3Ryb2tlLXdpZHRoPSIwLjMiIHN0cm9rZS1vcGFjaXR5PSIwLjEiLz48cGF0aCBkPSJNODAsMjAgTDIwLDgwIiBzdHJva2U9IiMyOTgwYjkiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PC9zdmc+');
             opacity: 0.2;
+            z-index: -1;
         }
 
         /* Safe dial styling */
@@ -174,9 +207,15 @@
         }
 
         .security-icon {
-            font-size: 1.8rem;
-            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.2);
             animation: pulse 3s infinite alternate;
+        }
+
+        .security-icon.fa-lock {
+            font-size: 1.8rem;
+            color: rgba(255, 255, 255, 0.35);
+            animation: pulse 4s infinite alternate;
         }
 
         .security-icon:nth-child(2) {
@@ -196,6 +235,11 @@
         @keyframes pulse {
             from { opacity: 0.5; transform: scale(1); }
             to { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes pulse-subtle {
+            from { opacity: 0.8; }
+            to { opacity: 1; }
         }
 
         @keyframes slide {

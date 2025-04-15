@@ -1,1 +1,1 @@
-{"ash": {"password": "3d25d4041cfec57a9741241f621795a15e495d78471c2e47a19af88dff883226", "salt": "2c22e0a066ac9d5152fedd7c892244c0", "created_at": "2025-04-12T04:32:10.782354"}}
+{"ash": {"password": "3d25d4041cfec57a9741241f621795a15e495d78471c2e47a19af88dff883226", "salt": "2c22e0a066ac9d5152fedd7c892244c0", "created_at": "2025-04-12T04:32:10.782354", "login_attempts": 0, "locked_until": null}}
