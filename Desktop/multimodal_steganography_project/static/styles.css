@@ -2,7 +2,8 @@
 :root {
     --primary-color: #3498db;
     --primary-dark: #2980b9;
-    --secondary-color: #2c3e50;
+    --secondary-color: #050b1a;
+    --secondary-gradient: #0f2952;
     --light-color: #ecf0f1;
     --dark-color: #34495e;
     --success-color: #2ecc71;
@@ -31,12 +32,12 @@ body {
 
 /* Header */
 header {
-    background-color: var(--secondary-color);
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--secondary-gradient) 100%);
     color: white;
     padding: 2rem;
     text-align: center;
     margin-bottom: 2rem;
-    box-shadow: var(--box-shadow);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     position: relative;
 }
 
@@ -89,6 +90,7 @@ header h1 {
 .auth-card {
     max-width: 500px;
     margin: 0 auto;
+    background: linear-gradient(to bottom, white, white 98%, var(--secondary-gradient) 98%, var(--secondary-gradient) 100%);
 }
 
 .auth-links {
@@ -363,12 +365,13 @@ header h1 {
 }
 
 .tab-btn:hover {
-    background-color: var(--light-color);
+    background-color: var(--secondary-color);
+    color: white;
     transform: translateY(-2px);
 }
 
 .tab-btn.active {
-    background-color: var(--primary-color);
+    background-color: var(--secondary-gradient);
     color: white;
 }
 
@@ -392,6 +395,7 @@ header h1 {
     box-shadow: var(--box-shadow);
     padding: 2rem;
     margin-bottom: 2rem;
+    border-top: 3px solid var(--secondary-gradient);
 }
 
 .card h2 {
@@ -447,22 +451,23 @@ textarea {
 }
 
 .btn.primary {
-    background-color: var(--primary-color);
+    background-color: var(--secondary-gradient);
     color: white;
 }
 
 .btn.primary:hover {
-    background-color: var(--primary-dark);
+    background-color: var(--secondary-color);
     transform: translateY(-2px);
 }
 
 .btn.secondary {
-    background-color: var(--secondary-color);
-    color: white;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--secondary-gradient);
+    border: 2px solid var(--secondary-gradient);
 }
 
 .btn.secondary:hover {
-    background-color: var(--dark-color);
+    background-color: #f8f9fa;
     transform: translateY(-2px);
 }
 
@@ -482,7 +487,7 @@ footer {
     text-align: center;
     padding: 2rem;
     margin-top: 3rem;
-    background-color: var(--secondary-color);
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--secondary-gradient) 100%);
     color: white;
 }
 
