@@ -12,23 +12,45 @@
             padding: 3rem 1rem;
             margin: 2rem auto;
             max-width: 800px;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(10, 30, 66, 0.85);
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImEiIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSIgZng9IjUwJSIgZnk9IjUwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzE5NDA3YSIgc3RvcC1vcGFjaXR5PSIwLjMiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwYTFlNDIiIHN0b3Atb3BhY2l0eT0iMC4xIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNhKSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjQwIiBzdHJva2U9IiMwYTFlNDIiIHN0cm9rZS13aWR0aD0iMC41IiBmaWxsPSJub25lIiBzdHJva2Utb3BhY2l0eT0iMC4yIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzAiIHN0cm9rZT0iIzBhMWU0MiIgc3Ryb2tlLXdpZHRoPSIwLjUiIGZpbGw9Im5vbmUiIHN0cm9rZS1vcGFjaXR5PSIwLjIiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIyMCIgc3Ryb2tlPSIjMGExZTQyIiBzdHJva2Utd2lkdGg9IjAuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMiIvPjxwYXRoIGQ9Ik0yMCwyMCBMODAsODAiIHN0cm9rZT0iIzBhMWU0MiIgc3Ryb2tlLXdpZHRoPSIwLjUiIHN0cm9rZS1vcGFjaXR5PSIwLjIiLz48cGF0aCBkPSJNODAsMjAgTDIwLDgwIiBzdHJva2U9IiMwYTFlNDIiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4yIi8+PHBhdGggZD0iTTUwLDIwIEw1MCw4MCIgc3Ryb2tlPSIjMGExZTQyIiBzdHJva2Utd2lkdGg9IjAuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMiIvPjxwYXRoIGQ9Ik0yMCw1MCBMODAsNTAiIHN0cm9rZT0iIzBhMWU0MiIgc3Ryb2tlLXdpZHRoPSIwLjUiIHN0cm9rZS1vcGFjaXR5PSIwLjIiLz48L3N2Zz4=');
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(41, 128, 185, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Add a safe-like overlay with digital circuit patterns */
+        .welcome-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48ZGVmcz48L2RlZnM+PHBhdGggZD0iTTEwLDEwIEw5MCwxMCIgc3Ryb2tlPSIjMjk4MGI5IiBzdHJva2Utd2lkdGg9IjAuMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMiIvPjxwYXRoIGQ9Ik0xMCw5MCBMOTAsOTAiIHN0cm9rZT0iIzI5ODBiOSIgc3Ryb2tlLXdpZHRoPSIwLjMiIHN0cm9rZS1vcGFjaXR5PSIwLjIiLz48cGF0aCBkPSJNMTAsMTAgTDEwLDkwIiBzdHJva2U9IiMyOTgwYjkiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2Utb3BhY2l0eT0iMC4yIi8+PHBhdGggZD0iTTkwLDEwIEw5MCw5MCIgc3Ryb2tlPSIjMjk4MGI5IiBzdHJva2Utd2lkdGg9IjAuMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMiIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjMwIiBzdHJva2U9IiMyOTgwYjkiIHN0cm9rZS13aWR0aD0iMC41IiBmaWxsPSJub25lIiBzdHJva2Utb3BhY2l0eT0iMC4zIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMjAiIHN0cm9rZT0iIzI5ODBiOSIgc3Ryb2tlLXdpZHRoPSIwLjUiIGZpbGw9Im5vbmUiIHN0cm9rZS1vcGFjaXR5PSIwLjMiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxMCIgc3Ryb2tlPSIjMjk4MGI5IiBzdHJva2Utd2lkdGg9IjAuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMyIvPjxwYXRoIGQ9Ik0yMCwyMCBMODAsODAiIHN0cm9rZT0iIzI5ODBiOSIgc3Ryb2tlLXdpZHRoPSIwLjMiIHN0cm9rZS1vcGFjaXR5PSIwLjIiLz48cGF0aCBkPSJNODAsMjAgTDIwLDgwIiBzdHJva2U9IiMyOTgwYjkiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2Utb3BhY2l0eT0iMC4yIi8+PC9zdmc+');
+            opacity: 0.7;
+            z-index: 0;
         }
 
         .welcome-title {
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
-            color: #2c3e50;
+            color: #ffffff;
             font-weight: 700;
             letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
         }
 
         .welcome-subtitle {
             font-size: 1.5rem;
             margin-bottom: 2rem;
-            color: #7f8c8d;
+            color: #a3c5e8;
+            position: relative;
+            z-index: 1;
         }
 
         .auth-buttons {
@@ -36,6 +58,8 @@
             justify-content: center;
             gap: 1.5rem;
             margin-top: 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         .auth-button {
@@ -50,12 +74,14 @@
             background-color: #3498db;
             color: white;
             border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .register-btn {
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.9);
             color: #3498db;
             border: 2px solid #3498db;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .login-btn:hover {
@@ -74,8 +100,88 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+            background: linear-gradient(135deg, #0a1e42 0%, #2980b9 100%);
             z-index: -1;
+        }
+
+        /* Add a digital circuit pattern overlay to the background */
+        .hero-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48ZGVmcz48L2RlZnM+PHBhdGggZD0iTTEwLDEwIEw5MCwxMCIgc3Ryb2tlPSIjMjk4MGI5IiBzdHJva2Utd2lkdGg9IjAuMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxwYXRoIGQ9Ik0xMCw5MCBMOTAsOTAiIHN0cm9rZT0iIzI5ODBiOSIgc3Ryb2tlLXdpZHRoPSIwLjMiIHN0cm9rZS1vcGFjaXR5PSIwLjEiLz48cGF0aCBkPSJNMTAsMTAgTDEwLDkwIiBzdHJva2U9IiMyOTgwYjkiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PHBhdGggZD0iTTkwLDEwIEw5MCw5MCIgc3Ryb2tlPSIjMjk4MGI5IiBzdHJva2Utd2lkdGg9IjAuMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjMwIiBzdHJva2U9IiMyOTgwYjkiIHN0cm9rZS13aWR0aD0iMC41IiBmaWxsPSJub25lIiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMjAiIHN0cm9rZT0iIzI5ODBiOSIgc3Ryb2tlLXdpZHRoPSIwLjUiIGZpbGw9Im5vbmUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxMCIgc3Ryb2tlPSIjMjk4MGI5IiBzdHJva2Utd2lkdGg9IjAuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxwYXRoIGQ9Ik0yMCwyMCBMODAsODAiIHN0cm9rZT0iIzI5ODBiOSIgc3Ryb2tlLXdpZHRoPSIwLjMiIHN0cm9rZS1vcGFjaXR5PSIwLjEiLz48cGF0aCBkPSJNODAsMjAgTDIwLDgwIiBzdHJva2U9IiMyOTgwYjkiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PC9zdmc+');
+            opacity: 0.2;
+        }
+
+        /* Safe dial styling */
+        .safe-dial {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            z-index: 1;
+        }
+
+        .dial-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            background: radial-gradient(circle, rgba(10, 30, 66, 0.8) 0%, rgba(41, 128, 185, 0.4) 100%);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .dial-handle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            transform: translate(-50%, -50%) rotate(45deg);
+            transform-origin: center bottom;
+            border-radius: 2px;
+            animation: rotate 20s infinite linear;
+        }
+
+        /* Security icons styling */
+        .security-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .security-icon {
+            font-size: 1.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            animation: pulse 3s infinite alternate;
+        }
+
+        .security-icon:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        .security-icon:nth-child(3) {
+            animation-delay: 2s;
+        }
+
+        /* Animations */
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            from { opacity: 0.5; transform: scale(1); }
+            to { opacity: 1; transform: scale(1.2); }
         }
     </style>
 </head>
@@ -99,8 +205,22 @@
 
     {% if not session.username %}
     <div class="welcome-banner">
+        <!-- Safe dial decoration -->
+        <div class="safe-dial">
+            <div class="dial-ring"></div>
+            <div class="dial-handle"></div>
+        </div>
+
         <h1 class="welcome-title">WELCOME TO SELATA</h1>
         <p class="welcome-subtitle">The most secure way to hide your messages in images, audio, and text</p>
+
+        <!-- Security icon decorations -->
+        <div class="security-icons">
+            <i class="fas fa-shield-alt security-icon"></i>
+            <i class="fas fa-lock security-icon"></i>
+            <i class="fas fa-key security-icon"></i>
+        </div>
+
         <div class="auth-buttons">
             <a href="{{ url_for('auth.login') }}" class="btn auth-button login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
             <a href="{{ url_for('auth.register') }}" class="btn auth-button register-btn"><i class="fas fa-user-plus"></i> Register</a>
