@@ -25,6 +25,10 @@ def create_app():
     # Configure the application
     app.config['SECRET_KEY'] = os.urandom(24)
     app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB max upload size
+    app.config['SESSION_COOKIE_SECURE'] = True  # Only send cookies over HTTPS
+    app.config['SESSION_COOKIE_HTTPONLY'] = True  # Prevent JavaScript access to cookies
+    app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'  # CSRF protection
+    app.config['PERMANENT_SESSION_LIFETIME'] = 30 * 24 * 60 * 60  # 30 days in seconds
 
     # Initialize the file management system
     init_file_manager()

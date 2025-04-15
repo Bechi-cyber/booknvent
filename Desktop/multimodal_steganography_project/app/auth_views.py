@@ -35,7 +35,8 @@ def login():
 
         # Authenticate the user
         try:
-            if authenticate_user(username, password):
+            success, error_message = authenticate_user(username, password)
+            if success:
                 # Check if the user wants to be remembered
                 remember = 'remember' in request.form
 
@@ -48,8 +49,8 @@ def login():
                     return redirect(next_page)
                 return redirect(url_for('views.home'))
             else:
-                # Show error message for invalid credentials
-                flash('Invalid username or password.', 'error')
+                # Show specific error message
+                flash(error_message, 'error')
                 return render_template('login.html')
         except Exception as e:
             # Show any other error messages
@@ -87,11 +88,12 @@ def register():
             return render_template('register.html')
 
         # Register the user
-        if register_user(username, password):
+        success, error_message = register_user(username, password)
+        if success:
             flash('Registration successful. Please log in.')
             return redirect(url_for('auth.login'))
         else:
-            flash('Username already exists.')
+            flash(error_message, 'error')
             return render_template('register.html')
 
     # Show the registration page

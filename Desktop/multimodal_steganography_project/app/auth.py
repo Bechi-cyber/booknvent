@@ -18,6 +18,11 @@ USERS_FILE = 'users.json'
 SESSION_TIMEOUT = 30  # minutes
 REMEMBER_TIMEOUT = 30 * 24 * 60  # 30 days in minutes
 
+# Password requirements
+MIN_PASSWORD_LENGTH = 8
+MAX_LOGIN_ATTEMPTS = 5
+LOCKOUT_TIME = 15  # minutes
+
 def init_app():
     """
     Initialize the authentication system.
@@ -52,6 +57,38 @@ def hash_password(password, salt=None):
 
     return hashed, salt
 
+def validate_password_strength(password):
+    """
+    Validate the strength of a password.
+
+    Args:
+        password: The password to validate
+
+    Returns:
+        tuple: (is_valid, error_message)
+    """
+    if len(password) < MIN_PASSWORD_LENGTH:
+        return False, f"Password must be at least {MIN_PASSWORD_LENGTH} characters long."
+
+    # Check for at least one uppercase letter
+    if not any(c.isupper() for c in password):
+        return False, "Password must contain at least one uppercase letter."
+
+    # Check for at least one lowercase letter
+    if not any(c.islower() for c in password):
+        return False, "Password must contain at least one lowercase letter."
+
+    # Check for at least one digit
+    if not any(c.isdigit() for c in password):
+        return False, "Password must contain at least one number."
+
+    # Check for at least one special character
+    special_chars = "!@#$%^&*()-_=+[]{}|;:'\",.<>/?`~"
+    if not any(c in special_chars for c in password):
+        return False, "Password must contain at least one special character."
+
+    return True, ""
+
 def register_user(username, password):
     """
     Register a new user.
@@ -61,7 +98,7 @@ def register_user(username, password):
         password: The password
 
     Returns:
-        bool: True if registration was successful, False otherwise
+        tuple: (success, error_message)
     """
     # Load the users file
     with open(USERS_FILE, 'r') as f:
@@ -69,7 +106,12 @@ def register_user(username, password):
 
     # Check if the username already exists
     if username in users:
-        return False
+        return False, "Username already exists."
+
+    # Validate password strength
+    is_valid, error_message = validate_password_strength(password)
+    if not is_valid:
+        return False, error_message
 
     # Hash the password
     hashed_password, salt = hash_password(password)
@@ -78,14 +120,16 @@ def register_user(username, password):
     users[username] = {
         'password': hashed_password,
         'salt': salt,
-        'created_at': datetime.now().isoformat()
+        'created_at': datetime.now().isoformat(),
+        'login_attempts': 0,
+        'locked_until': None
     }
 
     # Save the users file
     with open(USERS_FILE, 'w') as f:
         json.dump(users, f)
 
-    return True
+    return True, ""
 
 def authenticate_user(username, password):
     """
@@ -96,7 +140,7 @@ def authenticate_user(username, password):
         password: The password
 
     Returns:
-        bool: True if authentication was successful, False otherwise
+        tuple: (success, error_message)
     """
     # Load the users file
     with open(USERS_FILE, 'r') as f:
@@ -104,16 +148,49 @@ def authenticate_user(username, password):
 
     # Check if the username exists
     if username not in users:
-        return False
+        return False, "Invalid username or password."
+
+    # Check if the account is locked
+    user = users[username]
+    if 'locked_until' in user and user['locked_until']:
+        locked_until = datetime.fromisoformat(user['locked_until'])
+        if datetime.now() < locked_until:
+            remaining_minutes = int((locked_until - datetime.now()).total_seconds() / 60)
+            return False, f"Account is locked. Try again in {remaining_minutes} minutes."
 
     # Get the user's salt
-    salt = users[username]['salt']
+    salt = user['salt']
 
     # Hash the password with the salt
     hashed_password, _ = hash_password(password, salt)
 
     # Check if the password is correct
-    return hashed_password == users[username]['password']
+    if hashed_password == user['password']:
+        # Reset login attempts on successful login
+        user['login_attempts'] = 0
+        user['locked_until'] = None
+        with open(USERS_FILE, 'w') as f:
+            json.dump(users, f)
+        return True, ""
+    else:
+        # Increment login attempts
+        if 'login_attempts' not in user:
+            user['login_attempts'] = 0
+
+        user['login_attempts'] += 1
+
+        # Lock the account if too many failed attempts
+        if user['login_attempts'] >= MAX_LOGIN_ATTEMPTS:
+            user['locked_until'] = (datetime.now() + timedelta(minutes=LOCKOUT_TIME)).isoformat()
+            with open(USERS_FILE, 'w') as f:
+                json.dump(users, f)
+            return False, f"Too many failed login attempts. Account locked for {LOCKOUT_TIME} minutes."
+
+        # Save the updated login attempts
+        with open(USERS_FILE, 'w') as f:
+            json.dump(users, f)
+
+        return False, "Invalid username or password."
 
 def login_user(username, remember=False):
     """
