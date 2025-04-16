@@ -148,6 +148,7 @@ def extract_message_from_image(image, password=None):
                                 decrypted = decrypt_message(bytes(byte_data), password=password)
                                 if '\0' in decrypted:
                                     return decrypted.split('\0')[0]
+                                return decrypted  # Return even if no null terminator is found
                             except Exception as e:
                                 print(f"DEBUG: Image decryption failed: {str(e)}")
                                 # If we have enough data but decryption fails, it's likely a wrong password
@@ -170,7 +171,7 @@ def extract_message_from_image(image, password=None):
     try:
         if password:
             # Try to decrypt the entire message
-            decrypted = decrypt_message(bytes(byte_data))
+            decrypted = decrypt_message(bytes(byte_data), password=password)
             return decrypted.rstrip('\0')
         else:
             # Try to decode the entire message
@@ -318,7 +319,7 @@ def extract_message_from_audio(audio, password=None):
     try:
         if password:
             # Try to decrypt the entire message
-            decrypted = decrypt_message(bytes(byte_data))
+            decrypted = decrypt_message(bytes(byte_data), password=password)
             return decrypted.rstrip('\0')
         else:
             # Try to decode the entire message
@@ -468,7 +469,7 @@ def extract_message_from_text(hidden_message, password=None):
                         # Remove null terminator
                         if '\0' in decrypted:
                             return decrypted.split('\0')[0]
-                        return decrypted
+                        return decrypted  # Return even if no null terminator is found
                     except Exception as e:
                         print(f"DEBUG: Decryption failed: {str(e)}")
                         # Always raise password error when decryption fails
