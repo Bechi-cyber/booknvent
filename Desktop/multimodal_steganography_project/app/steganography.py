@@ -46,8 +46,10 @@ def hide_message_in_image(image, message, password=None):
 
     # Encrypt the message if password is provided
     if password:
-        # Use the encryption module to encrypt the message
-        message_bytes = encrypt_message(message)
+        # Use the encryption module to encrypt the message with the password
+        print(f"DEBUG: Encrypting image message with password: {password}")
+        message_bytes = encrypt_message(message, password=password)
+        print(f"DEBUG: Encrypted image message length: {len(message_bytes)} bytes")
 
     # Convert to binary string
     bin_message = ''.join(format(byte, '08b') for byte in message_bytes)
@@ -144,15 +146,31 @@ def extract_message_from_image(image, password=None):
                         if password:
                             # Try to decrypt if password was provided
                             try:
-                                # Pass the password to the decrypt_message function
-                                decrypted = decrypt_message(bytes(byte_data), password=password)
-                                if '\0' in decrypted:
-                                    return decrypted.split('\0')[0]
-                                return decrypted  # Return even if no null terminator is found
+                                # Check if the data looks like encrypted data (has proper length and structure)
+                                if len(byte_data) >= 48:  # At least salt(16) + IV(16) + minimal ciphertext(16)
+                                    # First 16 bytes should be the salt
+                                    salt = byte_data[:16]
+                                    # Check if this is a password-encrypted message
+                                    is_password_encrypted = not all(b == 0 for b in salt)
+
+                                    if is_password_encrypted:
+                                        print(f"DEBUG: Image data appears to be password-encrypted")
+                                        if not password:
+                                            raise ValueError("This image contains an encrypted message. Please provide a password.")
+
+                                    # Pass the password to the decrypt_message function
+                                    decrypted = decrypt_message(bytes(byte_data), password=password)
+                                    print(f"DEBUG: Image decryption successful, result: {decrypted[:50] if len(decrypted) > 50 else decrypted}")
+                                    if '\0' in decrypted:
+                                        return decrypted.split('\0')[0]
+                                    return decrypted  # Return even if no null terminator is found
+                                else:
+                                    # Continue extracting more data
+                                    print(f"DEBUG: Not enough data yet for decryption, continuing extraction")
                             except Exception as e:
                                 print(f"DEBUG: Image decryption failed: {str(e)}")
                                 # If we have enough data but decryption fails, it's likely a wrong password
-                                if len(byte_data) > 32:  # Reasonable size for an encrypted message
+                                if len(byte_data) >= 48:  # Reasonable size for an encrypted message
                                     raise ValueError("Incorrect password. Please try again with the correct password.")
                                 # Otherwise continue extracting
                         else:
@@ -170,14 +188,34 @@ def extract_message_from_image(image, password=None):
     # If we've extracted all bits but found no terminator, try to decode the whole message
     try:
         if password:
-            # Try to decrypt the entire message
-            decrypted = decrypt_message(bytes(byte_data), password=password)
-            return decrypted.rstrip('\0')
+            # Check if the data looks like encrypted data
+            if len(byte_data) >= 48:  # At least salt(16) + IV(16) + minimal ciphertext(16)
+                # First 16 bytes should be the salt
+                salt = byte_data[:16]
+                # Check if this is a password-encrypted message
+                is_password_encrypted = not all(b == 0 for b in salt)
+
+                if is_password_encrypted:
+                    print(f"DEBUG: Final image data appears to be password-encrypted")
+                    if not password:
+                        raise ValueError("This image contains an encrypted message. Please provide a password.")
+
+                # Try to decrypt the entire message
+                print(f"DEBUG: Attempting final decryption with password")
+                decrypted = decrypt_message(bytes(byte_data), password=password)
+                print(f"DEBUG: Final decryption successful: {decrypted[:50] if len(decrypted) > 50 else decrypted}")
+                return decrypted.rstrip('\0')
+            else:
+                print(f"DEBUG: Not enough data for proper decryption")
+                raise ValueError("Not enough data extracted for decryption")
         else:
             # Try to decode the entire message
             text = byte_data.decode('utf-8', errors='ignore')
             return text.rstrip('\0')
-    except Exception:
+    except Exception as e:
+        print(f"DEBUG: Final extraction failed: {str(e)}")
+        if "password" in str(e).lower():
+            raise ValueError("Incorrect password. Please try again with the correct password.")
         return "No valid message found"
 
 # Audio Steganography (using librosa and soundfile)
@@ -202,8 +240,10 @@ def hide_message_in_audio(audio, message, password=None):
 
     # Encrypt the message if password is provided
     if password:
-        # Use the encryption module to encrypt the message
-        message_bytes = encrypt_message(message)
+        # Use the encryption module to encrypt the message with the password
+        print(f"DEBUG: Encrypting audio message with password: {password}")
+        message_bytes = encrypt_message(message, password=password)
+        print(f"DEBUG: Encrypted audio message length: {len(message_bytes)} bytes")
 
     # Convert message to binary
     bin_message = ''.join(format(byte, '08b') for byte in message_bytes)
@@ -295,8 +335,10 @@ def extract_message_from_audio(audio, password=None):
                     try:
                         # Pass the password to the decrypt_message function
                         decrypted = decrypt_message(bytes(byte_data), password=password)
+                        print(f"DEBUG: Audio decryption successful, result: {decrypted[:50] if len(decrypted) > 50 else decrypted}")
                         if '\0' in decrypted:
                             return decrypted.split('\0')[0]
+                        return decrypted  # Return even if no null terminator is found
                     except Exception as e:
                         print(f"DEBUG: Audio decryption failed: {str(e)}")
                         # If we have enough data but decryption fails, it's likely a wrong password
@@ -346,10 +388,12 @@ def hide_message_in_text(message, password=None, cover_text=None):
 
     # Encrypt the message if password is provided
     if password:
-        # Use the encryption module to encrypt the message
-        encrypted_bytes = encrypt_message(message)
+        # Use the encryption module to encrypt the message with the password
+        print(f"DEBUG: Encrypting message with password: {password}")
+        encrypted_bytes = encrypt_message(message, password=password)
         # Convert bytes to hex string for easier handling
         message_to_hide = encrypted_bytes.hex()
+        print(f"DEBUG: Encrypted message (hex): {message_to_hide[:50]}...")
     else:
         message_to_hide = message
 
@@ -404,13 +448,13 @@ def extract_message_from_text(hidden_message, password=None):
     # Add debug logging
     print(f"DEBUG: Starting text extraction with password: {password}")
 
-    # Force password validation for text with invisible characters
-    if password is None and '\u200B' in hidden_message or '\u200C' in hidden_message or '\u200D' in hidden_message or '\u2060' in hidden_message:
-        # Count invisible characters to see if it's likely encrypted
-        invisible_count = sum(1 for c in hidden_message if c in ['\u200B', '\u200C', '\u200D', '\u2060'])
-        if invisible_count > 20:  # If there are many invisible characters, it's likely encrypted
-            print(f"DEBUG: Found {invisible_count} invisible characters but no password provided")
-            raise ValueError("This message appears to be encrypted. Please provide a password.")
+    # Check for invisible characters
+    has_invisible = any(c in hidden_message for c in ['\u200B', '\u200C', '\u200D', '\u2060'])
+    invisible_count = sum(1 for c in hidden_message if c in ['\u200B', '\u200C', '\u200D', '\u2060']) if has_invisible else 0
+
+    print(f"DEBUG: Found {invisible_count} invisible characters")
+
+    # Don't force password validation here - we'll handle it later
 
     # Define the invisible characters used for encoding
     invisible_chars = {
@@ -445,58 +489,58 @@ def extract_message_from_text(hidden_message, password=None):
     else:
         print("DEBUG: No text was extracted from binary data")
 
-    # Handle encrypted message
-    if password:
-        print(f"DEBUG: Password provided, checking if text is encrypted")
-        # Force password validation for all text extraction attempts
-        try:
-            # First, check if it looks like hex (which would indicate encryption)
-            is_hex = all(c in '0123456789abcdefABCDEF' for c in extracted_text.strip())
-            print(f"DEBUG: Text looks like hex: {is_hex}")
+    # Check if the text appears to be encrypted (has invisible characters and looks like hex)
+    is_likely_encrypted = invisible_count > 20 and len(extracted_text) > 16
+    is_hex = False
 
-            if is_hex:
-                try:
-                    # Try to convert from hex to bytes
-                    encrypted_bytes = bytes.fromhex(extracted_text)
-                    print(f"DEBUG: Successfully converted to bytes, length: {len(encrypted_bytes)}")
+    if len(extracted_text) > 0:
+        is_hex = all(c in '0123456789abcdefABCDEF' for c in extracted_text.strip())
+        print(f"DEBUG: Text looks like hex: {is_hex}")
 
-                    # Attempt to decrypt
-                    try:
-                        # Pass the password to the decrypt_message function
-                        decrypted = decrypt_message(encrypted_bytes, password=password)
-                        print(f"DEBUG: Successfully decrypted: {decrypted[:50]}...")
+    # If we have invisible characters and hex-like text, it's probably encrypted
+    if is_likely_encrypted and is_hex:
+        print("DEBUG: Message appears to be encrypted")
 
-                        # Remove null terminator
-                        if '\0' in decrypted:
-                            return decrypted.split('\0')[0]
-                        return decrypted  # Return even if no null terminator is found
-                    except Exception as e:
-                        print(f"DEBUG: Decryption failed: {str(e)}")
-                        # Always raise password error when decryption fails
-                        raise ValueError("Incorrect password. Please try again with the correct password.")
-                except ValueError as e:
-                    print(f"DEBUG: Hex conversion failed: {str(e)}")
-                    # For hex conversion errors
-                    raise ValueError("Incorrect password or the message was not encrypted properly.")
-            else:
-                # If it doesn't look like hex but password was provided
-                print("DEBUG: Text doesn't look like hex but password was provided")
-                raise ValueError("Incorrect password or the message was not encrypted.")
-        except Exception as e:
-            if not "password" in str(e).lower():
-                print(f"DEBUG: Raising generic password error")
-                raise ValueError("Incorrect password. Please try again with the correct password.")
-            raise
-    else:
-        print("DEBUG: No password provided, returning as unencrypted")
-        # Handle unencrypted message
-        # If password is not provided but the text looks like hex (encrypted),
-        # suggest that a password might be needed
-        if len(extracted_text) > 16 and all(c in '0123456789abcdefABCDEF' for c in extracted_text[:16]):
-            print("DEBUG: Text looks encrypted but no password provided")
+        # If no password was provided but message appears encrypted
+        if not password:
+            print("DEBUG: No password provided for encrypted message")
             raise ValueError("This message appears to be encrypted. Please provide a password.")
 
-        # Otherwise return the extracted text
+        # Try to decrypt with the provided password
+        try:
+            # Convert from hex to bytes
+            encrypted_bytes = bytes.fromhex(extracted_text)
+            print(f"DEBUG: Successfully converted to bytes, length: {len(encrypted_bytes)}")
+
+            # Attempt to decrypt
+            try:
+                # Pass the password to the decrypt_message function
+                decrypted = decrypt_message(encrypted_bytes, password=password)
+                print(f"DEBUG: Successfully decrypted: {decrypted[:50] if len(decrypted) > 50 else decrypted}")
+
+                # Remove null terminator if present
+                if '\0' in decrypted:
+                    return decrypted.split('\0')[0]
+                return decrypted
+            except Exception as e:
+                print(f"DEBUG: Decryption failed: {str(e)}")
+                raise ValueError("Incorrect password. Please try again with the correct password.")
+        except ValueError as e:
+            print(f"DEBUG: Hex conversion or decryption failed: {str(e)}")
+            raise ValueError("Incorrect password or the message was not encrypted properly.")
+
+    # If password was provided but message doesn't look encrypted
+    elif password and not (is_likely_encrypted and is_hex):
+        print("DEBUG: Password provided but message doesn't appear to be encrypted")
+        # Just return the extracted text as is
+        if '\0' in extracted_text:
+            return extracted_text.split('\0')[0]
+        return extracted_text
+
+    # If no password and message doesn't look encrypted
+    else:
+        print("DEBUG: No password provided and message doesn't appear encrypted")
+        # Just return the extracted text as is
         if '\0' in extracted_text:
             result = extracted_text.split('\0')[0]
             print(f"DEBUG: Returning unencrypted result: {result}")

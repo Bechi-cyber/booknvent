@@ -107,29 +107,69 @@ def get_encryption_key(key_file: str = DEFAULT_KEY_FILE) -> bytes:
 # Current encryption key
 key = get_encryption_key()
 
+# Derive a key from a password
+def derive_key_from_password(password: str, salt: bytes = None) -> tuple:
+    """
+    Derive an encryption key from a password using PBKDF2.
+
+    Args:
+        password: The password to derive the key from
+        salt: Optional salt for key derivation (generated if None)
+
+    Returns:
+        tuple: (key, salt)
+    """
+    from Crypto.Protocol.KDF import PBKDF2
+    from Crypto.Hash import SHA256
+
+    # Generate a random salt if none is provided
+    if salt is None:
+        salt = get_random_bytes(16)
+
+    # Derive a 32-byte key (256 bits) from the password
+    derived_key = PBKDF2(password, salt, dkLen=32, count=1000000, hmac_hash_module=SHA256)
+
+    return derived_key, salt
+
 # Encryption function
-def encrypt_message(message: str, mode: int = DEFAULT_MODE) -> bytes:
+def encrypt_message(message: str, password: str = None, mode: int = DEFAULT_MODE) -> bytes:
     """
     Encrypt a message using AES encryption.
 
     Args:
         message: The message to encrypt
+        password: Optional password for encryption (uses global key if None)
         mode: The AES mode to use (default: MODE_CBC)
 
     Returns:
-        bytes: The encrypted message (IV + ciphertext)
+        bytes: The encrypted message (salt + IV + ciphertext)
     """
     try:
-        if mode == AES.MODE_CBC or mode == AES.MODE_CFB:
-            cipher = AES.new(key, mode)
-            ct_bytes = cipher.encrypt(pad(message.encode('utf-8'), AES.block_size))
-            return cipher.iv + ct_bytes  # Return the IV + ciphertext
-        elif mode == AES.MODE_EAX or mode == AES.MODE_GCM:
-            cipher = AES.new(key, mode)
-            ct_bytes, tag = cipher.encrypt_and_digest(message.encode('utf-8'))
-            return cipher.nonce + tag + ct_bytes  # Return the nonce + tag + ciphertext
+        # Use password-based encryption if password is provided
+        if password:
+            # Derive a key from the password
+            derived_key, salt = derive_key_from_password(password)
+
+            if mode == AES.MODE_CBC or mode == AES.MODE_CFB:
+                cipher = AES.new(derived_key, mode)
+                ct_bytes = cipher.encrypt(pad(message.encode('utf-8'), AES.block_size))
+                return salt + cipher.iv + ct_bytes  # Return the salt + IV + ciphertext
+            elif mode == AES.MODE_EAX or mode == AES.MODE_GCM:
+                cipher = AES.new(derived_key, mode)
+                ct_bytes, tag = cipher.encrypt_and_digest(message.encode('utf-8'))
+                return salt + cipher.nonce + tag + ct_bytes  # Return the salt + nonce + tag + ciphertext
+        # Use global key if no password is provided
         else:
-            raise ValueError(f"Unsupported mode: {mode}")
+            if mode == AES.MODE_CBC or mode == AES.MODE_CFB:
+                cipher = AES.new(key, mode)
+                ct_bytes = cipher.encrypt(pad(message.encode('utf-8'), AES.block_size))
+                return b'\x00' * 16 + cipher.iv + ct_bytes  # Return zeros for salt + IV + ciphertext
+            elif mode == AES.MODE_EAX or mode == AES.MODE_GCM:
+                cipher = AES.new(key, mode)
+                ct_bytes, tag = cipher.encrypt_and_digest(message.encode('utf-8'))
+                return b'\x00' * 16 + cipher.nonce + tag + ct_bytes  # Return zeros for salt + nonce + tag + ciphertext
+
+        raise ValueError(f"Unsupported mode: {mode}")
     except Exception as e:
         raise RuntimeError(f"Encryption error: {str(e)}")
 
@@ -139,33 +179,60 @@ def decrypt_message(encrypted_message: bytes, mode: int = DEFAULT_MODE, password
     Decrypt a message using AES encryption.
 
     Args:
-        encrypted_message: The encrypted message (IV/nonce + ciphertext)
+        encrypted_message: The encrypted message (salt + IV/nonce + ciphertext)
         mode: The AES mode to use (default: MODE_CBC)
-        password: Optional password for validation (not used for actual decryption)
+        password: Optional password for decryption (uses global key if None)
 
     Returns:
         str: The decrypted message
     """
     # Add debug logging
     print(f"DEBUG: Attempting to decrypt message with password: {password is not None}")
+    print(f"DEBUG: Encrypted message length: {len(encrypted_message)} bytes")
+
+    # Validate input
+    if len(encrypted_message) < 48:  # Need at least salt (16) + IV (16) + some ciphertext
+        print(f"DEBUG: Encrypted message too short: {len(encrypted_message)} bytes")
+        raise ValueError("Invalid encrypted message: too short")
 
     try:
+        # Extract the salt (first 16 bytes)
+        salt = encrypted_message[:16]
+
+        # Check if this is a password-encrypted message
+        is_password_encrypted = not all(b == 0 for b in salt)
+
+        # If password is required but not provided
+        if is_password_encrypted and not password:
+            raise ValueError("This message is password-protected. Please provide a password.")
+
+        # If password is provided but message is not password-encrypted
+        if password and not is_password_encrypted:
+            print("DEBUG: Password provided but message is not password-encrypted")
+            # Continue with global key
+
+        # Use the appropriate key
+        encryption_key = key  # Default to global key
+        if password and is_password_encrypted:
+            # Derive the key from the password and salt
+            encryption_key, _ = derive_key_from_password(password, salt)
+
         if mode == AES.MODE_CBC or mode == AES.MODE_CFB:
-            iv = encrypted_message[:16]
-            ct = encrypted_message[16:]
-            cipher = AES.new(key, mode, iv)
+            iv = encrypted_message[16:32]
+            ct = encrypted_message[32:]
+            cipher = AES.new(encryption_key, mode, iv)
             pt = unpad(cipher.decrypt(ct), AES.block_size)
             result = pt.decode('utf-8')
-            print(f"DEBUG: Successfully decrypted message: {result[:50]}...")
+            print(f"DEBUG: Successfully decrypted message: {result[:50] if len(result) > 50 else result}")
             return result
         elif mode == AES.MODE_EAX or mode == AES.MODE_GCM:
-            nonce = encrypted_message[:16]
-            tag = encrypted_message[16:32]
-            ct = encrypted_message[32:]
-            cipher = AES.new(key, mode, nonce)
+            nonce = encrypted_message[16:32]
+            tag = encrypted_message[32:48]
+            ct = encrypted_message[48:]
+            cipher = AES.new(encryption_key, mode, nonce)
             pt = cipher.decrypt_and_verify(ct, tag)
             result = pt.decode('utf-8')
-            print(f"DEBUG: Successfully decrypted message: {result[:50]}...")
+            print(f"DEBUG: Successfully decrypted message: {result[:50] if len(result) > 50 else result}")
             return result
         else:
             raise ValueError(f"Unsupported mode: {mode}")
