@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Steganalysis - Security Testing{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">AI-Powered Steganalysis</h2>
+                </div>
+                <div class="card-body">
+                    <p class="lead">
+                        Test the security of your steganography methods with our AI-powered steganalysis tool.
+                        Upload a file to analyze its security and get recommendations for improvement.
+                    </p>
+
+                    <form action="{{ url_for('views.analyze_file') }}" method="post" enctype="multipart/form-data">
+                        <div class="form-group mb-3">
+                            <label for="file_type"><strong>File Type:</strong></label>
+                            <select class="form-control" id="file_type" name="file_type" required>
+                                <option value="image">Image</option>
+                                <option value="audio">Audio</option>
+                                <option value="text">Text</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="file"><strong>File to Analyze:</strong></label>
+                            <div class="custom-file">
+                                <input type="file" class="form-control" id="file" name="file" required>
+                                <small class="form-text text-muted">
+                                    Upload the file you want to analyze for steganography.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="original_file"><strong>Original File (Optional):</strong></label>
+                            <div class="custom-file">
+                                <input type="file" class="form-control" id="original_file" name="original_file">
+                                <small class="form-text text-muted">
+                                    If you have the original file (without hidden data), upload it for more accurate analysis.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-shield-alt"></i> Analyze Security
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div class="alert alert-info mb-0">
+                        <h5><i class="fas fa-info-circle"></i> How it works:</h5>
+                        <p>
+                            Our AI-powered steganalysis tool uses statistical analysis and pattern recognition to:
+                        </p>
+                        <ul>
+                            <li>Detect potential hidden messages in files</li>
+                            <li>Assess the security of steganography techniques</li>
+                            <li>Provide recommendations for improving security</li>
+                            <li>Generate a security score from 1-5</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

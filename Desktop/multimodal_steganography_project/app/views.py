@@ -9,6 +9,7 @@ It handles user requests, processes form data, and returns responses.
 import os
 from flask import Blueprint, render_template, request, jsonify
 from app.steganography import hide_message_in_image, extract_message_from_image, hide_message_in_audio, extract_message_from_audio, hide_message_in_text, extract_message_from_text
+from app.steganalysis import get_overall_security_assessment
 
 # Create a Blueprint for the views
 views = Blueprint('views', __name__)
@@ -16,6 +17,7 @@ views = Blueprint('views', __name__)
 # Allowed file extensions
 ALLOWED_IMAGE_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 ALLOWED_AUDIO_EXTENSIONS = {'wav', 'mp3', 'ogg'}
+
 
 # Helper functions
 def allowed_image_file(filename):
@@ -30,6 +32,7 @@ def allowed_image_file(filename):
     """
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_IMAGE_EXTENSIONS
 
+
 def allowed_audio_file(filename):
     """
     Check if the uploaded file is an allowed audio type.
@@ -42,6 +45,7 @@ def allowed_audio_file(filename):
     """
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_AUDIO_EXTENSIONS
 
+
 # Routes
 @views.route('/')
 def home():
@@ -52,7 +56,6 @@ def home():
         The rendered index.html template
     """
     return render_template('index.html')
-
 
 
 # Route for image steganography (Hide message in image)
@@ -99,6 +102,7 @@ def hide_image_message():
         # Render the result template with the error
         return render_template('result.html', error=f"Failed to hide message in image: {str(e)}"), 500
 
+
 @views.route('/extract_image_message', methods=['POST'])
 def extract_image_message():
     """
@@ -142,6 +146,7 @@ def extract_image_message():
 
         # Render the result template with the error
         return render_template('result.html', error=f"Failed to extract message from image: {str(e)}"), 500
+
 
 # Route for audio steganography (Hide message in audio)
 @views.route('/hide_audio_message', methods=['POST'])
@@ -187,6 +192,7 @@ def hide_audio_message():
         # Render the result template with the error
         return render_template('result.html', error=f"Failed to hide message in audio: {str(e)}"), 500
 
+
 @views.route('/extract_audio_message', methods=['POST'])
 def extract_audio_message():
     """
@@ -231,6 +237,7 @@ def extract_audio_message():
         # Render the result template with the error
         return render_template('result.html', error=f"Failed to extract message from audio: {str(e)}"), 500
 
+
 # Route for text steganography (Hide message in text)
 @views.route('/hide_text_message', methods=['POST'])
 def hide_text_message():
@@ -261,6 +268,7 @@ def hide_text_message():
 
         # Render the result template with the error
         return render_template('result.html', error=f"Failed to hide message in text: {str(e)}"), 500
+
 
 @views.route('/extract_text_message', methods=['POST'])
 def extract_text_message():
@@ -308,3 +316,80 @@ def extract_text_message():
 
         # Render the result template with the error
         return render_template('result.html', error=f"Failed to extract message from text: {str(e)}"), 500
+
+
+# Route for steganalysis (Security testing)
+@views.route('/steganalysis', methods=['GET'])
+def steganalysis_page():
+    """
+    Render the steganalysis page.
+
+    Returns:
+        Rendered steganalysis template
+    """
+    return render_template('steganalysis.html')
+
+
+@views.route('/analyze_file', methods=['POST'])
+def analyze_file():
+    """
+    Analyze a file for steganography and assess its security.
+
+    Returns:
+        JSON response with analysis results
+    """
+    try:
+        # Check if the post request has the file part
+        if 'file' not in request.files:
+            return jsonify({'error': 'No file provided'}), 400
+
+        # Get form data
+        file = request.files['file']
+        file_type = request.form.get('file_type', '')
+        original_file = request.files.get('original_file', None)
+
+        # Validate input
+        if file.filename == '':
+            return jsonify({'error': 'No file selected'}), 400
+
+        if file_type not in ['image', 'audio', 'text']:
+            return jsonify({'error': 'Invalid file type'}), 400
+
+        # Save the uploaded file temporarily
+        temp_path = os.path.join('static', 'uploads', f"temp_{file.filename}")
+        file.save(temp_path)
+
+        # Save the original file if provided
+        original_path = None
+        if original_file and original_file.filename != '':
+            original_path = os.path.join('static', 'uploads', f"original_{original_file.filename}")
+            original_file.save(original_path)
+
+        # Analyze the file
+        result = get_overall_security_assessment(temp_path, file_type, original_path)
+
+        # Clean up temporary files
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+        if original_path and os.path.exists(original_path):
+            os.remove(original_path)
+
+        # Prepare the response
+        response = {
+            'detection_probability': result.detection_probability,
+            'security_score': result.security_score,
+            'security_level': result.security_level,
+            'recommendations': result.get_recommendations(),
+            'details': result.details
+        }
+
+        # Render the result template with the analysis results
+        return render_template('steganalysis_result.html', result=response)
+
+    except Exception as e:
+        # Log the error (in a production app)
+        print(f"Steganalysis error: {str(e)}")
+
+        # Render the result template with the error
+        return render_template('steganalysis_result.html',
+                              error=f"Failed to analyze file: {str(e)}"), 500
