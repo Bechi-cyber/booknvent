@@ -17,7 +17,10 @@ build/
 
 # IDE specific files
 .idea/
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
 *.swp
 *.swo
 
@@ -26,7 +29,21 @@ build/
 Thumbs.db
 
 # Generated files
-*.wav
-*.png
-*.jpg
-*.jpeg
+static/uploads/*
+!static/uploads/.gitkeep
+static/output/*
+!static/output/.gitkeep
+
+# User data files
+encryption_key.json
+users.json
+
+# Unit test / coverage reports
+.coverage
+.coverage.*
+.pytest_cache/
+htmlcov/
+
+# Temporary files
+*.tmp
+*.bak

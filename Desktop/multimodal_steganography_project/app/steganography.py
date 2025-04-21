@@ -146,24 +146,29 @@ def extract_message_from_image(image, password=None):
                         if password:
                             # Try to decrypt if password was provided
                             try:
-                                # Check if the data looks like encrypted data (has proper length and structure)
-                                if len(byte_data) >= 48:  # At least salt(16) + IV(16) + minimal ciphertext(16)
-                                    # First 16 bytes should be the salt
-                                    salt = byte_data[:16]
-                                    # Check if this is a password-encrypted message
-                                    is_password_encrypted = not all(b == 0 for b in salt)
+                                # Check if we have enough data for a potential message
+                                if len(byte_data) >= 32:  # At least some minimal data to check
+                                    print(f"DEBUG: Checking extracted data, length: {len(byte_data)} bytes")
 
-                                    if is_password_encrypted:
-                                        print(f"DEBUG: Image data appears to be password-encrypted")
-                                        if not password:
+                                    # Try to decrypt with the provided password
+                                    try:
+                                        # Pass the password to the decrypt_message function
+                                        decrypted = decrypt_message(bytes(byte_data), password=password)
+                                        print(f"DEBUG: Image decryption successful, result: {decrypted[:50] if len(decrypted) > 50 else decrypted}")
+
+                                        # If we successfully decrypted, return the result
+                                        if '\0' in decrypted:
+                                            return decrypted.split('\0')[0]
+                                        return decrypted  # Return even if no null terminator is found
+                                    except Exception as decrypt_error:
+                                        # If we get a specific error about password protection, raise it
+                                        if "password-protected" in str(decrypt_error).lower():
                                             raise ValueError("This image contains an encrypted message. Please provide a password.")
-
-                                    # Pass the password to the decrypt_message function
-                                    decrypted = decrypt_message(bytes(byte_data), password=password)
-                                    print(f"DEBUG: Image decryption successful, result: {decrypted[:50] if len(decrypted) > 50 else decrypted}")
-                                    if '\0' in decrypted:
-                                        return decrypted.split('\0')[0]
-                                    return decrypted  # Return even if no null terminator is found
+                                        elif "incorrect password" in str(decrypt_error).lower() and len(byte_data) >= 48:
+                                            # If we have enough data and get a password error, it's likely the wrong password
+                                            raise ValueError("Incorrect password. Please try again with the correct password.")
+                                        # Otherwise, continue extracting more data
+                                        print(f"DEBUG: Decryption attempt failed, continuing extraction: {str(decrypt_error)}")
                                 else:
                                     # Continue extracting more data
                                     print(f"DEBUG: Not enough data yet for decryption, continuing extraction")
@@ -186,32 +191,35 @@ def extract_message_from_image(image, password=None):
                         pass
 
     # If we've extracted all bits but found no terminator, try to decode the whole message
+    print(f"DEBUG: Attempting final extraction with {len(byte_data)} bytes of data")
     try:
         if password:
-            # Check if the data looks like encrypted data
-            if len(byte_data) >= 48:  # At least salt(16) + IV(16) + minimal ciphertext(16)
-                # First 16 bytes should be the salt
-                salt = byte_data[:16]
-                # Check if this is a password-encrypted message
-                is_password_encrypted = not all(b == 0 for b in salt)
-
-                if is_password_encrypted:
-                    print(f"DEBUG: Final image data appears to be password-encrypted")
-                    if not password:
-                        raise ValueError("This image contains an encrypted message. Please provide a password.")
-
-                # Try to decrypt the entire message
+            # Try to decrypt the entire message with the provided password
+            try:
                 print(f"DEBUG: Attempting final decryption with password")
                 decrypted = decrypt_message(bytes(byte_data), password=password)
                 print(f"DEBUG: Final decryption successful: {decrypted[:50] if len(decrypted) > 50 else decrypted}")
                 return decrypted.rstrip('\0')
-            else:
-                print(f"DEBUG: Not enough data for proper decryption")
-                raise ValueError("Not enough data extracted for decryption")
-        else:
-            # Try to decode the entire message
-            text = byte_data.decode('utf-8', errors='ignore')
+            except Exception as decrypt_error:
+                print(f"DEBUG: Final decryption failed: {str(decrypt_error)}")
+                # Check if it's a password-related error
+                if "password" in str(decrypt_error).lower():
+                    raise ValueError("Incorrect password. Please try again with the correct password.")
+                # If not a password error but we have enough data, it might be corrupted
+                if len(byte_data) >= 48:
+                    raise ValueError("The encrypted message appears to be corrupted or incomplete.")
+                # Otherwise, try to decode as plain text as a fallback
+                print("DEBUG: Trying to decode as plain text as fallback")
+
+        # Try to decode the entire message as plain text
+        text = byte_data.decode('utf-8', errors='ignore')
+        # Check if the decoded text looks meaningful
+        if any(c.isalpha() for c in text[:20]) and '\0' in text:
+            return text.split('\0')[0]
+        elif any(c.isalpha() for c in text[:20]):
             return text.rstrip('\0')
+        else:
+            return "No readable message found in this image."
     except Exception as e:
         print(f"DEBUG: Final extraction failed: {str(e)}")
         if "password" in str(e).lower():

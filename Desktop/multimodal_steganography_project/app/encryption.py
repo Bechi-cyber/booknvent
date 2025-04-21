@@ -204,12 +204,15 @@ def decrypt_message(encrypted_message: bytes, mode: int = DEFAULT_MODE, password
 
         # If password is required but not provided
         if is_password_encrypted and not password:
+            print("DEBUG: Message is password-protected but no password provided")
             raise ValueError("This message is password-protected. Please provide a password.")
 
         # If password is provided but message is not password-encrypted
         if password and not is_password_encrypted:
             print("DEBUG: Password provided but message is not password-encrypted")
             # Continue with global key
+
+        print(f"DEBUG: Processing encrypted message with salt: {salt.hex()[:16]}...")
 
         # Use the appropriate key
         encryption_key = key  # Default to global key
@@ -240,7 +243,12 @@ def decrypt_message(encrypted_message: bytes, mode: int = DEFAULT_MODE, password
         print(f"DEBUG: Decryption failed: {str(e)}")
         # If a password was provided, always treat decryption errors as password errors
         if password is not None:
-            raise ValueError("Incorrect password. Please try again with the correct password.")
+            if "padding" in str(e).lower() or "tag" in str(e).lower() or "mac" in str(e).lower():
+                # These errors typically indicate wrong password
+                raise ValueError("Incorrect password. Please try again with the correct password.")
+            else:
+                # Other errors might be due to corrupted data
+                raise ValueError(f"Decryption error: {str(e)}. The data may be corrupted.")
         raise RuntimeError(f"Decryption error: {str(e)}")
 
 # Helper function to get available encryption modes
