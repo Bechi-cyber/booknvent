@@ -296,7 +296,6 @@
         <button type="button" class="tab-btn active" onclick="openTab(event, 'image')"><i class="fas fa-image"></i> Image</button>
         <button type="button" class="tab-btn" onclick="openTab(event, 'audio')"><i class="fas fa-music"></i> Audio</button>
         <button type="button" class="tab-btn" onclick="openTab(event, 'text')"><i class="fas fa-font"></i> Text</button>
-        <button type="button" class="tab-btn" onclick="openTab(event, 'steganalysis')"><i class="fas fa-shield-alt"></i> AI Security</button>
     </div>
     {% endif %}
 
@@ -409,55 +408,7 @@
         </div>
     </div>
 
-    <div id="steganalysis" class="tab-content">
-        <div class="card">
-            <h2><i class="fas fa-shield-alt"></i> AI-Powered Security Testing</h2>
-            <p class="lead">Test the security of your steganography methods with our AI-powered steganalysis tool.</p>
 
-            <form action="/analyze_file" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="file_type"><strong>File Type:</strong></label>
-                    <select class="form-select" id="file_type" name="file_type" required>
-                        <option value="image">Image</option>
-                        <option value="audio">Audio</option>
-                        <option value="text">Text</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="file"><strong>File to Analyze:</strong></label>
-                    <input type="file" class="form-control" id="file" name="file" required>
-                    <small class="form-text text-muted">
-                        Upload the file you want to analyze for steganography.
-                    </small>
-                </div>
-
-                <div class="form-group">
-                    <label for="original_file"><strong>Original File (Optional):</strong></label>
-                    <input type="file" class="form-control" id="original_file" name="original_file">
-                    <small class="form-text text-muted">
-                        If you have the original file (without hidden data), upload it for more accurate analysis.
-                    </small>
-                </div>
-
-                <button type="submit" class="btn primary">
-                    <i class="fas fa-shield-alt"></i> Analyze Security
-                </button>
-            </form>
-        </div>
-
-        <div class="card">
-            <h2><i class="fas fa-info-circle"></i> How It Works</h2>
-            <p>Our AI-powered steganalysis tool uses statistical analysis and pattern recognition to:</p>
-            <ul>
-                <li><i class="fas fa-check"></i> Detect potential hidden messages in files</li>
-                <li><i class="fas fa-check"></i> Assess the security of steganography techniques</li>
-                <li><i class="fas fa-check"></i> Provide recommendations for improving security</li>
-                <li><i class="fas fa-check"></i> Generate a security score from 1-5</li>
-            </ul>
-            <p>This helps you ensure your hidden messages remain truly hidden from unauthorized detection.</p>
-        </div>
-    </div>
 
     <footer>
         <p>&copy; 2025 SELATA - The more you look the less you see</p>

@@ -11,7 +11,6 @@ A comprehensive steganography application that allows hiding secret messages in 
 - **User Authentication**: Secure login and registration system
 - **Web Interface**: Easy-to-use web-based interface
 - **Pop-up Notifications**: Alerts for incorrect decryption passwords
-- **AI-Powered Steganalysis**: Security testing and vulnerability assessment for steganography methods
 
 ## Installation
 
@@ -70,7 +69,6 @@ multimodal_steganography_project/
 │   ├── auth_views.py       # Authentication routes
 │   ├── encryption.py       # Encryption/decryption utilities
 │   ├── file_manager.py     # File handling utilities
-│   ├── steganalysis.py     # AI-powered steganalysis system
 │   ├── steganography.py    # Steganography algorithms
 │   └── views.py            # Main application routes
 ├── static/                 # Static files (CSS, JS, images)
@@ -99,47 +97,6 @@ multimodal_steganography_project/
 - Input validation and sanitization
 - Proper error handling for incorrect passwords
 
-## AI-Powered Steganalysis
-
-The project includes an advanced AI-powered steganalysis system that helps users assess the security of their steganography methods:
-
-### Steganalysis Features
-
-- **Security Scoring**: Evaluates steganography techniques on a scale of 1-5
-- **Vulnerability Detection**: Identifies potential weaknesses in hidden messages
-- **Statistical Analysis**: Uses pattern recognition to detect steganography signatures
-- **Detailed Reporting**: Provides comprehensive analysis results with visualizations
-- **Security Recommendations**: Offers actionable advice to improve steganography security
-
-### Supported Analysis Types
-
-- **Image Steganalysis**: Detects LSB steganography through bit pattern analysis
-  - Analyzes LSB uniformity and distribution
-  - Detects anomalies in color patterns
-  - Identifies suspicious file size changes
-
-- **Audio Steganalysis**: Identifies audio steganography techniques
-  - Analyzes phase encoding patterns
-  - Detects spectral anomalies
-  - Identifies unusual frequency distributions
-
-- **Text Steganalysis**: Detects text-based steganography
-  - Identifies whitespace steganography
-  - Detects zero-width character insertion
-  - Analyzes character distribution anomalies
-
-### How It Works
-
-The steganalysis system uses a combination of statistical analysis and pattern recognition techniques to identify potential steganography:
-
-1. **Data Extraction**: Analyzes the uploaded file's binary data
-2. **Pattern Analysis**: Applies statistical tests to detect steganography signatures
-3. **Anomaly Detection**: Identifies deviations from expected patterns
-4. **Security Scoring**: Calculates a security score based on detection probability
-5. **Recommendation Generation**: Creates tailored security improvement suggestions
-
-This AI-powered approach provides users with valuable insights into the security of their steganography methods without requiring complex machine learning infrastructure.
-
 ## Security Considerations
 
 - The encryption key in `encryption.py` should be changed for production use
@@ -156,5 +113,3 @@ This project is open source and available under the MIT License.
 - [Pillow](https://python-pillow.org/) - Image processing
 - [Librosa](https://librosa.org/) - Audio processing
 - [PyCryptodome](https://pycryptodome.readthedocs.io/) - Cryptographic functions
-- [NumPy](https://numpy.org/) - Numerical computing for AI steganalysis
-- [SciPy](https://scipy.org/) - Scientific computing for signal processing
