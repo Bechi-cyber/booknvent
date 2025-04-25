@@ -1,4 +1,4 @@
-# Multimodal Steganography Project
+# LESAVOT - Multimodal Steganography Project
 
 A comprehensive steganography application that allows hiding secret messages in images, audio files, and text documents. This project demonstrates various steganography techniques with a user-friendly web interface built with Flask.
 
