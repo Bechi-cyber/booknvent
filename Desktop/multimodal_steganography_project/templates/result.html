@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result - LESAVOT</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-user-secret"></i> LESAVOT</h1>
+        <p class="subtitle">Hide your messages in images, audio, and text</p>
+        <div class="auth-nav">
+            {% if session.username %}
+            <span class="welcome-message">Welcome, {{ session.username }}!</span>
+            <a href="{{ url_for('auth.profile') }}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+            <a href="{{ url_for('auth.logout') }}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            {% else %}
+            <a href="{{ url_for('auth.login') }}" class="nav-link"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a href="{{ url_for('auth.register') }}" class="nav-link"><i class="fas fa-user-plus"></i> Register</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card result-card">
+            <h2><i class="fas fa-check-circle"></i> Operation Result</h2>
+
+            {% if error %}
+            <div class="error-message">
+                <p><i class="fas fa-exclamation-triangle"></i> {{ error }}</p>
+            </div>
+            {% else %}
+            <div class="success-message">
+                <p><i class="fas fa-check"></i> Operation completed successfully!</p>
+            </div>
+            {% endif %}
+
+            {% if password_error %}
+            <div class="password-error" style="display: none;" data-error="{{ password_error }}"></div>
+            {% endif %}
+
+            {% if hidden_image %}
+            <div class="result-content">
+                <h3>Image with Hidden Message</h3>
+                <div class="image-container">
+                    <img src="/{{ hidden_image }}" alt="Image with hidden message" class="result-image">
+                </div>
+                <div class="download-container">
+                    <a href="/{{ hidden_image }}" download class="btn primary"><i class="fas fa-download"></i> Download Image</a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if hidden_audio %}
+            <div class="result-content">
+                <h3>Audio with Hidden Message</h3>
+                <div class="audio-container">
+                    <audio controls>
+                        <source src="/{{ hidden_audio }}" type="audio/wav">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="download-container">
+                    <a href="/{{ hidden_audio }}" download class="btn primary"><i class="fas fa-download"></i> Download Audio</a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if hidden_text %}
+            <div class="result-content">
+                <h3>Text with Hidden Message</h3>
+                <div class="text-container">
+                    <textarea readonly class="result-text">{{ hidden_text }}</textarea>
+                </div>
+                <div class="copy-container">
+                    <button onclick="copyText()" class="btn primary"><i class="fas fa-copy"></i> Copy Text</button>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if hidden_message %}
+            <div class="result-content">
+                <h3>Extracted Message</h3>
+                <div class="message-container">
+                    <textarea readonly class="result-message">{{ hidden_message }}</textarea>
+                </div>
+                <div class="copy-container">
+                    <button onclick="copyMessage()" class="btn primary"><i class="fas fa-copy"></i> Copy Message</button>
+                </div>
+            </div>
+            {% endif %}
+
+
+
+            <div class="back-container">
+                <a href="/" class="btn secondary"><i class="fas fa-arrow-left"></i> Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 LESAVOT - The more you look the less you see</p>
+    </footer>
+
+    <script>
+        // Show notification if there's a password error
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordErrorElement = document.querySelector('.password-error');
+            if (passwordErrorElement) {
+                const errorMessage = passwordErrorElement.getAttribute('data-error');
+                if (errorMessage) {
+                    Toastify({
+                        text: errorMessage,
+                        duration: 5000,
+                        close: true,
+                        gravity: "top",
+                        position: "center",
+                        backgroundColor: "#e74c3c",
+                        stopOnFocus: true,
+                        onClick: function(){}
+                    }).showToast();
+                }
+            }
+
+            // Show success message as toast
+            const successElement = document.querySelector('.success-message');
+            if (successElement) {
+                Toastify({
+                    text: "Operation completed successfully!",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "center",
+                    backgroundColor: "#2ecc71",
+                    stopOnFocus: true,
+                    onClick: function(){}
+                }).showToast();
+            }
+
+            // Show error message as toast
+            const errorElement = document.querySelector('.error-message');
+            if (errorElement) {
+                const errorText = errorElement.textContent.trim();
+                Toastify({
+                    text: errorText,
+                    duration: 5000,
+                    close: true,
+                    gravity: "top",
+                    position: "center",
+                    backgroundColor: "#e74c3c",
+                    stopOnFocus: true,
+                    onClick: function(){}
+                }).showToast();
+            }
+        });
+
+        function copyText() {
+            var text = document.querySelector('.result-text');
+            text.select();
+            document.execCommand('copy');
+
+            Toastify({
+                text: "Text copied to clipboard!",
+                duration: 3000,
+                gravity: "bottom",
+                position: "right",
+                backgroundColor: "#3498db",
+                stopOnFocus: true
+            }).showToast();
+        }
+
+        function copyMessage() {
+            var message = document.querySelector('.result-message');
+            message.select();
+            document.execCommand('copy');
+
+            Toastify({
+                text: "Message copied to clipboard!",
+                duration: 3000,
+                gravity: "bottom",
+                position: "right",
+                backgroundColor: "#3498db",
+                stopOnFocus: true
+            }).showToast();
+        }
+
+
+    </script>
+</body>
+</html>

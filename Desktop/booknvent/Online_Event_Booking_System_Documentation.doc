@@ -1,0 +1,55 @@
+Online Event Booking System Documentation
+
+1. Project Overview
+-------------------
+This project is a fully functional Online Event Booking System that allows users to browse, search, and book tickets for various events. The system is built using HTML, CSS, Bootstrap, JavaScript (frontend), PHP (backend), and SQLite (database). It supports user authentication, event management, booking, checkout, booking history, ticket download, and an admin panel for event and booking management.
+
+2. System Design
+----------------
+- Frontend: HTML, CSS, Bootstrap for responsive UI, JavaScript for client-side interaction.
+- Backend: PHP for server-side logic and session management.
+- Database: SQLite for persistent storage (no XAMPP or MySQL required).
+- Structure: Modular PHP files for authentication, event management, booking, and admin features.
+
+3. Implementation
+-----------------
+- User Authentication: Registration, login, session management, and user dashboard.
+- Event Listings: Browse and search events with details (name, date, time, venue, organizer, image, price).
+- Event Details: Detailed event info, map placeholder, organizer contact, and booking option.
+- Booking Cart: Add, update, or remove tickets; view cart and proceed to checkout.
+- Checkout: Simulated payment and attendee info; booking confirmation.
+- Booking History: View past/upcoming bookings, download ticket, unique ticket code.
+- Admin Panel: Add/edit/delete events, view all bookings, generate reports by date, event, or user.
+
+4. Deployment
+-------------
+- Requirements: PHP (with SQLite PDO extension), web browser.
+- To run locally:
+  1. Open a terminal in the project directory.
+  2. Start the PHP built-in server:
+     php -S localhost:8000
+  3. Open your browser and go to:
+     http://localhost:8000/
+
+5. Code Explanation
+-------------------
+- db/database.sqlite: SQLite database file.
+- db/init.sql: SQL schema for users, events, bookings, cart.
+- db/init_db.php: Script to initialize the database.
+- includes/db_connect.php: PDO connection to SQLite.
+- register.php, login.php, dashboard.php, logout.php: User authentication and profile.
+- events.php, event_details.php: Event listing and details.
+- cart.php, checkout.php: Booking cart and checkout process.
+- booking_history.php, ticket.php: Booking history and ticket download.
+- admin/: Admin panel for event and booking management.
+
+6. User Manual
+--------------
+- Register a new account or log in.
+- Browse events on the events page.
+- View event details and book tickets.
+- Manage your cart and proceed to checkout.
+- View your booking history and download tickets.
+- Admins can manage events, view all bookings, and generate reports from the admin panel.
+
+For further details, refer to the code comments and UI navigation.

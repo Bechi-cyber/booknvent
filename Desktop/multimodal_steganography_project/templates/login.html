@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Login - LESAVOT</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-user-secret"></i> LESAVOT</h1>
+        <p class="subtitle">The more you look the less you see</p>
+    </header>
+
+    <div class="container">
+        <div class="card auth-card">
+            <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                <div class="flash-message {% if category == 'error' %}flash-error{% else %}flash-info{% endif %}" id="flash-message-{{ loop.index }}">
+                    <i class="fas {% if category == 'error' %}fa-exclamation-circle{% else %}fa-info-circle{% endif %}"></i>
+                    {{ message }}
+                    <button type="button" class="close-btn" onclick="closeFlash('flash-message-{{ loop.index }}')"><i class="fas fa-times"></i></button>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('auth.login') }}" method="POST" autocomplete="off">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" autocomplete="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="new-password" required>
+                </div>
+                <div class="form-group remember-me">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="remember" name="remember" value="1">
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
+                </div>
+                <button type="submit" class="btn primary"><i class="fas fa-sign-in-alt"></i> Login</button>
+            </form>
+
+            <div class="auth-links">
+                <p>Don't have an account? <a href="{{ url_for('auth.register') }}">Register</a></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 LESAVOT - The more you look the less you see</p>
+    </footer>
+
+    <script>
+        // Prevent password autofill
+        document.addEventListener('DOMContentLoaded', function() {
+            // Allow username suggestions but prevent password autofill
+            var passwordField = document.getElementById('password');
+            if (passwordField) {
+                // Set a random value and then clear it to prevent autofill
+                passwordField.value = Math.random().toString(36).substring(2);
+                setTimeout(function() {
+                    passwordField.value = '';
+                }, 1);
+            }
+
+            // Auto-hide flash messages after 5 seconds
+            setTimeout(function() {
+                var flashMessages = document.querySelectorAll('.flash-message');
+                flashMessages.forEach(function(message) {
+                    message.style.opacity = '0';
+                    setTimeout(function() {
+                        if (message.parentNode) {
+                            message.parentNode.removeChild(message);
+                        }
+                    }, 500);
+                });
+            }, 5000);
+        });
+
+        // Function to close flash messages
+        function closeFlash(id) {
+            var message = document.getElementById(id);
+            if (message) {
+                message.style.opacity = '0';
+                setTimeout(function() {
+                    if (message.parentNode) {
+                        message.parentNode.removeChild(message);
+                    }
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>

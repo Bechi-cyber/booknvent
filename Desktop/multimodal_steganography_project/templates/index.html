@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LESAVOT - Multimodal Steganography</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .welcome-banner {
+            text-align: center;
+            padding: 3.5rem 2rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            background-color: rgba(8, 15, 40, 0.85);
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwODBmMjgiIHN0b3Atb3BhY2l0eT0iMC44Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTc0MjdkIiBzdG9wLW9wYWNpdHk9IjAuNiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjYSkiLz48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIyIiBmaWxsPSIjMjk4MGI5IiBmaWxsLW9wYWNpdHk9IjAuMyIvPjxjaXJjbGUgY3g9IjgwIiBjeT0iODAiIHI9IjIiIGZpbGw9IiMyOTgwYjkiIGZpbGwtb3BhY2l0eT0iMC4zIi8+PGNpcmNsZSBjeD0iODAiIGN5PSIyMCIgcj0iMiIgZmlsbD0iIzI5ODBiOSIgZmlsbC1vcGFjaXR5PSIwLjMiLz48Y2lyY2xlIGN4PSIyMCIgY3k9IjgwIiByPSIyIiBmaWxsPSIjMjk4MGI5IiBmaWxsLW9wYWNpdHk9IjAuMyIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjIiIGZpbGw9IiMyOTgwYjkiIGZpbGwtb3BhY2l0eT0iMC41Ii8+PHBhdGggZD0iTTIwLDIwIEw4MCw4MCIgc3Ryb2tlPSIjMjk4MGI5IiBzdHJva2Utd2lkdGg9IjAuMiIgc3Ryb2tlLW9wYWNpdHk9IjAuMiIvPjxwYXRoIGQ9Ik04MCwyMCBMMjAsODAiIHN0cm9rZT0iIzI5ODBiOSIgc3Ryb2tlLXdpZHRoPSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjIiLz48L3N2Zz4=');
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(41, 128, 185, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Add a safe-like overlay with digital elements */
+        .welcome-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48ZGVmcz48L2RlZnM+PHBhdGggZD0iTTEwLDEwIEw5MCwxMCIgc3Ryb2tlPSIjMjk4MGI5IiBzdHJva2Utd2lkdGg9IjAuMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMiIvPjxwYXRoIGQ9Ik0xMCw5MCBMOTAsOTAiIHN0cm9rZT0iIzI5ODBiOSIgc3Ryb2tlLXdpZHRoPSIwLjMiIHN0cm9rZS1vcGFjaXR5PSIwLjIiLz48cGF0aCBkPSJNMTAsMTAgTDEwLDkwIiBzdHJva2U9IiMyOTgwYjkiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2Utb3BhY2l0eT0iMC4yIi8+PHBhdGggZD0iTTkwLDEwIEw5MCw5MCIgc3Ryb2tlPSIjMjk4MGI5IiBzdHJva2Utd2lkdGg9IjAuMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMiIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjMwIiBzdHJva2U9IiMyOTgwYjkiIHN0cm9rZS13aWR0aD0iMC41IiBmaWxsPSJub25lIiBzdHJva2Utb3BhY2l0eT0iMC4zIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMjAiIHN0cm9rZT0iIzI5ODBiOSIgc3Ryb2tlLXdpZHRoPSIwLjUiIGZpbGw9Im5vbmUiIHN0cm9rZS1vcGFjaXR5PSIwLjMiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxMCIgc3Ryb2tlPSIjMjk4MGI5IiBzdHJva2Utd2lkdGg9IjAuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMyIvPjxwYXRoIGQ9Ik0yMCwyMCBMODAsODAiIHN0cm9rZT0iIzI5ODBiOSIgc3Ryb2tlLXdpZHRoPSIwLjMiIHN0cm9rZS1vcGFjaXR5PSIwLjIiLz48cGF0aCBkPSJNODAsMjAgTDIwLDgwIiBzdHJva2U9IiMyOTgwYjkiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2Utb3BhY2l0eT0iMC4yIi8+PC9zdmc+');
+            opacity: 0.7;
+            z-index: 0;
+        }
+
+        /* Add a binary code overlay for more mystery */
+        .welcome-banner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48ZGVmcz48L2RlZnM+PHRleHQgeD0iMTAiIHk9IjEwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjMiIGZpbGw9IiMyOTgwYjkiIGZpbGwtb3BhY2l0eT0iMC4xIj4xMDExMDAxMDwvdGV4dD48dGV4dCB4PSIzMCIgeT0iMTUiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMyIgZmlsbD0iIzI5ODBiOSIgZmlsbC1vcGFjaXR5PSIwLjEiPjAxMTAxMDExPC90ZXh0Pjx0ZXh0IHg9IjUwIiB5PSIyMCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIzIiBmaWxsPSIjMjk4MGI5IiBmaWxsLW9wYWNpdHk9IjAuMSI+MTEwMDExMDA8L3RleHQ+PHRleHQgeD0iNzAiIHk9IjI1IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjMiIGZpbGw9IiMyOTgwYjkiIGZpbGwtb3BhY2l0eT0iMC4xIj4wMDExMDAxMTwvdGV4dD48dGV4dCB4PSIyMCIgeT0iMzUiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMyIgZmlsbD0iIzI5ODBiOSIgZmlsbC1vcGFjaXR5PSIwLjEiPjExMDAxMDEwPC90ZXh0Pjx0ZXh0IHg9IjQwIiB5PSI0MCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIzIiBmaWxsPSIjMjk4MGI5IiBmaWxsLW9wYWNpdHk9IjAuMSI+MDAxMTAxMDE8L3RleHQ+PHRleHQgeD0iNjAiIHk9IjQ1IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjMiIGZpbGw9IiMyOTgwYjkiIGZpbGwtb3BhY2l0eT0iMC4xIj4xMDEwMTAxMDwvdGV4dD48dGV4dCB4PSI4MCIgeT0iNTAiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMyIgZmlsbD0iIzI5ODBiOSIgZmlsbC1vcGFjaXR5PSIwLjEiPjAxMDEwMTAxPC90ZXh0Pjx0ZXh0IHg9IjE1IiB5PSI2MCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIzIiBmaWxsPSIjMjk4MGI5IiBmaWxsLW9wYWNpdHk9IjAuMSI+MTAxMDEwMTA8L3RleHQ+PHRleHQgeD0iMzUiIHk9IjY1IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjMiIGZpbGw9IiMyOTgwYjkiIGZpbGwtb3BhY2l0eT0iMC4xIj4wMTAxMDEwMTwvdGV4dD48dGV4dCB4PSI1NSIgeT0iNzAiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMyIgZmlsbD0iIzI5ODBiOSIgZmlsbC1vcGFjaXR5PSIwLjEiPjEwMTAxMDEwPC90ZXh0Pjx0ZXh0IHg9Ijc1IiB5PSI3NSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIzIiBmaWxsPSIjMjk4MGI5IiBmaWxsLW9wYWNpdHk9IjAuMSI+MDEwMTAxMDE8L3RleHQ+PHRleHQgeD0iMjUiIHk9Ijg1IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjMiIGZpbGw9IiMyOTgwYjkiIGZpbGwtb3BhY2l0eT0iMC4xIj4xMDEwMTAxMDwvdGV4dD48dGV4dCB4PSI0NSIgeT0iOTAiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMyIgZmlsbD0iIzI5ODBiOSIgZmlsbC1vcGFjaXR5PSIwLjEiPjAxMDEwMTAxPC90ZXh0Pjx0ZXh0IHg9IjY1IiB5PSI5NSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIzIiBmaWxsPSIjMjk4MGI5IiBmaWxsLW9wYWNpdHk9IjAuMSI+MTAxMDEwMTA8L3RleHQ+PC9zdmc+');
+            opacity: 0.3;
+            z-index: 0;
+            animation: slide 60s linear infinite;
+        }
+
+        .welcome-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 1;
+            font-family: 'Calibri', 'Segoe UI', sans-serif;
+            font-weight: bold;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-button {
+            padding: 0.75rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .login-btn {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+
+        .register-btn {
+            background-color: rgba(255, 255, 255, 0.85);
+            color: #1e2636;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .login-btn:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .register-btn:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-3px);
+        }
+
+        .hero-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a24 0%, #1e2636 50%, #233148 100%);
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        /* Add a digital safe-like background */
+        .hero-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                /* Digital circuit lines */
+                linear-gradient(90deg, rgba(41, 128, 185, 0.05) 1px, transparent 1px),
+                linear-gradient(rgba(41, 128, 185, 0.05) 1px, transparent 1px),
+                /* Circular safe dial */
+                radial-gradient(circle at 85% 20%, rgba(41, 128, 185, 0.2) 0%, rgba(41, 128, 185, 0.1) 20%, transparent 60%),
+                /* Lock mechanism */
+                radial-gradient(circle at 15% 85%, rgba(41, 128, 185, 0.15) 0%, rgba(41, 128, 185, 0.05) 30%, transparent 70%),
+                /* Digital code pattern */
+                repeating-linear-gradient(45deg, rgba(41, 128, 185, 0.03) 0px, rgba(41, 128, 185, 0.03) 2px, transparent 2px, transparent 4px),
+                repeating-linear-gradient(-45deg, rgba(41, 128, 185, 0.03) 0px, rgba(41, 128, 185, 0.03) 2px, transparent 2px, transparent 4px);
+            background-size: 50px 50px, 50px 50px, auto, auto, auto, auto;
+            opacity: 1;
+            z-index: -1;
+        }
+
+        /* Add a digital circuit pattern overlay to the background */
+        .hero-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48ZGVmcz48L2RlZnM+PHBhdGggZD0iTTEwLDEwIEw5MCwxMCIgc3Ryb2tlPSIjMjk4MGI5IiBzdHJva2Utd2lkdGg9IjAuMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxwYXRoIGQ9Ik0xMCw5MCBMOTAsOTAiIHN0cm9rZT0iIzI5ODBiOSIgc3Ryb2tlLXdpZHRoPSIwLjMiIHN0cm9rZS1vcGFjaXR5PSIwLjEiLz48cGF0aCBkPSJNMTAsMTAgTDEwLDkwIiBzdHJva2U9IiMyOTgwYjkiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PHBhdGggZD0iTTkwLDEwIEw5MCw5MCIgc3Ryb2tlPSIjMjk4MGI5IiBzdHJva2Utd2lkdGg9IjAuMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjMwIiBzdHJva2U9IiMyOTgwYjkiIHN0cm9rZS13aWR0aD0iMC41IiBmaWxsPSJub25lIiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMjAiIHN0cm9rZT0iIzI5ODBiOSIgc3Ryb2tlLXdpZHRoPSIwLjUiIGZpbGw9Im5vbmUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxMCIgc3Ryb2tlPSIjMjk4MGI5IiBzdHJva2Utd2lkdGg9IjAuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIvPjxwYXRoIGQ9Ik0yMCwyMCBMODAsODAiIHN0cm9rZT0iIzI5ODBiOSIgc3Ryb2tlLXdpZHRoPSIwLjMiIHN0cm9rZS1vcGFjaXR5PSIwLjEiLz48cGF0aCBkPSJNODAsMjAgTDIwLDgwIiBzdHJva2U9IiMyOTgwYjkiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PC9zdmc+');
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        /* Safe dial styling */
+        .safe-dial {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            z-index: 1;
+        }
+
+        .dial-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            background: radial-gradient(circle, rgba(10, 30, 66, 0.8) 0%, rgba(41, 128, 185, 0.4) 100%);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .dial-handle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            transform: translate(-50%, -50%) rotate(45deg);
+            transform-origin: center bottom;
+            border-radius: 2px;
+            animation: rotate 20s infinite linear;
+        }
+
+        /* Security icons styling */
+        .security-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .security-icon {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.2);
+            animation: pulse 3s infinite alternate;
+        }
+
+        .security-icon.fa-lock {
+            font-size: 1.8rem;
+            color: rgba(255, 255, 255, 0.35);
+            animation: pulse 4s infinite alternate;
+        }
+
+        .security-icon:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        .security-icon:nth-child(3) {
+            animation-delay: 2s;
+        }
+
+        /* Animations */
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            from { opacity: 0.5; transform: scale(1); }
+            to { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes pulse-subtle {
+            from { opacity: 0.8; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slide {
+            from { background-position: 0 0; }
+            to { background-position: 100% 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-background"></div>
+
+    <header>
+        <h1><i class="fas fa-user-secret"></i> LESAVOT</h1>
+        <p class="subtitle">The more you look the less you see</p>
+        <div class="auth-nav">
+            {% if session.username %}
+            <span class="welcome-message">Welcome, {{ session.username }}!</span>
+            <a href="{{ url_for('auth.profile') }}" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+            <a href="{{ url_for('auth.logout') }}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            {% else %}
+            <a href="{{ url_for('auth.login') }}" class="nav-link"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a href="{{ url_for('auth.register') }}" class="nav-link"><i class="fas fa-user-plus"></i> Register</a>
+            {% endif %}
+        </div>
+    </header>
+
+    {% if not session.username %}
+    <div class="welcome-banner">
+        <!-- Safe dial decoration -->
+        <div class="safe-dial">
+            <div class="dial-ring"></div>
+            <div class="dial-handle"></div>
+        </div>
+
+        <h1 class="welcome-title">WELCOME TO LESAVOT</h1>
+        <p class="welcome-subtitle">The most secure way to hide your messages in images, audio, and text</p>
+
+        <!-- Security icon decorations -->
+        <div class="security-icons">
+            <i class="fas fa-shield-alt security-icon"></i>
+            <i class="fas fa-lock security-icon"></i>
+            <i class="fas fa-key security-icon"></i>
+        </div>
+
+        <div class="auth-buttons">
+            <a href="{{ url_for('auth.login') }}" class="btn auth-button login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a href="{{ url_for('auth.register') }}" class="btn auth-button register-btn"><i class="fas fa-user-plus"></i> Register</a>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if session.username %}
+    <div class="tabs">
+        <button type="button" class="tab-btn active" onclick="openTab(event, 'image')"><i class="fas fa-image"></i> Image</button>
+        <button type="button" class="tab-btn" onclick="openTab(event, 'audio')"><i class="fas fa-music"></i> Audio</button>
+        <button type="button" class="tab-btn" onclick="openTab(event, 'text')"><i class="fas fa-font"></i> Text</button>
+    </div>
+    {% endif %}
+
+    {% if session.username %}
+    <div id="image" class="tab-content active">
+        <div class="card">
+            <h2><i class="fas fa-file-image"></i> Hide Message in Image</h2>
+            <form action="/hide_image_message" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="hide-image-file">Select image:</label>
+                    <input type="file" id="hide-image-file" name="image" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="hide-image-message">Message to hide:</label>
+                    <textarea id="hide-image-message" name="message" placeholder="Enter message to hide"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="hide-image-password">Password (optional):</label>
+                    <input type="password" id="hide-image-password" name="password" placeholder="Enter password for additional security">
+                </div>
+                <button type="submit" class="btn primary"><i class="fas fa-eye-slash"></i> Hide Message</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-search"></i> Extract Message from Image</h2>
+            <form action="/extract_image_message" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="extract-image-file">Select image with hidden message:</label>
+                    <input type="file" id="extract-image-file" name="image" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="extract-image-password">Password (if used during hiding):</label>
+                    <input type="password" id="extract-image-password" name="password" placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn primary"><i class="fas fa-search"></i> Extract Message</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="audio" class="tab-content">
+        <div class="card">
+            <h2><i class="fas fa-file-audio"></i> Hide Message in Audio</h2>
+            <form action="/hide_audio_message" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="hide-audio-file">Select audio file:</label>
+                    <input type="file" id="hide-audio-file" name="audio" accept="audio/*">
+                </div>
+                <div class="form-group">
+                    <label for="hide-audio-message">Message to hide:</label>
+                    <textarea id="hide-audio-message" name="message" placeholder="Enter message to hide"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="hide-audio-password">Password (optional):</label>
+                    <input type="password" id="hide-audio-password" name="password" placeholder="Enter password for additional security">
+                </div>
+                <button type="submit" class="btn primary"><i class="fas fa-eye-slash"></i> Hide Message</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-headphones"></i> Extract Message from Audio</h2>
+            <form action="/extract_audio_message" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="extract-audio-file">Select audio with hidden message:</label>
+                    <input type="file" id="extract-audio-file" name="audio" accept="audio/*">
+                </div>
+                <div class="form-group">
+                    <label for="extract-audio-password">Password (if used during hiding):</label>
+                    <input type="password" id="extract-audio-password" name="password" placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn primary"><i class="fas fa-search"></i> Extract Message</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="text" class="tab-content">
+        <div class="card">
+            <h2><i class="fas fa-file-alt"></i> Hide Message in Text</h2>
+            <form action="/hide_text_message" method="POST">
+                <div class="form-group">
+                    <label for="hide-text-message">Message to hide:</label>
+                    <textarea id="hide-text-message" name="message" placeholder="Enter message to hide"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="hide-text-cover">Cover text (optional):</label>
+                    <textarea id="hide-text-cover" name="cover_text" placeholder="Enter custom cover text or leave blank for default"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="hide-text-password">Password (optional):</label>
+                    <input type="password" id="hide-text-password" name="password" placeholder="Enter password for additional security">
+                </div>
+                <button type="submit" class="btn primary"><i class="fas fa-eye-slash"></i> Hide Message</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-file-signature"></i> Extract Message from Text</h2>
+            <form action="/extract_text_message" method="POST">
+                <div class="form-group">
+                    <label for="extract-text-message">Text with hidden message:</label>
+                    <textarea id="extract-text-message" name="hidden_message" placeholder="Enter text with hidden message"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="extract-text-password">Password (if used during hiding):</label>
+                    <input type="password" id="extract-text-password" name="password" placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn primary"><i class="fas fa-search"></i> Extract Message</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <footer>
+        <p>&copy; 2025 LESAVOT - The more you look the less you see</p>
+    </footer>
+
+    {% endif %}
+
+    <script>
+        function openTab(evt, tabName) {
+            // Hide all tab content
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            // Remove active class from all tab buttons
+            var tabButtons = document.getElementsByClassName("tab-btn");
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+
+            // Show the selected tab content and mark the button as active
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
