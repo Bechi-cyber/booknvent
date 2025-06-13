@@ -1,19 +1,9 @@
 <?php
-// MySQL database connection for online hosting (Replit, 000webhost, etc.)
-$host = 'localhost';
-$db   = 'event_booking'; // Change to your database name
-$user = 'root';         // Change to your MySQL username
-$pass = '';             // Change to your MySQL password
-$charset = 'utf8mb4';
-
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES   => false,
-];
+// SQLite database connection
+$db_file = __DIR__ . '/../db/database.sqlite';
 try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
+    $pdo = new PDO('sqlite:' . $db_file);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die('Database connection failed: ' . $e->getMessage());
 }
