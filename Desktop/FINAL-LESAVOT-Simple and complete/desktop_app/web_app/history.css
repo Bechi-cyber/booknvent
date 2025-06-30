@@ -1,0 +1,253 @@
+/* LESAVOT - History Page Styles */
+
+/* History filters */
+.history-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-group label {
+    font-weight: 500;
+    color: var(--text-medium);
+}
+
+.filter-group select {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    font-size: 0.9rem;
+}
+
+/* History table */
+.history-table-container {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.history-table th,
+.history-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.history-table th {
+    background-color: var(--bg-light);
+    font-weight: 600;
+    color: var(--text-dark);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.history-table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.history-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Type badges */
+.type-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.type-badge.text {
+    background-color: rgba(66, 153, 225, 0.1);
+    color: #3182ce;
+}
+
+.type-badge.image {
+    background-color: rgba(72, 187, 120, 0.1);
+    color: #38a169;
+}
+
+.type-badge.audio {
+    background-color: rgba(237, 137, 54, 0.1);
+    color: #dd6b20;
+}
+
+/* Mode badges */
+.mode-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.mode-badge.encrypt {
+    background-color: rgba(72, 187, 120, 0.1);
+    color: #38a169;
+}
+
+.mode-badge.decrypt {
+    background-color: rgba(237, 137, 54, 0.1);
+    color: #dd6b20;
+}
+
+/* Password indicator */
+.password-indicator {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    margin-right: 0.25rem;
+}
+
+.password-indicator.yes {
+    background-color: #38a169;
+}
+
+.password-indicator.no {
+    background-color: #e53e3e;
+}
+
+/* Action buttons */
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    color: var(--text-medium);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    color: var(--primary-blue);
+    background-color: rgba(66, 153, 225, 0.1);
+}
+
+.action-btn.delete:hover {
+    color: #e53e3e;
+    background-color: rgba(229, 62, 62, 0.1);
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.pagination button {
+    padding: 0.5rem 1rem;
+}
+
+.pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#paginationInfo {
+    font-size: 0.9rem;
+    color: var(--text-medium);
+}
+
+/* Loading state */
+.loading-row td {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-light);
+}
+
+/* Empty state */
+.empty-row td {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-light);
+}
+
+/* Details tooltip */
+.details-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.details-tooltip .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    text-align: left;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+.details-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Danger button */
+.btn-danger {
+    background-color: #e53e3e;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c53030;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .history-filters {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .history-table th,
+    .history-table td {
+        padding: 0.5rem;
+    }
+    
+    .history-table th:nth-child(4),
+    .history-table td:nth-child(4),
+    .history-table th:nth-child(5),
+    .history-table td:nth-child(5) {
+        display: none;
+    }
+}

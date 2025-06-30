@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LESAVOT QR Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border-radius: 10px;
+        }
+        .qr-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            color: black;
+        }
+        .url-input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .generate-btn {
+            background: #2a5298;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        .generate-btn:hover {
+            background: #1e3c72;
+        }
+        #qrcode {
+            margin: 20px auto;
+            min-height: 50px;
+        }
+        .qr-link {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #1e3c72;
+            font-weight: bold;
+        }
+        .qr-link:hover {
+            background: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 LESAVOT QR Code Generator</h1>
+    <p>Generate QR codes for easy access to your LESAVOT application</p>
+
+    <div class="qr-container">
+        <h3>Enter Your LESAVOT URL:</h3>
+        <input type="text" id="urlInput" class="url-input"
+               placeholder="https://lesavot.vercel.app or https://bechi-cyber.github.io/FINAL-LESAVOT/">
+
+        <br>
+        <button type="button" onclick="generateQR()" class="generate-btn">Generate QR Code</button>
+        <button type="button" onclick="useVercel()" class="generate-btn">Use Vercel URL</button>
+        <button type="button" onclick="useGitHub()" class="generate-btn">Use GitHub Pages URL</button>
+
+        <div id="qrcode"></div>
+        <p id="status"></p>
+
+        <!-- Direct Links Section -->
+        <div style="margin-top: 30px;">
+            <h3>🔗 Direct Access Links:</h3>
+            <a href="https://lesavot.vercel.app" target="_blank" class="qr-link">
+                🚀 Vercel Deployment: https://lesavot.vercel.app
+            </a>
+            <a href="https://bechi-cyber.github.io/FINAL-LESAVOT/" target="_blank" class="qr-link">
+                📱 GitHub Pages: https://bechi-cyber.github.io/FINAL-LESAVOT/
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function generateQR() {
+            const url = document.getElementById('urlInput').value.trim();
+            const qrContainer = document.getElementById('qrcode');
+            const status = document.getElementById('status');
+
+            if (!url) {
+                status.textContent = 'Please enter a URL';
+                status.style.color = 'red';
+                return;
+            }
+
+            // Validate URL format
+            try {
+                new URL(url);
+            } catch (e) {
+                status.textContent = 'Please enter a valid URL (must start with http:// or https://)';
+                status.style.color = 'red';
+                return;
+            }
+
+            try {
+                // Clear previous QR code
+                qrContainer.innerHTML = '';
+                status.textContent = 'Generating QR Code...';
+                status.style.color = 'blue';
+
+                // Use multiple QR code services for reliability
+                const encodedUrl = encodeURIComponent(url);
+                const qrServices = [
+                    `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodedUrl}`,
+                    `https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${encodedUrl}`,
+                    `https://qr-code-styling.com/api/qr-code?data=${encodedUrl}&size=300`
+                ];
+
+                let serviceIndex = 0;
+
+                function tryNextService() {
+                    if (serviceIndex >= qrServices.length) {
+                        // If all services fail, create a fallback
+                        createFallbackQR(url);
+                        return;
+                    }
+
+                    const img = document.createElement('img');
+                    img.src = qrServices[serviceIndex];
+                    img.alt = 'QR Code for ' + url;
+                    img.style.border = '10px solid #1e3c72';
+                    img.style.borderRadius = '10px';
+                    img.style.maxWidth = '300px';
+                    img.style.height = 'auto';
+                    img.style.display = 'block';
+                    img.style.margin = '0 auto';
+                    img.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+
+                    img.onload = function() {
+                        qrContainer.appendChild(img);
+                        status.textContent = '✅ QR Code generated successfully! Scan to access LESAVOT';
+                        status.style.color = 'green';
+
+                        // Add download button
+                        addDownloadButton(img.src, url);
+                    };
+
+                    img.onerror = function() {
+                        serviceIndex++;
+                        tryNextService();
+                    };
+                }
+
+                tryNextService();
+
+            } catch (error) {
+                console.error('QR Generation Error:', error);
+                createFallbackQR(url);
+            }
+        }
+
+        function createFallbackQR(url) {
+            const qrContainer = document.getElementById('qrcode');
+            const status = document.getElementById('status');
+
+            // Create a fallback QR code using a simple text representation
+            const fallbackDiv = document.createElement('div');
+            fallbackDiv.style.cssText = `
+                background: white;
+                color: black;
+                padding: 20px;
+                border-radius: 10px;
+                border: 10px solid #1e3c72;
+                text-align: center;
+                font-family: monospace;
+                max-width: 300px;
+                margin: 0 auto;
+                word-break: break-all;
+            `;
+
+            fallbackDiv.innerHTML = `
+                <h3>📱 LESAVOT Access</h3>
+                <p><strong>URL:</strong></p>
+                <p style="font-size: 12px; background: #f0f0f0; padding: 10px; border-radius: 5px;">${url}</p>
+                <p><small>Copy this URL to access LESAVOT</small></p>
+                <button onclick="copyToClipboard('${url}')" style="background: #1e3c72; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer;">📋 Copy URL</button>
+            `;
+
+            qrContainer.appendChild(fallbackDiv);
+            status.textContent = '⚠️ QR Code service unavailable. URL provided for manual access.';
+            status.style.color = 'orange';
+        }
+
+        function addDownloadButton(imgSrc, url) {
+            const qrContainer = document.getElementById('qrcode');
+            const downloadBtn = document.createElement('button');
+            downloadBtn.textContent = '💾 Download QR Code';
+            downloadBtn.style.cssText = `
+                background: #1e3c72;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-top: 10px;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            `;
+
+            downloadBtn.onclick = function() {
+                const link = document.createElement('a');
+                link.href = imgSrc;
+                link.download = 'LESAVOT-QR-Code.png';
+                link.click();
+            };
+
+            qrContainer.appendChild(downloadBtn);
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('URL copied to clipboard!');
+            }).catch(function() {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('URL copied to clipboard!');
+            });
+        }
+
+        function useVercel() {
+            document.getElementById('urlInput').value = 'https://lesavot.vercel.app';
+            generateQR();
+        }
+
+        function useGitHub() {
+            document.getElementById('urlInput').value = 'https://bechi-cyber.github.io/FINAL-LESAVOT/';
+            generateQR();
+        }
+
+        // Auto-generate QR for Vercel URL on load
+        window.onload = function() {
+            useVercel();
+        };
+    </script>
+</body>
+</html>

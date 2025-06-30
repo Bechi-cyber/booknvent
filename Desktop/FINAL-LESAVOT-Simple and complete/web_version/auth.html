@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LESAVOT | Authentication</title>
+    <link rel="stylesheet" href="text_stego.css">
+    <link rel="stylesheet" href="cybersecurity_elements.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="stylesheet" href="snowy_raindrops.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="snowflake-container">
+                <!-- Single raindrops -->
+                <div class="snowflake snow-1">│</div>
+                <div class="snowflake snow-2">│</div>
+                <div class="snowflake snow-3">│</div>
+                <div class="snowflake snow-4">│</div>
+                <div class="snowflake snow-5">│</div>
+                <div class="snowflake snow-6">│</div>
+                <div class="snowflake snow-7">│</div>
+                <div class="snowflake snow-8">│</div>
+                <div class="snowflake snow-9">│</div>
+                <div class="snowflake snow-10">│</div>
+                <div class="snowflake snow-11">│</div>
+                <div class="snowflake snow-12">│</div>
+                <div class="snowflake snow-13">│</div>
+                <div class="snowflake snow-14">│</div>
+                <div class="snowflake snow-15">│</div>
+                <div class="snowflake snow-16">│</div>
+                <div class="snowflake snow-17">│</div>
+                <div class="snowflake snow-18">│</div>
+                <div class="snowflake snow-19">│</div>
+                <div class="snowflake snow-20">│</div>
+
+                <!-- Raindrop lines -->
+                <div class="raindrop-line rain-line-1">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-2">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-3">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-4">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-5">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-6">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-7">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-8">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-9">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-10">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-11">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-12">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-13">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-14">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-15">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-16">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-17">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-18">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-19">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-20">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-21">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-22">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-23">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-24">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-25">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-26">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-27">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-28">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-29">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-30">│<br>│<br>│</div>
+            </div>
+            <div class="header-container">
+                <div class="logo">
+                    <i class="fas fa-shield-alt logo-icon"></i>
+                    <span class="logo-text">LESAVOT</span>
+                </div>
+                <div class="subtitle">THE MORE YOU LOOK, THE LESS YOU SEE</div>
+            </div>
+        </header>
+
+        <div id="notificationArea"></div>
+
+        <!-- Terms of Service Modal -->
+        <div id="termsModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-file-contract"></i> Terms of Service</h2>
+                    <span class="modal-close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p class="effective-date">Effective Date: May 1, 2025</p>
+
+                    <p class="tos-intro">Please read these Terms of Service carefully before using the LESAVOT platform operated by LESAVOT Advanced Security Systems. Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms of Service. These Terms of Service apply to all visitors, users, and others who access or use the Service.</p>
+
+                    <h3>1. ACCEPTANCE OF TERMS</h3>
+                    <p>By accessing or using the LESAVOT platform, you agree to be bound by these Terms of Service. If you disagree with any part of the Terms of Service, you may not access the Service. Your continued use of the Service following the posting of revised Terms of Service means that you accept and agree to the changes.</p>
+
+                    <h3>2. DESCRIPTION OF SERVICE</h3>
+                    <p>LESAVOT provides an enterprise-grade multimodal steganographic information protection platform that allows users to securely hide and extract information in various media formats including text, images, and audio files. The Service utilizes advanced cryptographic protocols to ensure the confidentiality, integrity, and availability of user data.</p>
+
+                    <h3>3. USER REGISTRATION AND ACCOUNT SECURITY</h3>
+                    <p>3.1 To access certain features of the Service, you must register for an account. When you register, you must provide accurate, current, and complete information as prompted by the registration form.</p>
+
+                    <p>3.2 You are responsible for safeguarding your password and for all activities that occur under your account. You agree to immediately notify us of any unauthorized use of your account or any other breach of security.</p>
+
+                    <p>3.3 We reserve the right to disable any user account at any time if, in our reasonable opinion, you have failed to comply with any of the provisions of these Terms.</p>
+
+                    <h3>4. ACCEPTABLE USE POLICY</h3>
+                    <p>4.1 You agree to use the Service only for lawful purposes and in accordance with these Terms. You agree not to use the Service:</p>
+                    <ul>
+                        <li>In any way that violates any applicable national, federal, state, local, or international law or regulation;</li>
+                        <li>For the purpose of exploiting, harming, or attempting to exploit or harm minors in any way;</li>
+                        <li>To transmit, or procure the sending of, any advertising or promotional material, including any "junk mail," "chain letter," "spam," or any other similar solicitation;</li>
+                        <li>To impersonate or attempt to impersonate LESAVOT, a LESAVOT employee, another user, or any other person or entity;</li>
+                        <li>To engage in any other conduct that restricts or inhibits anyone's use or enjoyment of the Service, or which may harm LESAVOT or users of the Service;</li>
+                        <li>To use the Service for any unauthorized or illegal purpose, including but not limited to data theft, unauthorized system access, or distribution of malware.</li>
+                    </ul>
+
+                    <p>4.2 Additionally, you agree not to:</p>
+                    <ul>
+                        <li>Use the Service in any manner that could disable, overburden, damage, or impair the Service;</li>
+                        <li>Use any robot, spider, or other automatic device, process, or means to access the Service for any purpose;</li>
+                        <li>Use any manual process to monitor or copy any of the material on the Service;</li>
+                        <li>Use any device, software, or routine that interferes with the proper working of the Service;</li>
+                        <li>Introduce any viruses, Trojan horses, worms, logic bombs, or other material which is malicious or technologically harmful;</li>
+                        <li>Attempt to gain unauthorized access to, interfere with, damage, or disrupt any parts of the Service, the server on which the Service is stored, or any server, computer, or database connected to the Service.</li>
+                    </ul>
+
+                    <h3>5. INTELLECTUAL PROPERTY RIGHTS</h3>
+                    <p>5.1 The Service and its entire contents, features, and functionality (including but not limited to all information, software, text, displays, images, video, and audio, and the design, selection, and arrangement thereof) are owned by LESAVOT, its licensors, or other providers of such material and are protected by international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.</p>
+
+                    <p>5.2 These Terms permit you to use the Service for your personal, non-commercial use only. You must not reproduce, distribute, modify, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any of the material on our Service, except as follows:</p>
+                    <ul>
+                        <li>Your computer may temporarily store copies of such materials in RAM incidental to your accessing and viewing those materials;</li>
+                        <li>You may store files that are automatically cached by your Web browser for display enhancement purposes;</li>
+                        <li>If we provide desktop, mobile, or other applications for download, you may download a single copy to your computer or mobile device solely for your own personal, non-commercial use.</li>
+                    </ul>
+
+                    <h3>6. TERMINATION</h3>
+                    <p>6.1 We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.</p>
+
+                    <p>6.2 Upon termination, your right to use the Service will immediately cease. If you wish to terminate your account, you may simply discontinue using the Service or contact us to request account deletion.</p>
+
+                    <h3>7. LIMITATION OF LIABILITY</h3>
+                    <p>7.1 IN NO EVENT SHALL LESAVOT, ITS OFFICERS, DIRECTORS, EMPLOYEES, AGENTS, LICENSORS, OR SUPPLIERS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING WITHOUT LIMITATION, LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM:</p>
+                    <ul>
+                        <li>YOUR ACCESS TO OR USE OF OR INABILITY TO ACCESS OR USE THE SERVICE;</li>
+                        <li>ANY CONDUCT OR CONTENT OF ANY THIRD PARTY ON THE SERVICE;</li>
+                        <li>ANY CONTENT OBTAINED FROM THE SERVICE; AND</li>
+                        <li>UNAUTHORIZED ACCESS, USE, OR ALTERATION OF YOUR TRANSMISSIONS OR CONTENT,</li>
+                    </ul>
+                    <p>WHETHER BASED ON WARRANTY, CONTRACT, TORT (INCLUDING NEGLIGENCE), OR ANY OTHER LEGAL THEORY, WHETHER OR NOT WE HAVE BEEN INFORMED OF THE POSSIBILITY OF SUCH DAMAGE, AND EVEN IF A REMEDY SET FORTH HEREIN IS FOUND TO HAVE FAILED OF ITS ESSENTIAL PURPOSE.</p>
+
+                    <p>7.2 SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF CERTAIN WARRANTIES OR THE LIMITATION OR EXCLUSION OF LIABILITY FOR INCIDENTAL OR CONSEQUENTIAL DAMAGES. ACCORDINGLY, SOME OF THE ABOVE LIMITATIONS MAY NOT APPLY TO YOU.</p>
+
+                    <h3>8. DISCLAIMER OF WARRANTIES</h3>
+                    <p>8.1 YOUR USE OF THE SERVICE IS AT YOUR SOLE RISK. THE SERVICE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS. LESAVOT EXPRESSLY DISCLAIMS ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
+
+                    <p>8.2 LESAVOT MAKES NO WARRANTY THAT:</p>
+                    <ul>
+                        <li>THE SERVICE WILL MEET YOUR REQUIREMENTS;</li>
+                        <li>THE SERVICE WILL BE UNINTERRUPTED, TIMELY, SECURE, OR ERROR-FREE;</li>
+                        <li>THE RESULTS THAT MAY BE OBTAINED FROM THE USE OF THE SERVICE WILL BE ACCURATE OR RELIABLE;</li>
+                        <li>THE QUALITY OF ANY PRODUCTS, SERVICES, INFORMATION, OR OTHER MATERIAL PURCHASED OR OBTAINED BY YOU THROUGH THE SERVICE WILL MEET YOUR EXPECTATIONS.</li>
+                    </ul>
+
+                    <h3>9. CHANGES TO TERMS</h3>
+                    <p>9.1 We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.</p>
+
+                    <p>9.2 By continuing to access or use our Service after those revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, please stop using the Service.</p>
+
+                    <h3>10. GOVERNING LAW</h3>
+                    <p>These Terms shall be governed and construed in accordance with the laws of the jurisdiction in which LESAVOT operates, without regard to its conflict of law provisions. Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights.</p>
+
+                    <h3>11. SEVERABILITY</h3>
+                    <p>If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect. These Terms constitute the entire agreement between us regarding our Service, and supersede and replace any prior agreements we might have between us regarding the Service.</p>
+
+                    <h3>12. CONTACT INFORMATION</h3>
+                    <p>If you have any questions about these Terms of Service, please contact us at:</p>
+                    <p>LESAVOT Advanced Security Systems<br>
+                    Email: seclesavot@gmail.com<br>
+                    Address: Nyom, Yaounde - Cameroon</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="acceptTermsBtn" class="btn btn-primary">I Accept</button>
+                    <button type="button" class="btn btn-outline modal-close-btn">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacy Policy Modal -->
+        <div id="privacyModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-user-shield"></i> Privacy Policy</h2>
+                    <span class="modal-close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p class="effective-date">Effective Date: May 1, 2025</p>
+
+                    <p class="privacy-intro">This Privacy Policy describes how LESAVOT Advanced Security Systems collects, uses, and discloses your information when you use our service. This Privacy Policy applies to all users of the LESAVOT platform.</p>
+
+                    <p>We are committed to protecting your privacy and ensuring the security of your personal information. Please read this Privacy Policy carefully to understand our policies and practices regarding your information and how we will treat it.</p>
+
+                    <h3>1. INFORMATION WE COLLECT</h3>
+                    <p>We collect several types of information from and about users of our Service:</p>
+
+                    <h4>1.1 Personal Data</h4>
+                    <p>While using our Service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you ("Personal Data"). Personally identifiable information may include, but is not limited to:</p>
+                    <ul>
+                        <li>Email address</li>
+                        <li>First name and last name</li>
+                        <li>Username and password</li>
+                        <li>Phone number</li>
+                        <li>Address, State, Province, ZIP/Postal code, City</li>
+                    </ul>
+
+                    <h4>1.2 Usage Data</h4>
+                    <p>We may also collect information about how the Service is accessed and used ("Usage Data"). This Usage Data may include information such as your computer's Internet Protocol address (e.g., IP address), browser type, browser version, the pages of our Service that you visit, the time and date of your visit, the time spent on those pages, unique device identifiers, and other diagnostic data.</p>
+
+                    <h4>1.3 Tracking & Cookies Data</h4>
+                    <p>We use cookies and similar tracking technologies to track activity on our Service and hold certain information. Cookies are files with a small amount of data which may include an anonymous unique identifier.</p>
+
+                    <p>You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our Service.</p>
+
+                    <p>Examples of Cookies we use:</p>
+                    <ul>
+                        <li><strong>Session Cookies:</strong> We use Session Cookies to operate our Service.</li>
+                        <li><strong>Security Cookies:</strong> We use Security Cookies for security purposes.</li>
+                        <li><strong>Preference Cookies:</strong> We use Preference Cookies to remember your preferences and various settings.</li>
+                    </ul>
+
+                    <h3>2. USE OF DATA</h3>
+                    <p>LESAVOT uses the collected data for various purposes:</p>
+                    <ul>
+                        <li>To provide and maintain our Service</li>
+                        <li>To notify you about changes to our Service</li>
+                        <li>To allow you to participate in interactive features of our Service when you choose to do so</li>
+                        <li>To provide customer support</li>
+                        <li>To gather analysis or valuable information so that we can improve our Service</li>
+                        <li>To monitor the usage of our Service</li>
+                        <li>To detect, prevent and address technical issues</li>
+                        <li>To fulfill any other purpose for which you provide it</li>
+                        <li>To provide you with notices about your account</li>
+                        <li>To enforce our Terms of Service, including for billing and collection purposes</li>
+                        <li>To protect against unauthorized access to our systems or data</li>
+                        <li>To comply with legal obligations</li>
+                    </ul>
+
+                    <h3>3. LEGAL BASIS FOR PROCESSING PERSONAL DATA UNDER GDPR</h3>
+                    <p>If you are from the European Economic Area (EEA), the legal basis for collecting and using the personal information described in this Privacy Policy depends on the Personal Data we collect and the specific context in which we collect it.</p>
+
+                    <p>LESAVOT Advanced Security Systems may process your Personal Data because:</p>
+                    <ul>
+                        <li>We need to perform a contract with you</li>
+                        <li>You have given us permission to do so</li>
+                        <li>The processing is in our legitimate interests and it is not overridden by your rights</li>
+                        <li>To comply with the law</li>
+                    </ul>
+
+                    <h3>4. DATA RETENTION</h3>
+                    <p>LESAVOT Advanced Security Systems will retain your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.</p>
+
+                    <p>LESAVOT Advanced Security Systems will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period of time, except when this data is used to strengthen the security or to improve the functionality of our Service, or we are legally obligated to retain this data for longer periods.</p>
+
+                    <h3>5. DATA SECURITY</h3>
+                    <p>The security of your data is important to us, but remember that no method of transmission over the Internet or method of electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your Personal Data, we cannot guarantee its absolute security.</p>
+
+                    <p>We implement a variety of security measures to maintain the safety of your personal information when you enter, submit, or access your personal information, including:</p>
+                    <ul>
+                        <li>All sensitive information is transmitted via Secure Socket Layer (SSL) technology</li>
+                        <li>All data is stored in secure, encrypted databases</li>
+                        <li>Access to personal information is restricted to authorized personnel only</li>
+                        <li>Regular security assessments and penetration testing</li>
+                        <li>Continuous monitoring for unauthorized access attempts</li>
+                    </ul>
+
+                    <h3>6. YOUR DATA PROTECTION RIGHTS UNDER GDPR</h3>
+                    <p>If you are a resident of the European Economic Area (EEA), you have certain data protection rights. LESAVOT Advanced Security Systems aims to take reasonable steps to allow you to correct, amend, delete, or limit the use of your Personal Data.</p>
+
+                    <p>If you wish to be informed about what Personal Data we hold about you and if you want it to be removed from our systems, please contact us.</p>
+
+                    <p>In certain circumstances, you have the following data protection rights:</p>
+                    <ul>
+                        <li><strong>The right to access, update or delete</strong> the information we have on you.</li>
+                        <li><strong>The right of rectification.</strong> You have the right to have your information rectified if that information is inaccurate or incomplete.</li>
+                        <li><strong>The right to object.</strong> You have the right to object to our processing of your Personal Data.</li>
+                        <li><strong>The right of restriction.</strong> You have the right to request that we restrict the processing of your personal information.</li>
+                        <li><strong>The right to data portability.</strong> You have the right to be provided with a copy of the information we have on you in a structured, machine-readable and commonly used format.</li>
+                        <li><strong>The right to withdraw consent.</strong> You also have the right to withdraw your consent at any time where LESAVOT relied on your consent to process your personal information.</li>
+                    </ul>
+
+                    <p>Please note that we may ask you to verify your identity before responding to such requests.</p>
+
+                    <p>You have the right to complain to a Data Protection Authority about our collection and use of your Personal Data. For more information, please contact your local data protection authority in the European Economic Area (EEA).</p>
+
+                    <h3>7. SERVICE PROVIDERS</h3>
+                    <p>We may employ third-party companies and individuals to facilitate our Service ("Service Providers"), provide the Service on our behalf, perform Service-related services, or assist us in analyzing how our Service is used.</p>
+
+                    <p>These third parties have access to your Personal Data only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose.</p>
+
+                    <h3>8. ANALYTICS</h3>
+                    <p>We may use third-party Service Providers to monitor and analyze the use of our Service.</p>
+
+                    <h3>9. CHILDREN'S PRIVACY</h3>
+                    <p>Our Service does not address anyone under the age of 18 ("Children").</p>
+
+                    <p>We do not knowingly collect personally identifiable information from anyone under the age of 18. If you are a parent or guardian and you are aware that your Child has provided us with Personal Data, please contact us. If we become aware that we have collected Personal Data from children without verification of parental consent, we take steps to remove that information from our servers.</p>
+
+                    <h3>10. CHANGES TO THIS PRIVACY POLICY</h3>
+                    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "effective date" at the top of this Privacy Policy.</p>
+
+                    <p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
+
+                    <h3>11. CONTACT US</h3>
+                    <p>If you have any questions about this Privacy Policy, please contact us:</p>
+                    <p>LESAVOT Advanced Security Systems<br>
+                    Email: seclesavot@gmail.com<br>
+                    Address: Nyom, Yaounde - Cameroon</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="acceptPrivacyBtn" class="btn btn-primary">I Accept</button>
+                    <button type="button" class="btn btn-outline modal-close-btn">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <div class="auth-container">
+                <div class="auth-card">
+                    <!-- Sign In Form -->
+                    <div id="signInForm" class="auth-form active">
+                        <div class="auth-header">
+                            <i class="fas fa-lock"></i>
+                            <h2>Secure Authentication</h2>
+                        </div>
+                        <div class="auth-body">
+                            <div class="form-group">
+                                <label for="signInUsername">Username</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" id="signInUsername">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="signInPassword">Password</label>
+                                <div class="input-with-icon password-input">
+                                    <i class="fas fa-key"></i>
+                                    <input type="password" id="signInPassword">
+                                    <i class="fas fa-eye password-toggle" id="signInPasswordToggle"></i>
+                                </div>
+                            </div>
+                            <div class="form-options">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="rememberMe">
+                                    <span class="checkmark"></span>
+                                    Remember me
+                                </label>
+                                <a href="#" class="forgot-password">Forgot password?</a>
+                            </div>
+                            <button type="button" id="signInBtn" class="btn btn-primary auth-btn">
+                                <i class="fas fa-sign-in-alt"></i> Sign In
+                            </button>
+                            <!-- Verification Code Section (hidden by default) -->
+                            <div id="verificationSection" class="form-group" style="display:none; margin-top: 20px;">
+                                <label for="verificationCode">Verification Code</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-key"></i>
+                                    <input type="text" id="verificationCode" maxlength="6" autocomplete="one-time-code">
+                                    <button type="button" id="resendCodeBtn" class="btn btn-outline" style="margin-left: 10px;">Resend Code</button>
+                                </div>
+                                <small class="helper-text">Enter the code sent to your email. If you didn't receive it, click 'Resend Code'.</small>
+                            </div>
+                            <div class="auth-separator">
+                                <span>OR</span>
+                            </div>
+                            <div class="auth-switch">
+                                <p>Don't have an account? <a href="#" id="showSignUpBtn">Sign Up</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sign Up Form -->
+                    <div id="signUpForm" class="auth-form">
+                        <div class="auth-header">
+                            <i class="fas fa-shield-alt"></i>
+                            <h2>Create Secure Account</h2>
+                        </div>
+                        <div class="auth-body">
+                            <div class="form-group">
+                                <label for="signUpFullName">Full Name</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-id-card"></i>
+                                    <input type="text" id="signUpFullName">
+                                </div>
+                                <small class="helper-text">Your full name will be used for personalized greetings.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="signUpUsername">Username</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" id="signUpUsername">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="signUpEmail">Email Address</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" id="signUpEmail" autocomplete="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
+                                </div>
+                                <small class="helper-text">Please enter a valid email address. This will be used for account verification and recovery.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="signUpPassword">Password</label>
+                                <div class="input-with-icon password-input">
+                                    <i class="fas fa-key"></i>
+                                    <input type="password" id="signUpPassword">
+                                    <i class="fas fa-eye password-toggle" id="signUpPasswordToggle"></i>
+                                </div>
+                                <div class="password-strength">
+                                    <div class="strength-meter">
+                                        <div class="strength-segment"></div>
+                                        <div class="strength-segment"></div>
+                                        <div class="strength-segment"></div>
+                                        <div class="strength-segment"></div>
+                                    </div>
+                                    <span class="strength-text">Password strength</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password</label>
+                                <div class="input-with-icon password-input">
+                                    <i class="fas fa-key"></i>
+                                    <input type="password" id="confirmPassword">
+                                    <i class="fas fa-eye password-toggle" id="confirmPasswordToggle"></i>
+                                </div>
+                            </div>
+                            <div class="form-options">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="agreeTerms">
+                                    <span class="checkmark"></span>
+                                    I agree to the <a href="#" id="showTermsBtn">Terms of Service</a> and <a href="#" id="showPrivacyBtn">Privacy Policy</a>
+                                </label>
+                            </div>
+                            <button type="button" id="signUpBtn" class="btn btn-primary auth-btn">
+                                <i class="fas fa-shield-alt"></i> Create Secure Account
+                            </button>
+                            <div class="auth-separator">
+                                <span>OR</span>
+                            </div>
+                            <div class="auth-switch">
+                                <p>Already have an account? <a href="#" id="showSignInBtn">Sign In</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2025 LESAVOT Advanced Security Systems. All rights reserved.</p>
+                <p>Enterprise-Grade Multimodal Steganographic Information Protection Platform</p>
+                <p><small>CONFIDENTIALITY NOTICE: Unauthorized access or usage is strictly prohibited and may result in legal action.</small></p>
+            </div>
+        </footer>
+
+        <!-- Back to Homepage Button -->
+        <a href="index.html" class="back-to-home">
+            <i class="fas fa-home"></i>
+            <span>Back to Homepage</span>
+        </a>
+    </div>
+
+    <!-- Load Supabase JS from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Make supabase available globally -->
+    <script>
+        window.supabase = supabase;
+    </script>
+
+    <!-- Load our API client and authentication scripts -->
+    <script src="api-client.js"></script>
+    <script src="supabase-auth-fixed.js"></script>
+    <script src="init-auth.js"></script>
+    <script src="auth.js"></script>
+
+    <!-- MFA verification modal -->
+    <div id="mfaModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-shield-alt"></i> Multi-Factor Authentication</h2>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Please enter the verification code from your authenticator app:</p>
+                <div class="form-group">
+                    <div class="input-with-icon">
+                        <i class="fas fa-key"></i>
+                        <input type="text" id="mfaCode" maxlength="6">
+                    </div>
+                </div>
+                <p>Don't have MFA set up yet? <a href="mfa-setup.html">Set up MFA now</a> to enhance your account security.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="verifyMfaBtn" class="btn btn-primary">Verify</button>
+                <button type="button" class="btn btn-outline modal-close-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

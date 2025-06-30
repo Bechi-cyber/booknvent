@@ -1,0 +1,23 @@
+﻿{
+  "name": "lesavot",
+  "version": "1.0.0",
+  "description": "LESAVOT - Advanced Multimodal Steganography Platform",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "build": "echo Static site - no build needed",
+    "dev": "serve .",
+    "preview": "serve ."
+  },
+  "keywords": ["steganography", "security", "encryption", "privacy", "multimodal"],
+  "author": "LESAVOT Advanced Security Systems",
+  "license": "MIT",
+  "homepage": "https://lesavot.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Bechi-cyber/FINAL-LESAVOT.git"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

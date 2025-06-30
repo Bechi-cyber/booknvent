@@ -1,0 +1,263 @@
+{% extends "layout.html" %}
+
+{% block title %}Dashboard - LESAVOT Secure Steganography{% endblock %}
+
+{% block content %}
+<div class="cyber-dashboard">
+    <div class="dashboard-header">
+        <div class="user-profile">
+            <div class="user-avatar">
+                {{ username[0].upper() }}
+            </div>
+            <div class="user-info">
+                <h2>Welcome, {{ username }}</h2>
+                <div class="user-status">
+                    <span class="status-indicator online"></span>
+                    <span class="status-text">Secure Connection</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="security-status">
+            <div class="security-indicator secure">
+                <span class="indicator-icon">🛡️</span>
+                <span class="indicator-text">System Protected</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="cyber-stats">
+        <div class="stat-card">
+            <div class="stat-value">3</div>
+            <div class="stat-label">Steganography Methods</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-value">256</div>
+            <div class="stat-label">Bit Encryption</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-value">99.9%</div>
+            <div class="stat-label">Undetectability</div>
+        </div>
+    </div>
+
+    <h3 class="section-title">Steganography Tools</h3>
+
+    <div class="cyber-tools">
+        <a href="{{ url_for('image') }}" class="tool-card" data-nav>
+            <div class="tool-icon">🖼️</div>
+            <h3>Image Steganography</h3>
+            <p>Hide messages in images using LSB (Least Significant Bit) technique, making them invisible to the naked eye.</p>
+            <div class="tool-footer">
+                <div>
+                    <span class="tool-tag">PNG</span>
+                    <span class="tool-tag">JPG</span>
+                </div>
+                <span class="arrow-icon">→</span>
+            </div>
+        </a>
+
+        <a href="{{ url_for('text') }}" class="tool-card" data-nav>
+            <div class="tool-icon">📝</div>
+            <h3>Text Steganography</h3>
+            <p>Hide messages in text files using whitespace encoding, making them undetectable to casual readers.</p>
+            <div class="tool-footer">
+                <div>
+                    <span class="tool-tag">TXT</span>
+                </div>
+                <span class="arrow-icon">→</span>
+            </div>
+        </a>
+
+        <a href="{{ url_for('audio') }}" class="tool-card" data-nav>
+            <div class="tool-icon">🔊</div>
+            <h3>Audio Steganography</h3>
+            <p>Hide messages in audio files using phase encoding, making them inaudible to listeners.</p>
+            <div class="tool-footer">
+                <div>
+                    <span class="tool-tag">WAV</span>
+                </div>
+                <span class="arrow-icon">→</span>
+            </div>
+        </a>
+    </div>
+
+    <div class="cyber-card activity-card">
+        <div class="card-header">
+            <h2 class="card-title">File Management</h2>
+            <div class="card-actions">
+                <a href="{{ url_for('files') }}" class="cyber-btn" data-nav>View All Files</a>
+            </div>
+        </div>
+
+        <div class="activity-list">
+            <div class="activity-empty">
+                <div class="empty-icon">📁</div>
+                <p>Your recent files will appear here</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .cyber-dashboard {
+        margin-bottom: 3rem;
+    }
+
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        background-color: rgba(10, 25, 41, 0.5);
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem;
+    }
+
+    .user-profile {
+        display: flex;
+        align-items: center;
+    }
+
+    .user-avatar {
+        width: 60px;
+        height: 60px;
+        background-color: var(--cyber-accent);
+        color: var(--cyber-dark);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-right: 1rem;
+        box-shadow: 0 0 15px rgba(0, 180, 216, 0.5);
+    }
+
+    .user-info h2 {
+        margin: 0 0 0.5rem;
+        font-size: 1.5rem;
+    }
+
+    .user-status {
+        display: flex;
+        align-items: center;
+    }
+
+    .status-indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+    }
+
+    .status-indicator.online {
+        background-color: var(--cyber-success);
+        box-shadow: 0 0 10px var(--cyber-success);
+    }
+
+    .status-text {
+        color: var(--cyber-text-secondary);
+        font-size: 0.875rem;
+    }
+
+    .security-status {
+        background-color: rgba(6, 214, 160, 0.1);
+        border: 1px solid var(--cyber-success);
+        border-radius: 50px;
+        padding: 0.5rem 1rem;
+    }
+
+    .security-indicator {
+        display: flex;
+        align-items: center;
+    }
+
+    .indicator-icon {
+        margin-right: 0.5rem;
+    }
+
+    .indicator-text {
+        color: var(--cyber-success);
+        font-weight: 500;
+    }
+
+    .section-title {
+        margin: 3rem 0 1.5rem;
+        color: var(--cyber-text);
+        font-size: 1.5rem;
+        position: relative;
+        padding-left: 1rem;
+    }
+
+    .section-title::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background-color: var(--cyber-accent);
+        border-radius: 2px;
+    }
+
+    .activity-card {
+        margin-top: 2rem;
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card-actions {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .activity-list {
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .activity-empty {
+        text-align: center;
+        color: var(--cyber-text-secondary);
+    }
+
+    .empty-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+    }
+
+    @media (max-width: 768px) {
+        .dashboard-header {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .user-profile {
+            flex-direction: column;
+            margin-bottom: 1.5rem;
+        }
+
+        .user-avatar {
+            margin-right: 0;
+            margin-bottom: 1rem;
+        }
+
+        .user-status {
+            justify-content: center;
+        }
+    }
+</style>
+{% endblock %}

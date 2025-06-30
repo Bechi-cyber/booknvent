@@ -1,0 +1,7 @@
+Add multimodal steganography web application
+
+- Implemented image, text, and audio steganography
+- Added user authentication (signup and login)
+- Created dashboard for easy navigation
+- Added file management system
+- Implemented secure session handling

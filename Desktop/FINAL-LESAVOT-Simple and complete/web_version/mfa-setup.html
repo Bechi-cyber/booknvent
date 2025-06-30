@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LESAVOT - Multi-Factor Authentication Setup</title>
+    <link rel="stylesheet" href="auth.css">
+    <style>
+        .qr-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .qr-code {
+            max-width: 200px;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+        }
+        .secret-key {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+        .verification-container {
+            margin-top: 20px;
+        }
+        .step {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .step h3 {
+            margin-top: 0;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h1>Multi-Factor Authentication Setup</h1>
+            <p>Enhance your account security by setting up multi-factor authentication (MFA).</p>
+            
+            <div id="loginPrompt" class="step">
+                <h3>Step 1: Log In</h3>
+                <p>You need to be logged in to set up MFA.</p>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button id="loginBtn" class="btn-primary">Log In</button>
+                <div id="loginResult" class="result"></div>
+            </div>
+            
+            <div id="mfaSetup" class="step hidden">
+                <h3>Step 2: Set Up Authenticator App</h3>
+                <p>Scan the QR code below with an authenticator app like Google Authenticator, Authy, or Microsoft Authenticator.</p>
+                
+                <div class="qr-container">
+                    <div id="qrCode" class="qr-code">
+                        <p>Loading QR code...</p>
+                    </div>
+                </div>
+                
+                <p>Or manually enter this secret key in your authenticator app:</p>
+                <div id="secretKey" class="secret-key">Loading...</div>
+                
+                <div class="verification-container">
+                    <h3>Step 3: Verify Setup</h3>
+                    <p>Enter the 6-digit code from your authenticator app to verify the setup:</p>
+                    <div class="form-group">
+                        <label for="verificationCode">Verification Code</label>
+                        <input type="text" id="verificationCode" maxlength="6" placeholder="000000" required>
+                    </div>
+                    <button id="verifyBtn" class="btn-primary">Verify and Activate MFA</button>
+                </div>
+                
+                <div id="verifyResult" class="result"></div>
+            </div>
+            
+            <div id="mfaSuccess" class="step hidden">
+                <h3>MFA Successfully Set Up!</h3>
+                <p>Your account is now protected with multi-factor authentication.</p>
+                <p>From now on, you'll need to enter a verification code from your authenticator app when logging in.</p>
+                <button id="doneBtn" class="btn-primary">Done</button>
+            </div>
+            
+            <div class="auth-footer">
+                <a href="auth.html" class="btn-link">Back to Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Supabase JS from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    
+    <script>
+        // Make supabase available globally
+        window.supabase = supabase;
+    </script>
+    <script src="./supabase-auth-fixed.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check if user is already logged in
+            const user = await supabaseAuth.getCurrentUser();
+            if (user) {
+                document.getElementById('loginPrompt').classList.add('hidden');
+                document.getElementById('mfaSetup').classList.remove('hidden');
+                startMFAEnrollment();
+            }
+            
+            // Login button event listener
+            document.getElementById('loginBtn').addEventListener('click', async () => {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                const result = await supabaseAuth.login(email, password);
+                const resultElement = document.getElementById('loginResult');
+                
+                if (result.success) {
+                    resultElement.textContent = 'Login successful. Setting up MFA...';
+                    resultElement.className = 'result success';
+                    
+                    document.getElementById('loginPrompt').classList.add('hidden');
+                    document.getElementById('mfaSetup').classList.remove('hidden');
+                    startMFAEnrollment();
+                } else {
+                    resultElement.textContent = result.message;
+                    resultElement.className = 'result error';
+                }
+            });
+            
+            // Verify button event listener
+            document.getElementById('verifyBtn').addEventListener('click', async () => {
+                const verificationCode = document.getElementById('verificationCode').value;
+                const factorId = localStorage.getItem('mfa_factor_id');
+                const challengeId = localStorage.getItem('mfa_challenge_id');
+                
+                if (!factorId || !challengeId) {
+                    showVerifyResult('MFA setup information missing. Please restart the setup process.', false);
+                    return;
+                }
+                
+                const result = await supabaseAuth.verifyMFA(factorId, challengeId, verificationCode);
+                
+                if (result.success) {
+                    showVerifyResult('MFA verification successful!', true);
+                    document.getElementById('mfaSetup').classList.add('hidden');
+                    document.getElementById('mfaSuccess').classList.remove('hidden');
+                } else {
+                    showVerifyResult(`Verification failed: ${result.message}`, false);
+                }
+            });
+            
+            // Done button event listener
+            document.getElementById('doneBtn').addEventListener('click', () => {
+                window.location.href = 'auth.html';
+            });
+            
+            async function startMFAEnrollment() {
+                try {
+                    // Enroll a new TOTP factor
+                    const enrollResult = await supabaseAuth.enrollMFA();
+                    
+                    if (!enrollResult.success) {
+                        showVerifyResult(`Failed to start MFA enrollment: ${enrollResult.message}`, false);
+                        return;
+                    }
+                    
+                    const { factor } = enrollResult;
+                    
+                    // Store the factor ID for later use
+                    localStorage.setItem('mfa_factor_id', factor.id);
+                    
+                    // Display the QR code
+                    const qrCodeElement = document.getElementById('qrCode');
+                    qrCodeElement.innerHTML = '';
+                    await QRCode.toCanvas(qrCodeElement, factor.totp.qr_code, {
+                        width: 200,
+                        margin: 1
+                    });
+                    
+                    // Display the secret key
+                    document.getElementById('secretKey').textContent = factor.totp.secret;
+                    
+                    // Create a challenge for verification
+                    const challengeResult = await supabaseAuth.challengeMFA(factor.id);
+                    
+                    if (!challengeResult.success) {
+                        showVerifyResult(`Failed to create MFA challenge: ${challengeResult.message}`, false);
+                        return;
+                    }
+                    
+                    // Store the challenge ID for verification
+                    localStorage.setItem('mfa_challenge_id', challengeResult.challenge.id);
+                    
+                } catch (error) {
+                    console.error('Error during MFA enrollment:', error);
+                    showVerifyResult('An unexpected error occurred during MFA setup.', false);
+                }
+            }
+            
+            function showVerifyResult(message, isSuccess) {
+                const resultElement = document.getElementById('verifyResult');
+                resultElement.textContent = message;
+                resultElement.className = isSuccess ? 'result success' : 'result error';
+            }
+        });
+    </script>
+</body>
+</html>

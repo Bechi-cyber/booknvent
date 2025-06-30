@@ -1,0 +1,422 @@
+/* LESAVOT - Cybersecurity-themed Steganography Application
+   Component Styles */
+
+/* Tooltips */
+.cyber-term {
+    position: relative;
+    color: var(--cyber-accent);
+    cursor: help;
+    border-bottom: 1px dashed var(--cyber-accent);
+    display: inline-block;
+}
+
+.cyber-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--cyber-medium);
+    color: var(--cyber-text);
+    padding: 0.75rem;
+    border-radius: 4px;
+    border: 1px solid var(--cyber-accent);
+    box-shadow: 0 0 10px rgba(0, 180, 216, 0.5);
+    width: 250px;
+    font-size: 0.875rem;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.cyber-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: var(--cyber-accent) transparent transparent transparent;
+}
+
+.cyber-tooltip.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Stepper */
+.cyber-stepper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.cyber-stepper::before {
+    content: '';
+    position: absolute;
+    top: 24px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: rgba(0, 180, 216, 0.3);
+    z-index: 1;
+}
+
+.step {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--cyber-medium);
+    border: 2px solid rgba(0, 180, 216, 0.3);
+    color: var(--cyber-text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s;
+}
+
+.step-label {
+    color: var(--cyber-text-secondary);
+    font-size: 0.875rem;
+    transition: color 0.3s;
+}
+
+.step.active .step-number {
+    background-color: var(--cyber-accent);
+    border-color: var(--cyber-accent);
+    color: var(--cyber-dark);
+    box-shadow: 0 0 15px rgba(0, 180, 216, 0.7);
+}
+
+.step.active .step-label {
+    color: var(--cyber-accent);
+    font-weight: 500;
+}
+
+.step.completed .step-number {
+    background-color: var(--cyber-success);
+    border-color: var(--cyber-success);
+    color: var(--cyber-dark);
+}
+
+.step.completed .step-label {
+    color: var(--cyber-success);
+}
+
+.step-content {
+    display: none;
+}
+
+.step-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+.step-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+/* Tabs */
+.cyber-tabs {
+    margin-bottom: 2rem;
+}
+
+.tab-buttons {
+    display: flex;
+    border-bottom: 1px solid rgba(0, 180, 216, 0.3);
+    margin-bottom: 1.5rem;
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    background-color: transparent;
+    border: none;
+    color: var(--cyber-text-secondary);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.tab-btn:hover {
+    color: var(--cyber-text);
+}
+
+.tab-btn.active {
+    color: var(--cyber-accent);
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--cyber-accent);
+    box-shadow: 0 0 8px var(--cyber-accent);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* File upload area */
+.cyber-upload-area {
+    border: 2px dashed rgba(0, 180, 216, 0.3);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+}
+
+.cyber-upload-area:hover {
+    border-color: var(--cyber-accent);
+    background-color: rgba(0, 180, 216, 0.05);
+}
+
+.upload-icon {
+    font-size: 3rem;
+    color: var(--cyber-accent);
+    margin-bottom: 1rem;
+}
+
+.upload-text {
+    color: var(--cyber-text-secondary);
+    margin-bottom: 1rem;
+}
+
+.upload-btn {
+    display: inline-block;
+    background-color: rgba(0, 180, 216, 0.1);
+    color: var(--cyber-accent);
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.upload-btn:hover {
+    background-color: rgba(0, 180, 216, 0.2);
+    box-shadow: 0 0 10px rgba(0, 180, 216, 0.3);
+}
+
+.upload-requirements {
+    font-size: 0.875rem;
+    color: var(--cyber-text-secondary);
+    margin-top: 1rem;
+}
+
+/* File preview */
+.file-preview {
+    margin-top: 1.5rem;
+}
+
+.file-preview-image {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.file-preview-text {
+    background-color: rgba(10, 25, 41, 0.5);
+    border: 1px solid rgba(0, 180, 216, 0.3);
+    border-radius: 4px;
+    padding: 1rem;
+    font-family: var(--font-mono);
+    color: var(--cyber-text);
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
+
+.file-preview-audio {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.file-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.file-name {
+    color: var(--cyber-text);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.file-meta {
+    color: var(--cyber-text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Loading animation */
+.cyber-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.loader-circle {
+    fill: none;
+    stroke: rgba(0, 180, 216, 0.2);
+    stroke-width: 4;
+    stroke-dasharray: 251.2;
+    stroke-dashoffset: 251.2;
+    transform-origin: center;
+    transform: rotate(-90deg);
+    transition: stroke-dashoffset 0.3s;
+}
+
+.loader-hex {
+    fill: none;
+    stroke: var(--cyber-accent);
+    stroke-width: 2;
+    opacity: 0.7;
+}
+
+.loader-percentage {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    fill: var(--cyber-accent);
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+
+.loader-text {
+    color: var(--cyber-text-secondary);
+    margin-top: 1rem;
+    font-size: 0.875rem;
+}
+
+.cyber-loader.complete .loader-circle {
+    stroke: var(--cyber-success);
+}
+
+/* Dashboard stats */
+.cyber-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background-color: rgba(10, 25, 41, 0.5);
+    border: 1px solid rgba(0, 180, 216, 0.2);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 180, 216, 0.2);
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--cyber-accent);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: var(--cyber-text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Tool cards */
+.cyber-tools {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.tool-card {
+    background-color: var(--cyber-card);
+    border: 1px solid rgba(0, 180, 216, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 180, 216, 0.3);
+    border-color: var(--cyber-accent);
+}
+
+.tool-icon {
+    font-size: 3rem;
+    color: var(--cyber-accent);
+    margin-bottom: 1rem;
+}
+
+.tool-card h3 {
+    color: var(--cyber-text);
+    margin-bottom: 0.5rem;
+}
+
+.tool-card p {
+    color: var(--cyber-text-secondary);
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.tool-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.tool-tag {
+    background-color: rgba(0, 180, 216, 0.1);
+    color: var(--cyber-accent);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+.arrow-icon {
+    color: var(--cyber-accent);
+    font-size: 1.25rem;
+    transition: transform 0.3s;
+}
+
+.tool-card:hover .arrow-icon {
+    transform: translateX(5px);
+}

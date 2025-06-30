@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LESAVOT QR Code Download</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #1a3a5f;
+            margin-bottom: 20px;
+        }
+        
+        .qr-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin: 30px auto;
+            max-width: 400px;
+        }
+        
+        .qr-code {
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .url-display {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            word-break: break-all;
+            margin: 20px 0;
+        }
+        
+        .button {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin: 10px 5px;
+        }
+        
+        .button:hover {
+            background-color: #1a3a5f;
+        }
+        
+        .instructions {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: left;
+        }
+        
+        .instructions h2 {
+            color: #1a3a5f;
+            margin-top: 0;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>LESAVOT QR Code</h1>
+    
+    <div class="qr-container">
+        <img id="qrCode" class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://bechi-cyber.github.io/FINAL-LESAVOT/" alt="QR Code for LESAVOT">
+        <div class="url-display">https://bechi-cyber.github.io/FINAL-LESAVOT/</div>
+        <a href="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://bechi-cyber.github.io/FINAL-LESAVOT/" download="LESAVOT-QR-Code.png" class="button">Download QR Code</a>
+        <a href="https://bechi-cyber.github.io/FINAL-LESAVOT/" target="_blank" class="button">Open Application</a>
+    </div>
+    
+    <div class="instructions">
+        <h2>How to Use This QR Code:</h2>
+        <ol>
+            <li><strong>Download the QR Code</strong> by clicking the "Download QR Code" button above.</li>
+            <li><strong>Share the QR Code</strong> with others via email, messaging apps, or print it for physical distribution.</li>
+            <li><strong>Scan the QR Code</strong> with any smartphone camera to access the LESAVOT application.</li>
+            <li><strong>Direct Link:</strong> Alternatively, you can directly access the application at <a href="https://bechi-cyber.github.io/FINAL-LESAVOT/">https://bechi-cyber.github.io/FINAL-LESAVOT/</a></li>
+        </ol>
+    </div>
+    
+    <script>
+        // Add right-click context menu for saving the image
+        document.getElementById('qrCode').addEventListener('contextmenu', function(e) {
+            alert('Right-click and select "Save image as..." to download the QR code');
+        });
+    </script>
+</body>
+</html>

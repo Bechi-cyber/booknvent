@@ -1,0 +1,313 @@
+{% extends "layout.html" %}
+
+{% block title %}Sign Up - LESAVOT Secure Steganography{% endblock %}
+
+{% block content %}
+<div class="cyber-auth-container">
+    <div class="cyber-card auth-card">
+        <div class="card-header">
+            <h2 class="card-title">Create Secure Account</h2>
+            <p>Sign up to access advanced steganography tools</p>
+        </div>
+
+        <form action="{{ url_for('signup') }}" method="post" class="cyber-form">
+            <div class="cyber-form-group">
+                <label for="username" class="cyber-label">Username</label>
+                <div class="input-with-icon">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="username" name="username" class="cyber-input" required>
+                </div>
+            </div>
+
+            <div class="cyber-form-group">
+                <label for="password" class="cyber-label">Password</label>
+                <div class="input-with-icon">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="password" name="password" class="cyber-input" required>
+                </div>
+                <div class="password-strength">
+                    <div class="strength-meter">
+                        <div class="strength-segment"></div>
+                        <div class="strength-segment"></div>
+                        <div class="strength-segment"></div>
+                        <div class="strength-segment"></div>
+                    </div>
+                    <div class="strength-text">Password strength</div>
+                </div>
+            </div>
+
+            <div class="cyber-form-group">
+                <label for="confirm_password" class="cyber-label">Confirm Password</label>
+                <div class="input-with-icon">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="confirm_password" name="confirm_password" class="cyber-input" required>
+                </div>
+            </div>
+
+            <button type="submit" class="cyber-btn full-width">Create Account</button>
+        </form>
+
+        <div class="auth-links">
+            <p>Already have an account? <a href="{{ url_for('login') }}" data-nav>Login</a></p>
+            <p><a href="{{ url_for('index') }}" data-nav>Back to Home</a></p>
+        </div>
+    </div>
+
+    <div class="auth-visual">
+        <div class="security-badge">
+            <div class="badge-icon">🔐</div>
+            <div class="badge-text">Advanced Security</div>
+        </div>
+
+        <div class="security-features">
+            <div class="security-feature">
+                <span class="feature-icon">🛡️</span>
+                <span class="feature-text">Military-grade Encryption</span>
+            </div>
+            <div class="security-feature">
+                <span class="feature-icon">🔍</span>
+                <span class="feature-text">Undetectable Steganography</span>
+            </div>
+            <div class="security-feature">
+                <span class="feature-icon">🔒</span>
+                <span class="feature-text">Secure Password Storage</span>
+            </div>
+            <div class="security-feature">
+                <span class="feature-icon">📱</span>
+                <span class="feature-text">Multi-platform Support</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .cyber-auth-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 2rem auto;
+    }
+
+    .auth-card {
+        padding: 2rem;
+    }
+
+    .auth-links {
+        margin-top: 2rem;
+        text-align: center;
+    }
+
+    .auth-links a {
+        color: var(--cyber-accent);
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+    .auth-links a:hover {
+        text-shadow: 0 0 8px rgba(0, 180, 216, 0.7);
+    }
+
+    .input-with-icon {
+        position: relative;
+    }
+
+    .input-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .cyber-input {
+        padding-left: 3rem;
+    }
+
+    .full-width {
+        width: 100%;
+    }
+
+    .password-strength {
+        margin-top: 0.5rem;
+    }
+
+    .strength-meter {
+        display: flex;
+        gap: 0.25rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .strength-segment {
+        height: 4px;
+        flex: 1;
+        background-color: rgba(0, 180, 216, 0.1);
+        border-radius: 2px;
+    }
+
+    .strength-segment.weak {
+        background-color: var(--cyber-danger);
+    }
+
+    .strength-segment.medium {
+        background-color: var(--cyber-warning);
+    }
+
+    .strength-segment.strong {
+        background-color: var(--cyber-success);
+    }
+
+    .strength-text {
+        font-size: 0.75rem;
+        color: var(--cyber-text-secondary);
+    }
+
+    .auth-visual {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(10, 25, 41, 0.5);
+        border: 1px solid rgba(0, 180, 216, 0.3);
+        border-radius: 12px;
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .auth-visual::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+            linear-gradient(rgba(0, 180, 216, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 180, 216, 0.05) 1px, transparent 1px);
+        background-size: 20px 20px;
+        z-index: 1;
+    }
+
+    .security-badge {
+        background-color: rgba(0, 180, 216, 0.1);
+        border: 1px solid var(--cyber-accent);
+        border-radius: 50px;
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .badge-icon {
+        font-size: 2rem;
+        margin-right: 1rem;
+    }
+
+    .badge-text {
+        color: var(--cyber-accent);
+        font-weight: 600;
+    }
+
+    .security-features {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        position: relative;
+        z-index: 2;
+        width: 100%;
+    }
+
+    .security-feature {
+        display: flex;
+        align-items: center;
+        background-color: rgba(10, 25, 41, 0.8);
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+    }
+
+    .feature-icon {
+        margin-right: 1rem;
+    }
+
+    .feature-text {
+        color: var(--cyber-text);
+    }
+
+    @media (max-width: 768px) {
+        .cyber-auth-container {
+            grid-template-columns: 1fr;
+        }
+
+        .auth-visual {
+            display: none;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Password strength meter
+        const passwordInput = document.getElementById('password');
+        const strengthSegments = document.querySelectorAll('.strength-segment');
+        const strengthText = document.querySelector('.strength-text');
+
+        passwordInput.addEventListener('input', () => {
+            const password = passwordInput.value;
+            let strength = 0;
+
+            // Calculate password strength
+            if (password.length > 0) {
+                // Length check
+                if (password.length >= 8) strength++;
+
+                // Complexity checks
+                if (/[A-Z]/.test(password)) strength++;
+                if (/[0-9]/.test(password)) strength++;
+                if (/[^A-Za-z0-9]/.test(password)) strength++;
+            }
+
+            // Update UI
+            strengthSegments.forEach((segment, index) => {
+                segment.classList.remove('weak', 'medium', 'strong');
+
+                if (index < strength) {
+                    if (strength === 1) segment.classList.add('weak');
+                    else if (strength === 2 || strength === 3) segment.classList.add('medium');
+                    else segment.classList.add('strong');
+                }
+            });
+
+            // Update text
+            if (password.length === 0) {
+                strengthText.textContent = 'Password strength';
+            } else if (strength === 1) {
+                strengthText.textContent = 'Weak password';
+            } else if (strength === 2) {
+                strengthText.textContent = 'Medium password';
+            } else if (strength === 3) {
+                strengthText.textContent = 'Good password';
+            } else {
+                strengthText.textContent = 'Strong password';
+            }
+        });
+
+        // Password confirmation check
+        const confirmInput = document.getElementById('confirm_password');
+
+        confirmInput.addEventListener('input', () => {
+            if (passwordInput.value === confirmInput.value) {
+                confirmInput.style.borderColor = 'var(--cyber-success)';
+            } else {
+                confirmInput.style.borderColor = 'var(--cyber-danger)';
+            }
+        });
+    });
+</script>
+{% endblock %}

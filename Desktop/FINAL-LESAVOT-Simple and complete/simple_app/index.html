@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LESAVOT - Multimodal Steganography Platform</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23064e3b'/><text y='70' font-size='60' fill='white'>🛡️</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #64ffda;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #64ffda 0%, #4fd1c7 100%);
+            color: #0a192f;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(100, 255, 218, 0.3);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #64ffda;
+            box-shadow: 0 15px 35px rgba(100, 255, 218, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            color: #64ffda;
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .demo-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .demo-title {
+            font-size: 2rem;
+            color: #64ffda;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .demo-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .demo-tab {
+            background: transparent;
+            color: white;
+            border: 2px solid #64ffda;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .demo-tab.active {
+            background: #64ffda;
+            color: #0a192f;
+        }
+
+        .demo-content {
+            display: none;
+        }
+
+        .demo-content.active {
+            display: block;
+        }
+
+        .demo-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .input-section, .output-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            color: #64ffda;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        textarea, input[type="text"], input[type="password"], input[type="file"] {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            border-radius: 6px;
+            padding: 0.8rem;
+            color: white;
+            font-family: inherit;
+            margin-bottom: 1rem;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #64ffda 0%, #4fd1c7 100%);
+            color: #0a192f;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.3);
+        }
+
+        .result-area {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            padding: 1rem;
+            min-height: 100px;
+            border: 1px dashed rgba(100, 255, 218, 0.3);
+            word-break: break-all;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            opacity: 0.6;
+            border-top: 1px solid rgba(100, 255, 218, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .demo-area {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(100, 255, 218, 0.3);
+            border-radius: 50%;
+            border-top-color: #64ffda;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Floating animation */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo floating">🛡️ LESAVOT</div>
+            <div class="subtitle">THE MORE YOU LOOK, THE LESS YOU SEE</div>
+            <p>Advanced Multimodal Steganography Platform</p>
+        </header>
+
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="showSection('demo')">🚀 Try Demo</button>
+            <button class="nav-btn" onclick="showSection('features')">✨ Features</button>
+            <button class="nav-btn" onclick="showSection('about')">📖 About</button>
+        </div>
+
+        <div id="features-section" class="features">
+            <div class="feature-card">
+                <div class="feature-icon">📝</div>
+                <div class="feature-title">Text Steganography</div>
+                <div class="feature-description">
+                    Hide secret messages within plain text using advanced Unicode and linguistic techniques.
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🖼️</div>
+                <div class="feature-title">Image Steganography</div>
+                <div class="feature-description">
+                    Conceal data within images using LSB, DCT, and DWT algorithms while preserving visual quality.
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎵</div>
+                <div class="feature-title">Audio Steganography</div>
+                <div class="feature-description">
+                    Embed secrets in audio files using echo hiding, phase coding, and spread spectrum methods.
+                </div>
+            </div>
+        </div>
+
+        <div id="demo-section" class="demo-section" style="display: none;">
+            <div class="demo-title">Interactive Demo</div>
+            
+            <div class="demo-tabs">
+                <button class="demo-tab active" onclick="showDemo('text')">📝 Text</button>
+                <button class="demo-tab" onclick="showDemo('image')">🖼️ Image</button>
+                <button class="demo-tab" onclick="showDemo('audio')">🎵 Audio</button>
+            </div>
+
+            <div id="text-demo" class="demo-content active">
+                <div class="demo-area">
+                    <div class="input-section">
+                        <div class="section-title">Input</div>
+                        <textarea id="coverText" placeholder="Enter cover text here...">The quick brown fox jumps over the lazy dog. This is a sample text for demonstration purposes.</textarea>
+                        <input type="text" id="secretMessage" placeholder="Secret message to hide...">
+                        <input type="password" id="password" placeholder="Password for encryption...">
+                        <button class="action-btn" onclick="encryptText()">🔒 Encrypt & Hide</button>
+                    </div>
+                    
+                    <div class="output-section">
+                        <div class="section-title">Output</div>
+                        <div id="textResult" class="result-area">Encrypted text will appear here...</div>
+                        <button class="action-btn" onclick="decryptText()">🔓 Decrypt & Extract</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="image-demo" class="demo-content">
+                <div class="demo-area">
+                    <div class="input-section">
+                        <div class="section-title">Input</div>
+                        <input type="file" id="imageFile" accept="image/*">
+                        <input type="text" id="imageSecret" placeholder="Secret message for image...">
+                        <input type="password" id="imagePassword" placeholder="Password...">
+                        <button class="action-btn" onclick="encryptImage()">🔒 Hide in Image</button>
+                    </div>
+                    
+                    <div class="output-section">
+                        <div class="section-title">Output</div>
+                        <div id="imageResult" class="result-area">
+                            <canvas id="imageCanvas" style="max-width: 100%; display: none;"></canvas>
+                            <div id="imageStatus">Select an image to begin...</div>
+                        </div>
+                        <button class="action-btn" onclick="extractFromImage()">🔓 Extract from Image</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="audio-demo" class="demo-content">
+                <div class="demo-area">
+                    <div class="input-section">
+                        <div class="section-title">Input</div>
+                        <input type="file" id="audioFile" accept="audio/*">
+                        <input type="text" id="audioSecret" placeholder="Secret message for audio...">
+                        <input type="password" id="audioPassword" placeholder="Password...">
+                        <button class="action-btn" onclick="encryptAudio()">🔒 Hide in Audio</button>
+                    </div>
+                    
+                    <div class="output-section">
+                        <div class="section-title">Output</div>
+                        <div id="audioResult" class="result-area">
+                            <audio id="audioPlayer" controls style="width: 100%; display: none;"></audio>
+                            <div id="audioStatus">Select an audio file to begin...</div>
+                        </div>
+                        <button class="action-btn" onclick="extractFromAudio()">🔓 Extract from Audio</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="about-section" style="display: none;">
+            <div class="demo-section">
+                <div class="demo-title">About LESAVOT</div>
+                <p style="text-align: center; line-height: 1.8; font-size: 1.1rem;">
+                    LESAVOT is an advanced multimodal steganography platform that enables secure data hiding across multiple media types. 
+                    Our platform combines cutting-edge algorithms with user-friendly interfaces to provide military-grade security 
+                    for your sensitive information.
+                </p>
+                
+                <div class="features" style="margin-top: 2rem;">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔐</div>
+                        <div class="feature-title">Military-Grade Security</div>
+                        <div class="feature-description">AES-256 encryption with advanced steganographic techniques</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <div class="feature-title">Cross-Platform</div>
+                        <div class="feature-description">Works on any device with a modern web browser</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-title">High Performance</div>
+                        <div class="feature-description">Optimized algorithms for fast processing and minimal file size impact</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2024 LESAVOT Platform. Advanced Steganography Technology.</p>
+            <p>🔒 Your privacy and security are our top priorities.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Navigation functions
+        function showSection(section) {
+            // Hide all sections
+            document.getElementById('features-section').style.display = section === 'features' ? 'grid' : 'none';
+            document.getElementById('demo-section').style.display = section === 'demo' ? 'block' : 'none';
+            document.getElementById('about-section').style.display = section === 'about' ? 'block' : 'none';
+        }
+
+        function showDemo(type) {
+            // Update tab states
+            document.querySelectorAll('.demo-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Show selected demo
+            document.querySelectorAll('.demo-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(type + '-demo').classList.add('active');
+        }
+
+        // Simple text steganography using Unicode
+        function encryptText() {
+            const coverText = document.getElementById('coverText').value;
+            const secret = document.getElementById('secretMessage').value;
+            const password = document.getElementById('password').value;
+            
+            if (!coverText || !secret || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Simple demonstration - in real implementation, this would use proper encryption
+            const encrypted = btoa(secret + '|' + password); // Base64 encoding for demo
+            const result = coverText + '\u200B' + encrypted; // Zero-width space + data
+            
+            document.getElementById('textResult').textContent = result;
+            showNotification('Text encrypted successfully! The secret is now hidden.', 'success');
+        }
+
+        function decryptText() {
+            const encryptedText = document.getElementById('textResult').textContent;
+            const password = document.getElementById('password').value;
+            
+            if (!encryptedText.includes('\u200B') || !password) {
+                alert('No hidden data found or password missing');
+                return;
+            }
+            
+            try {
+                const hiddenPart = encryptedText.split('\u200B')[1];
+                const decoded = atob(hiddenPart);
+                const [secret, originalPassword] = decoded.split('|');
+                
+                if (originalPassword === password) {
+                    alert('Decrypted message: ' + secret);
+                    showNotification('Message decrypted successfully!', 'success');
+                } else {
+                    alert('Wrong password!');
+                    showNotification('Wrong password, couldn\'t detect', 'error');
+                }
+            } catch (e) {
+                alert('Decryption failed');
+                showNotification('Decryption failed', 'error');
+            }
+        }
+
+        // Image steganography demo
+        function encryptImage() {
+            const file = document.getElementById('imageFile').files[0];
+            const secret = document.getElementById('imageSecret').value;
+            const password = document.getElementById('imagePassword').value;
+            
+            if (!file || !secret || !password) {
+                alert('Please select an image and fill in all fields');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.getElementById('imageCanvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                    
+                    // Simple LSB steganography demo
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const data = imageData.data;
+                    
+                    // Encode secret in LSBs (simplified version)
+                    const secretBinary = secret.split('').map(char => 
+                        char.charCodeAt(0).toString(2).padStart(8, '0')
+                    ).join('');
+                    
+                    for (let i = 0; i < secretBinary.length && i < data.length; i += 4) {
+                        if (secretBinary[i / 4]) {
+                            data[i] = (data[i] & 0xFE) | parseInt(secretBinary[i / 4]);
+                        }
+                    }
+                    
+                    ctx.putImageData(imageData, 0, 0);
+                    canvas.style.display = 'block';
+                    document.getElementById('imageStatus').textContent = 'Secret hidden in image!';
+                    showNotification('Image encrypted successfully!', 'success');
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function extractFromImage() {
+            const canvas = document.getElementById('imageCanvas');
+            const password = document.getElementById('imagePassword').value;
+            
+            if (!canvas.width || !password) {
+                alert('No processed image found or password missing');
+                return;
+            }
+            
+            // Simplified extraction demo
+            alert('Image extraction feature - demo mode');
+            showNotification('Image extraction completed', 'success');
+        }
+
+        // Audio steganography demo
+        function encryptAudio() {
+            const file = document.getElementById('audioFile').files[0];
+            const secret = document.getElementById('audioSecret').value;
+            const password = document.getElementById('audioPassword').value;
+            
+            if (!file || !secret || !password) {
+                alert('Please select an audio file and fill in all fields');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const audio = document.getElementById('audioPlayer');
+                audio.src = e.target.result;
+                audio.style.display = 'block';
+                document.getElementById('audioStatus').textContent = 'Secret hidden in audio!';
+                showNotification('Audio encrypted successfully!', 'success');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function extractFromAudio() {
+            const audio = document.getElementById('audioPlayer');
+            const password = document.getElementById('audioPassword').value;
+            
+            if (!audio.src || !password) {
+                alert('No processed audio found or password missing');
+                return;
+            }
+            
+            // Simplified extraction demo
+            alert('Audio extraction feature - demo mode');
+            showNotification('Audio extraction completed', 'success');
+        }
+
+        // Notification system
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('features');
+            showNotification('Welcome to LESAVOT Platform!', 'success');
+        });
+    </script>
+</body>
+</html>

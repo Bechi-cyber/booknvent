@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LESAVOT | Image Operation History</title>
+    <link rel="stylesheet" href="text_stego.css">
+    <link rel="stylesheet" href="cybersecurity_elements.css">
+    <link rel="stylesheet" href="snowy_raindrops.css">
+    <link rel="stylesheet" href="history.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="header-container">
+                <div class="logo">
+                    <i class="fas fa-shield-alt logo-icon"></i>
+                    <span class="logo-text">LESAVOT</span>
+                </div>
+                <div class="subtitle">THE MORE YOU LOOK, THE LESS YOU SEE</div>
+            </div>
+            <div class="user-info" id="userInfo">
+                <span id="welcomeMessage">Welcome</span>
+                <div class="user-actions">
+                    <a href="profile.html" class="btn-icon" title="Profile">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <a href="auth.html" class="btn-icon active-logout" title="Sign Out" id="signOutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+        <div class="tab-navigation">
+            <button type="button" class="tab-btn" onclick="window.location.href='history_text.html'">
+                <i class="fas fa-font"></i>
+                <span>Text History</span>
+            </button>
+            <button type="button" class="tab-btn active">
+                <i class="fas fa-image"></i>
+                <span>Image History</span>
+            </button>
+            <button type="button" class="tab-btn" onclick="window.location.href='history_audio.html'">
+                <i class="fas fa-volume-up"></i>
+                <span>Audio History</span>
+            </button>
+        </div>
+        <div id="notificationArea"></div>
+        <main>
+            <div class="content-container">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-history"></i>
+                        <h2>Image Operation History</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="history-table-container">
+                            <table class="history-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Mode</th>
+                                        <th>Password</th>
+                                        <th>File</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="historyTableBody">
+                                    <tr class="loading-row">
+                                        <td colspan="5">Loading history...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+    // Image history page logic
+    const historyTableBody = document.getElementById('historyTableBody');
+    function loadImageHistory() {
+        historyTableBody.innerHTML = `<tr class='loading-row'><td colspan='5'>Loading history...</td></tr>`;
+        let username = '';
+        if (typeof window.userAuth !== 'undefined' && window.userAuth) {
+            const currentUser = window.userAuth.getCurrentUser();
+            if (currentUser) username = currentUser.username;
+        }
+        if (!username) username = localStorage.getItem('username') || 'guest';
+        const key = `lesavot_history_${username}_image`;
+        const history = JSON.parse(localStorage.getItem(key) || '[]');
+        if (!history.length) {
+            historyTableBody.innerHTML = `<tr class='empty-row'><td colspan='5'><i class='fas fa-history'></i> No image operation history found.</td></tr>`;
+            return;
+        }
+        historyTableBody.innerHTML = '';
+        history.forEach(entry => {
+            const date = new Date(entry.timestamp || entry.created_at).toLocaleString();
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${date}</td>
+                <td>${entry.mode}</td>
+                <td>${entry.hasPassword ? 'Yes' : 'No'}</td>
+                <td>${entry.fileName || ''}</td>
+                <td>${entry.summary || ''}</td>
+            `;
+            historyTableBody.appendChild(row);
+        });
+    }
+    document.addEventListener('DOMContentLoaded', loadImageHistory);
+    </script>
+</body>
+</html>

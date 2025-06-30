@@ -1,0 +1,195 @@
+{% extends "layout.html" %}
+
+{% block title %}Login - LESAVOT Secure Steganography{% endblock %}
+
+{% block content %}
+<div class="cyber-auth-container">
+    <div class="cyber-card auth-card">
+        <div class="card-header">
+            <h2 class="card-title">Secure Login</h2>
+            <p>Enter your credentials to access your steganography workspace</p>
+        </div>
+
+        <form action="{{ url_for('login') }}" method="post" class="cyber-form">
+            <div class="cyber-form-group">
+                <label for="username" class="cyber-label">Username</label>
+                <div class="input-with-icon">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="username" name="username" class="cyber-input" required>
+                </div>
+            </div>
+
+            <div class="cyber-form-group">
+                <label for="password" class="cyber-label">Password</label>
+                <div class="input-with-icon">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="password" name="password" class="cyber-input" required>
+                </div>
+            </div>
+
+            <button type="submit" class="cyber-btn full-width">Login</button>
+        </form>
+
+        <div class="auth-links">
+            <p>Don't have an account? <a href="{{ url_for('signup') }}" data-nav>Sign up</a></p>
+            <p><a href="{{ url_for('index') }}" data-nav>Back to Home</a></p>
+        </div>
+    </div>
+
+    <div class="auth-visual">
+        <div class="security-badge">
+            <div class="badge-icon">🛡️</div>
+            <div class="badge-text">Secure Connection</div>
+        </div>
+
+        <div class="security-features">
+            <div class="security-feature">
+                <span class="feature-icon">🔐</span>
+                <span class="feature-text">End-to-End Encryption</span>
+            </div>
+            <div class="security-feature">
+                <span class="feature-icon">👁️‍🗨️</span>
+                <span class="feature-text">Zero Knowledge Architecture</span>
+            </div>
+            <div class="security-feature">
+                <span class="feature-icon">🔍</span>
+                <span class="feature-text">Intrusion Detection</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .cyber-auth-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 2rem auto;
+    }
+
+    .auth-card {
+        padding: 2rem;
+    }
+
+    .auth-links {
+        margin-top: 2rem;
+        text-align: center;
+    }
+
+    .auth-links a {
+        color: var(--cyber-accent);
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+    .auth-links a:hover {
+        text-shadow: 0 0 8px rgba(0, 180, 216, 0.7);
+    }
+
+    .input-with-icon {
+        position: relative;
+    }
+
+    .input-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .cyber-input {
+        padding-left: 3rem;
+    }
+
+    .full-width {
+        width: 100%;
+    }
+
+    .auth-visual {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(10, 25, 41, 0.5);
+        border: 1px solid rgba(0, 180, 216, 0.3);
+        border-radius: 12px;
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .auth-visual::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+            linear-gradient(rgba(0, 180, 216, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 180, 216, 0.05) 1px, transparent 1px);
+        background-size: 20px 20px;
+        z-index: 1;
+    }
+
+    .security-badge {
+        background-color: rgba(6, 214, 160, 0.1);
+        border: 1px solid var(--cyber-success);
+        border-radius: 50px;
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .badge-icon {
+        font-size: 2rem;
+        margin-right: 1rem;
+    }
+
+    .badge-text {
+        color: var(--cyber-success);
+        font-weight: 600;
+    }
+
+    .security-features {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .security-feature {
+        display: flex;
+        align-items: center;
+        background-color: rgba(10, 25, 41, 0.8);
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+    }
+
+    .feature-icon {
+        margin-right: 1rem;
+    }
+
+    .feature-text {
+        color: var(--cyber-text);
+    }
+
+    @media (max-width: 768px) {
+        .cyber-auth-container {
+            grid-template-columns: 1fr;
+        }
+
+        .auth-visual {
+            display: none;
+        }
+    }
+</style>
+{% endblock %}

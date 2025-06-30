@@ -1,0 +1,421 @@
+/* LESAVOT - Floating Cybersecurity Logos Animation */
+
+/* Container for the floating logos */
+.floating-logos-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Individual logo styles */
+.floating-logo {
+    position: absolute;
+    opacity: 0.35; /* Increased opacity for better visibility */
+    filter: drop-shadow(0 0 8px rgba(100, 255, 218, 0.5));
+    animation-timing-function: ease-out;
+    animation-iteration-count: infinite;
+    z-index: 0;
+    bottom: -50px; /* Start below the visible area */
+}
+
+/* Logo 1 - Shield */
+.logo-1 {
+    width: 40px;
+    height: 40px;
+    top: 20%;
+    left: 10%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDFMMyA1djZjMCA1LjU1IDMuODQgMTAuNzQgOSAxMiA1LjE2LTEuMjYgOS02LjQ1IDktMTJWNWwtOS00em0wIDJsMSAuNDVWMTFoNnYxYzAgNC40Mi0zLjEgOC4yNC03LjMgOS4yNy00LjItMS4wMy03LjMtNC44NS03LjMtOS4yN3YtMWg2VjMuNWw2LTIuNXptLTEgNVY1aDJ2M2gzdjJoLTN2M2gtMnYtM0g4VjhoM3oiIGZpbGw9IiM0YTkwZTIiLz48L3N2Zz4=');
+    background-repeat: no-repeat;
+    animation-name: float-1;
+    animation-duration: 15s;
+}
+
+/* Logo 2 - Lock */
+.logo-2 {
+    width: 35px;
+    height: 35px;
+    top: 30%;
+    right: 15%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDFDOC42ODYgMSA2IDMuNjg2IDYgN3Y0SDRjLTEuMTA1IDAtMiAuODk1LTIgMnY4YzAgMS4xMDUuODk1IDIgMiAyaDE2YzEuMTA1IDAgMi0uODk1IDItMnYtOGMwLTEuMTA1LS44OTUtMi0yLTJoLTJWN2MwLTMuMzE0LTIuNjg2LTYtNi02em0wIDJjMi4yMSAwIDQgMS43OSA0IDR2NGgtOFY3YzAtMi4yMSAxLjc5LTQgNC00em0wIDEzYTIgMiAwIDEgMCAwLTQgMiAyIDAgMCAwIDAgNHoiIGZpbGw9IiMzOGExNjkiLz48L3N2Zz4=');
+    background-repeat: no-repeat;
+    animation-name: float-2;
+    animation-duration: 18s;
+}
+
+/* Logo 3 - Fingerprint */
+.logo-3 {
+    width: 45px;
+    height: 45px;
+    bottom: 25%;
+    left: 20%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyYzAgNS41MiA0LjQ4IDEwIDEwIDEwczEwLTQuNDggMTAtMTBjMC01LjUyLTQuNDgtMTAtMTAtMTB6bTAgMmM0LjQyIDAgOCAzLjU4IDggOCAwIDEuNjUtLjUgMy4xOC0xLjM2IDQuNDRsLTEuMjMtMS4yM2MuNTctLjk1LjktMi4wNS45LTMuMjEgMC0zLjU5LTIuOTEtNi41LTYuNS02LjVTNS41IDguNDEgNS41IDEyYzAgMS4yMS4zMyAyLjMxLjkgMy4yN2wtMS4yMyAxLjIzQzQuNSAxNS4xOCA0IDEzLjY1IDQgMTJjMC00LjQyIDMuNTgtOCA4LTh6bTAgNGMtMi4yMSAwLTQgMS43OS00IDRzMS43OSA0IDQgNCA0LTEuNzkgNC00LTEuNzktNC00LTR6bS0xLjUgMS41YzAgLjgzLjY3IDEuNSAxLjUgMS41czEuNS0uNjcgMS41LTEuNS0uNjctMS41LTEuNS0xLjUtMS41LjY3LTEuNSAxLjV6IiBmaWxsPSIjZWNjOTRiIi8+PC9zdmc+');
+    background-repeat: no-repeat;
+    animation-name: float-3;
+    animation-duration: 20s;
+}
+
+/* Logo 4 - Key */
+.logo-4 {
+    width: 38px;
+    height: 38px;
+    bottom: 35%;
+    right: 25%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTIyIDEyYzAgNS41Mi00LjQ4IDEwLTEwIDEwUzIgMTcuNTIgMiAxMiA2LjQ4IDIgMTIgMnMxMCA0LjQ4IDEwIDEwek0xNSA2aC0zdjEwaDNWNnptLTYgNEg2djZoM3YtNnoiIGZpbGw9IiNlNTNlM2UiLz48L3N2Zz4=');
+    background-repeat: no-repeat;
+    animation-name: float-4;
+    animation-duration: 17s;
+}
+
+/* Logo 5 - Network */
+.logo-5 {
+    width: 42px;
+    height: 42px;
+    top: 15%;
+    left: 40%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyaDNjMC00Ljk3IDQuMDMtOSA5LTlzOSA0LjAzIDkgOWMwIDQuOTctNC4wMyA5LTkgOXYzYzUuNTIgMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptMCA1Yy0yLjc2IDAtNSAyLjI0LTUgNXMyLjI0IDUgNSA1IDUtMi4yNCA1LTUtMi4yNC01LTUtNXptMC0yYzMuODcgMCA3IDMuMTMgNyA3cy0zLjEzIDctNyA3LTctMy4xMy03LTcgMy4xMy03IDctN3oiIGZpbGw9IiM0YTkwZTIiLz48L3N2Zz4=');
+    background-repeat: no-repeat;
+    animation-name: float-5;
+    animation-duration: 22s;
+}
+
+/* Logo 6 - Code */
+.logo-6 {
+    width: 36px;
+    height: 36px;
+    top: 40%;
+    left: 70%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTggMTZoOHYySDh6bTAgNGg4djJIOHptOC0xMi41VjRsNC40IDQuNEwxNiAxMi41bDQuNC00LjRMMTYgMy42VjBoLTR2NGgtNHY0aDR2NGg0di00aDR2LTRoLTR6IiBmaWxsPSIjMzhhMTY5Ii8+PC9zdmc+');
+    background-repeat: no-repeat;
+    animation-name: float-6;
+    animation-duration: 19s;
+}
+
+/* Logo 7 - Database */
+.logo-7 {
+    width: 40px;
+    height: 40px;
+    bottom: 15%;
+    right: 40%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNC45MSAyIDguNXY3QzIgMTkuMDkgNi40OCAyMiAxMiAyMnMxMC0yLjkxIDEwLTYuNXYtN0MyMiA0LjkxIDE3LjUyIDIgMTIgMnptMCAyYzUuNTIgMCA4IDIuNjYgOCA0LjVTMTcuNTIgMTMgMTIgMTMgNCAxMC4zNCA0IDguNSA2LjQ4IDQgMTIgNHpNMTIgMjBjLTUuNTIgMC04LTIuNjYtOC00LjV2LTNjMS45NiAxLjY1IDQuODggMi41IDggMi41czYuMDQtLjg1IDgtMi41djNjMCAxLjg0LTIuNDggNC41LTggNC41eiIgZmlsbD0iI2VjYzk0YiIvPjwvc3ZnPg==');
+    background-repeat: no-repeat;
+    animation-name: float-7;
+    animation-duration: 16s;
+}
+
+/* Logo 8 - Server */
+.logo-8 {
+    width: 38px;
+    height: 38px;
+    bottom: 30%;
+    left: 60%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTQgMWgxNmEyIDIgMCAwIDEgMiAydjE4YTIgMiAwIDAgMS0yIDJINGEyIDIgMCAwIDEtMi0yVjNhMiAyIDAgMCAxIDItMnptMCAydjRoMTZWM0g0em0wIDZ2NGgxNlY5SDR6bTAgNnY0aDE2di00SDR6TTYgNWgxMHYxSDZ6bTAgNmgxMHYxSDZ6bTAgNmgxMHYxSDZ6IiBmaWxsPSIjZTUzZTNlIi8+PC9zdmc+');
+    background-repeat: no-repeat;
+    animation-name: float-8;
+    animation-duration: 21s;
+}
+
+/* Logo 9 - Cloud */
+.logo-9 {
+    width: 42px;
+    height: 42px;
+    bottom: 10%;
+    left: 15%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE5LjM1IDEwLjA0QzE4LjY3IDYuNTkgMTUuNjQgNCAxMiA0IDkuMTEgNCA2LjYgNS42NCA1LjM1IDguMDQgMi4zNCA4LjM2IDAgMTAuOTEgMCAxNGMwIDMuMzEgMi42OSA2IDYgNmgxM2MyLjc2IDAgNS0yLjI0IDUtNSAwLTIuNjQtMi4wNS00LjgtNC42NS00Ljk2eiIgZmlsbD0iIzRhOTBlMiIvPjwvc3ZnPg==');
+    background-repeat: no-repeat;
+    animation-name: float-9;
+    animation-duration: 19s;
+}
+
+/* Logo 10 - Wifi */
+.logo-10 {
+    width: 36px;
+    height: 36px;
+    bottom: 5%;
+    left: 35%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEgOWwzIDNjNC45Ny00Ljk3IDEzLjAzLTQuOTcgMTggMGwzLTNDMTYuOTMgMC45MyA3LjA4IDAuOTMgMSA5em04IDhjMS42Ni0xLjY2IDQuMzQtMS42NiA2IDBsMy0zYy0zLjMzLTMuMzMtOC42Ny0zLjMzLTEyIDBsMy0zem00IDRjMC0xLjEtLjktMi0yLTJzLTIgLjktMiAyIC45IDIgMiAyIDItLjkgMi0yeiIgZmlsbD0iIzM4YTE2OSIvPjwvc3ZnPg==');
+    background-repeat: no-repeat;
+    animation-name: float-10;
+    animation-duration: 17s;
+}
+
+/* Logo 11 - Encryption */
+.logo-11 {
+    width: 40px;
+    height: 40px;
+    bottom: 15%;
+    left: 80%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE4IDhoLTFWNmMwLTIuNzYtMi4yNC01LTUtNVM3IDMuMjQgNyA2djJINmMtMS4xIDAtMiAuOS0yIDJ2MTBjMCAxLjEuOSAyIDIgMmgxMmMxLjEgMCAyLS45IDItMlYxMGMwLTEuMS0uOS0yLTItMnptLTYgOWMtMS4xIDAtMi0uOS0yLTJzLjktMiAyLTIgMiAuOSAyIDItLjkgMi0yIDJ6bTMuMS05SDguOVY2YzAtMS43MSAxLjM5LTMuMSAzLjEtMy4xIDEuNzEgMCAzLjEgMS4zOSAzLjEgMy4xdjJ6IiBmaWxsPSIjZWNjOTRiIi8+PC9zdmc+');
+    background-repeat: no-repeat;
+    animation-name: float-11;
+    animation-duration: 22s;
+}
+
+/* Logo 12 - Firewall */
+.logo-12 {
+    width: 38px;
+    height: 38px;
+    bottom: 20%;
+    left: 50%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDFMMyA1djZjMCA1LjU1IDMuODQgMTAuNzQgOSAxMiA1LjE2LTEuMjYgOS02LjQ1IDktMTJWNWwtOS00em0wIDEwLjk5aDdjLS41MyA0LjEyLTMuMjggNy43OS03IDguOTRWMTJIMy45OVY2LjNsOC4wMS0zLjR2OS4wOXoiIGZpbGw9IiNlNTNlM2UiLz48L3N2Zz4=');
+    background-repeat: no-repeat;
+    animation-name: float-12;
+    animation-duration: 18s;
+}
+
+/* Logo 13 - VPN */
+.logo-13 {
+    width: 44px;
+    height: 44px;
+    bottom: 8%;
+    left: 65%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgMThjLTQuNDIgMC04LTMuNTgtOC04czMuNTgtOCA4LTggOCAzLjU4IDggOC0zLjU4IDgtOCA4ek0xMSA1aDJ2MTRoLTJWNXptLTYgNmgxNHYySDVWMTF6IiBmaWxsPSIjNGE5MGUyIi8+PC9zdmc+');
+    background-repeat: no-repeat;
+    animation-name: float-13;
+    animation-duration: 20s;
+}
+
+/* Logo 14 - Password */
+.logo-14 {
+    width: 36px;
+    height: 36px;
+    bottom: 12%;
+    left: 25%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTIxIDEwVjhjMC0xLjEtLjktMi0yLTJoLTN2Mkg3VjZINGMtMS4xIDAtMiAuOS0yIDJ2MmMtMS4xIDAtMiAuOS0yIDJ2OGMwIDEuMS45IDIgMiAyaDE2YzEuMSAwIDItLjkgMi0ydi04YzAtMS4xLS45LTItMi0yem0tNS0yaDJ2Mkg0VjhoMTJ6bTUgMTJINFYxMmgxNnY4em0tNi0xYzEuMS4wIDItLjkgMi0ycy0uOS0yLTItMi0yIC45LTIgMiAuOSAyIDIgMnoiIGZpbGw9IiMzOGExNjkiLz48L3N2Zz4=');
+    background-repeat: no-repeat;
+    animation-name: float-14;
+    animation-duration: 16s;
+}
+
+/* Logo 15 - Biometric */
+.logo-15 {
+    width: 40px;
+    height: 40px;
+    bottom: 18%;
+    left: 5%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE3LjgxIDQuNDdjLS4wOCAwLS4xNi0uMDItLjIzLS4wNkMxNS42NiAzLjQyIDE0IDMgMTIuMDEgM2MtMS45OCAwLTMuODYuNDctNS41NyAxLjQxLS4yNC4xMy0uNTQuMDQtLjY4LS4yLS4xMy0uMjQtLjA0LS41NS4yLS42OEMxNy44MSAyLjUzIDE5LjgxIDIgMTIuMDEgMmMtMi4yNCAwLTQuMDguNDUtNS40NiAxLjMyLS4yMi4xMy0uNS4wNi0uNjMtLjE2LS4xNC0uMjMtLjA3LS41MS4xNi0uNjVDNy43NyAxLjgyIDkuNzYgMSAxMi4wMSAxYzIuMjMgMCA0LjI1LjQ3IDYuMDEgMS4zOC4yNC4xMy4zMy40My4yLjY3LS4wOS4xOC0uMjYuMjgtLjQzLjI4ek0zLjUgOS43MmMtLjEgMC0uMi0uMDMtLjI5LS4wOS0uMjMtLjE2LS4yOC0uNDctLjEyLS43Ljk5LTEuNCAxLjM4LTIuNDUgMS42NC0zLjA1LjE4LS40Mi4zNi0uODEuNzEtMS4yLjMzLS4zNy45MS0uNTUgMS41LS41NWguMDJjLjYgMCAxLjE5LjE4IDEuNTMuNTUuMzQuMzcuNTMuNzYuNzEgMS4xOS4yNi42LjY2IDEuNjUgMS42NCAzLjA2LjE2LjIzLjExLjU0LS4xMi43LS4yMy4xNi0uNTQuMTEtLjcxLS4xMi0uOTYtMS4zNy0xLjM0LTIuMzYtMS41OS0yLjk0LS4xNi0uMzctLjMyLS43LS41MS0uOTEtLjE5LS4yMS0uNDktLjMxLS44LS4zMWgtLjAxYy0uMzEgMC0uNi4xLS43OS4zMS0uMi4yMS0uMzYuNTQtLjUxLjkxLS4yNS41OC0uNjMgMS41Ny0xLjU5IDIuOTQtLjA4LjExLS4yMi4xNy0uMzYuMTd6bTQuNTkgMTMuNDNjLTEuNzUgMC0zLjI5LS44Ni00LjE0LTIuMjktLjM3LS42Mi0uNjUtMS4zMy0uODItMi4xNS0uMTYtLjgzLS4yNy0xLjctLjI3LTIuNjR2LS4yYzAtLjExIDAtLjIzLjAxLS4zMS4wMS0uMzQuMDMtLjY3LjA2LS45OS4wNS0uNTEuMS0uOTkuMTktMS40Ny4wOS0uNDkuMTktLjk3LjI5LTEuNDUuMDYtLjI3LjMzLS40NC42LS4zNy4yNy4wNi40NC4zMy4zOC42LS4xLjQ4LS4yLjk0LS4yOCAxLjQtLjA4LjQ2LS4xNi45My0uMiAxLjQtLjAzLjMxLS4wNS42Mi0uMDYuOTMtLjAxLjA4LS4wMS4xNi0uMDEuMjV2LjIzYzAgLjg0LjEgMS42Ny4yNSAyLjQzLjE1Ljc2LjM5IDEuMzguNyAxLjkuNjcgMS4xMyAxLjc3IDEuNzYgMy4xNSAxLjc2aC4wM2MxLjM4IDAgMi40OC0uNjIgMy4xNS0xLjc1LjMxLS41Mi41NS0xLjE0LjctMS45LjE1LS43Ni4yNS0xLjU5LjI1LTIuNDN2LS4yM2MwLS4wOCAwLS4xNi0uMDEtLjI1LS4wMS0uMy0uMDMtLjYyLS4wNi0uOTMtLjA0LS40Ni0uMTItLjkzLS4yLTEuNC0uMDgtLjQ1LS4xOC0uOTItLjI4LTEuNC0uMDYtLjI3LjExLS41NC4zOC0uNi4yNy0uMDYuNTQuMTEuNi4zOC4xLjQ4LjIuOTYuMjkgMS40NS4wOS40OC4xNy45Ni4yMSAxLjQ5LjAzLjMuMDUuNjMuMDYuOTguMDEuMDguMDEuMi4wMS4zMXYuMmMwIC45NC0uMTEgMS44MS0uMjcgMi42NC0uMTcuODItLjQ1IDEuNTMtLjgyIDIuMTUtLjg1IDEuNDMtMi4zOSAyLjI5LTQuMTQgMi4yOWgtLjA0eiIgZmlsbD0iI2VjYzk0YiIvPjwvc3ZnPg==');
+    background-repeat: no-repeat;
+    animation-name: float-15;
+    animation-duration: 23s;
+}
+
+/* Logo 16 - Antivirus */
+.logo-16 {
+    width: 42px;
+    height: 42px;
+    bottom: 25%;
+    left: 90%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDJMNCAxM2g4djloMTB2LTloLThMMjAgMTNoLTh6IiBmaWxsPSIjZTUzZTNlIi8+PC9zdmc+');
+    background-repeat: no-repeat;
+    animation-name: float-16;
+    animation-duration: 19s;
+}
+
+/* Logo 17 - Blockchain */
+.logo-17 {
+    width: 38px;
+    height: 38px;
+    bottom: 5%;
+    left: 45%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgMThjLTQuNDIgMC04LTMuNTgtOC04czMuNTgtOCA4LTggOCAzLjU4IDggOC0zLjU4IDgtOCA4em0tMi41LTUuNWw3LTQuNS03IDQuNXYzLjVsNyA0LjUtNy00LjV2LTMuNXptMC0zLjV2My41bDcgNC41LTctNC41VjExbDctNC41LTcgNC41eiIgZmlsbD0iIzRhOTBlMiIvPjwvc3ZnPg==');
+    background-repeat: no-repeat;
+    animation-name: float-17;
+    animation-duration: 21s;
+}
+
+/* Logo 18 - Security Camera */
+.logo-18 {
+    width: 40px;
+    height: 40px;
+    bottom: 15%;
+    left: 75%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE4IDhoLTJWNmMwLTIuMjEtMS43OS00LTQtNFM4IDMuNzkgOCA2djJINmMtMS4xIDAtMiAuOS0yIDJ2MTBjMCAxLjEuOSAyIDIgMmgxMmMxLjEgMCAyLS45IDItMlYxMGMwLTEuMS0uOS0yLTItMnptLTYgOWMtMS4xIDAtMi0uOS0yLTJzLjktMiAyLTIgMiAuOSAyIDItLjkgMi0yIDJ6bTMuMS05SDguOVY2YzAtMS43MSAxLjM5LTMuMSAzLjEtMy4xIDEuNzEgMCAzLjEgMS4zOSAzLjEgMy4xdjJ6IiBmaWxsPSIjMzhhMTY5Ii8+PC9zdmc+');
+    background-repeat: no-repeat;
+    animation-name: float-18;
+    animation-duration: 17s;
+}
+
+/* Logo 19 - Secure Email */
+.logo-19 {
+    width: 36px;
+    height: 36px;
+    bottom: 22%;
+    left: 40%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTIwIDRINGMtMS4xIDAtMiAuOS0yIDJ2MTJjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY2YzAtMS4xLS45LTItMi0yem0wIDRsLTggNS04LTVWNmw4IDUgOC01djJ6IiBmaWxsPSIjZWNjOTRiIi8+PC9zdmc+');
+    background-repeat: no-repeat;
+    animation-name: float-19;
+    animation-duration: 24s;
+}
+
+/* Logo 20 - Security Badge */
+.logo-20 {
+    width: 42px;
+    height: 42px;
+    bottom: 10%;
+    left: 55%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDFMMyA1djZjMCA1LjU1IDMuODQgMTAuNzQgOSAxMiA1LjE2LTEuMjYgOS02LjQ1IDktMTJWNWwtOS00em0tMiAxNmwtNC00IDEuNDEtMS40MUwxMCAxNC4xN2w2LjU5LTYuNTlMMTggOWwtOCA4eiIgZmlsbD0iI2U1M2UzZSIvPjwvc3ZnPg==');
+    background-repeat: no-repeat;
+    animation-name: float-20;
+    animation-duration: 18s;
+}
+
+/* Marble effect for logos */
+.floating-logo::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 70%),
+        radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    z-index: 1;
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+}
+
+/* Animation keyframes for each logo - bottom to top with disappearing */
+@keyframes float-1 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { transform: translateY(-50px) rotate(5deg); opacity: 1; }
+    80% { transform: translateY(-250px) rotate(-5deg); opacity: 1; }
+    100% { transform: translateY(-300px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-2 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    15% { transform: translateY(-70px) rotate(-3deg); opacity: 1; }
+    85% { transform: translateY(-280px) rotate(3deg); opacity: 1; }
+    100% { transform: translateY(-350px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-3 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { transform: translateY(-60px) rotate(8deg); opacity: 1; }
+    90% { transform: translateY(-320px) rotate(-8deg); opacity: 1; }
+    100% { transform: translateY(-380px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-4 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    12% { transform: translateY(-40px) rotate(-5deg); opacity: 1; }
+    88% { transform: translateY(-290px) rotate(5deg); opacity: 1; }
+    100% { transform: translateY(-330px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-5 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    8% { transform: translateY(-30px) rotate(5deg); opacity: 1; }
+    92% { transform: translateY(-310px) rotate(-5deg); opacity: 1; }
+    100% { transform: translateY(-340px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-6 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    15% { transform: translateY(-50px) rotate(-10deg); opacity: 1; }
+    85% { transform: translateY(-270px) rotate(10deg); opacity: 1; }
+    100% { transform: translateY(-320px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-7 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { transform: translateY(-40px) rotate(7deg); opacity: 1; }
+    90% { transform: translateY(-300px) rotate(-7deg); opacity: 1; }
+    100% { transform: translateY(-340px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-8 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    12% { transform: translateY(-60px) rotate(-3deg); opacity: 1; }
+    88% { transform: translateY(-280px) rotate(3deg); opacity: 1; }
+    100% { transform: translateY(-340px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-9 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { transform: translateY(-45px) rotate(4deg); opacity: 1; }
+    85% { transform: translateY(-290px) rotate(-4deg); opacity: 1; }
+    100% { transform: translateY(-335px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-10 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    15% { transform: translateY(-55px) rotate(-6deg); opacity: 1; }
+    90% { transform: translateY(-310px) rotate(6deg); opacity: 1; }
+    100% { transform: translateY(-365px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-11 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    8% { transform: translateY(-35px) rotate(3deg); opacity: 1; }
+    92% { transform: translateY(-320px) rotate(-3deg); opacity: 1; }
+    100% { transform: translateY(-355px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-12 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    12% { transform: translateY(-50px) rotate(-8deg); opacity: 1; }
+    88% { transform: translateY(-300px) rotate(8deg); opacity: 1; }
+    100% { transform: translateY(-350px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-13 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { transform: translateY(-40px) rotate(5deg); opacity: 1; }
+    90% { transform: translateY(-280px) rotate(-5deg); opacity: 1; }
+    100% { transform: translateY(-320px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-14 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    15% { transform: translateY(-60px) rotate(-4deg); opacity: 1; }
+    85% { transform: translateY(-290px) rotate(4deg); opacity: 1; }
+    100% { transform: translateY(-350px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-15 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    12% { transform: translateY(-45px) rotate(7deg); opacity: 1; }
+    88% { transform: translateY(-310px) rotate(-7deg); opacity: 1; }
+    100% { transform: translateY(-355px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-16 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { transform: translateY(-55px) rotate(-9deg); opacity: 1; }
+    90% { transform: translateY(-320px) rotate(9deg); opacity: 1; }
+    100% { transform: translateY(-375px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-17 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    8% { transform: translateY(-35px) rotate(6deg); opacity: 1; }
+    92% { transform: translateY(-300px) rotate(-6deg); opacity: 1; }
+    100% { transform: translateY(-335px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-18 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    15% { transform: translateY(-50px) rotate(-5deg); opacity: 1; }
+    85% { transform: translateY(-280px) rotate(5deg); opacity: 1; }
+    100% { transform: translateY(-330px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-19 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    12% { transform: translateY(-40px) rotate(8deg); opacity: 1; }
+    88% { transform: translateY(-290px) rotate(-8deg); opacity: 1; }
+    100% { transform: translateY(-330px) rotate(0deg); opacity: 0; }
+}
+
+@keyframes float-20 {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { transform: translateY(-60px) rotate(-7deg); opacity: 1; }
+    90% { transform: translateY(-310px) rotate(7deg); opacity: 1; }
+    100% { transform: translateY(-370px) rotate(0deg); opacity: 0; }
+}

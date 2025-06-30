@@ -1,0 +1,3 @@
+@echo off
+echo Opening LESAVOT Multimodal Steganography Application...
+start "" "open_app.html"

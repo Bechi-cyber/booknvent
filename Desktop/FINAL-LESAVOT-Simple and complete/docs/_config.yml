@@ -1,0 +1,53 @@
+title: LESAVOT
+description: Advanced Multimodal Steganography Platform
+url: "https://bechi-cyber.github.io"
+baseurl: "/FINAL-LESAVOT"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+# Exclude files
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Include files
+include:
+  - _pages
+
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# SEO
+author: LESAVOT Team
+twitter:
+  username: lesavot
+  card: summary
+
+# Social
+social:
+  name: LESAVOT Platform
+  links:
+    - https://github.com/Bechi-cyber/FINAL-LESAVOT

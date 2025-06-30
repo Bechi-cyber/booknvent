@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LESAVOT Web Application Launcher</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #0a1929;
+            background-image: url('web_version/circuit-pattern.svg'),
+                              linear-gradient(135deg, #0a1929 0%, #102a43 100%);
+            background-blend-mode: overlay;
+        }
+
+        h1 {
+            color: #00b4d8;
+            border-bottom: 2px solid #00b4d8;
+            padding-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 180, 216, 0.5);
+        }
+
+        .card {
+            background-color: rgba(16, 42, 67, 0.8);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 180, 216, 0.3);
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(0, 180, 216, 0.1) 0%,
+                rgba(0, 180, 216, 0) 30%,
+                rgba(0, 180, 216, 0) 70%,
+                rgba(0, 180, 216, 0.1) 100%
+            );
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #00b4d8;
+            color: #0a1929;
+            padding: 12px 24px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            box-shadow: 0 0 10px rgba(0, 180, 216, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: all 0.6s;
+        }
+
+        .btn:hover {
+            background-color: #0096c7;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 180, 216, 0.5);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .note {
+            background-color: rgba(255, 209, 102, 0.1);
+            border-left: 4px solid #ffd166;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>LESAVOT Multimodal Steganography</h1>
+
+    <div class="card">
+        <h2>Secure Steganography Platform</h2>
+        <p>This platform provides cutting-edge steganography tools to hide your sensitive information within ordinary files, making them invisible to unauthorized observers.</p>
+
+        <div class="note">
+            <strong>Security Note:</strong> The web application runs entirely in your browser and doesn't require a server, ensuring your data never leaves your device.
+        </div>
+
+        <p>Click the button below to access the secure platform:</p>
+
+        <a href="web_version/index.html" class="btn" target="_blank">Launch Secure Platform</a>
+    </div>
+
+    <div class="card">
+        <h2>Advanced Security Features</h2>
+        <ul>
+            <li><strong>Secure Authentication</strong>: Register and login with password strength analysis</li>
+            <li><strong>Image Steganography</strong>: Hide confidential data within ordinary images using LSB techniques</li>
+            <li><strong>Text Steganography</strong>: Conceal sensitive information in regular text using zero-width characters</li>
+            <li><strong>Audio Steganography</strong>: Embed secret messages in audio files undetectable to the human ear</li>
+            <li><strong>Encryption Layer</strong>: Additional password protection for your hidden messages</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>Secure Operation Protocol</h2>
+        <ol>
+            <li>Click the "Launch Secure Platform" button above</li>
+            <li>Create a secure account or authenticate with existing credentials</li>
+            <li>Select your preferred steganography modality (Image, Text, or Audio)</li>
+            <li>Choose between encryption (message hiding) or decryption (message extraction)</li>
+            <li>Follow the secure protocol instructions for your selected operation</li>
+        </ol>
+
+        <div class="note">
+            <strong>Security Advisory:</strong> This platform implements military-grade steganography algorithms for concealing and extracting sensitive information in common file formats. All operations are performed locally on your device for maximum security.
+        </div>
+    </div>
+</body>
+</html>

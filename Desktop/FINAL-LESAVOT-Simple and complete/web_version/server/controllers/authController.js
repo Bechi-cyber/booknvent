@@ -14,23 +14,41 @@ const Session = require('../models/Session');
 const Metrics = require('../models/Metrics');
 const logger = require('../utils/logger');
 
-// Configure nodemailer with error handling
+// Configure nodemailer with error handling and fallback options
 let transporter = null;
+let emailConfigured = false;
+
 try {
   if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
-    transporter = nodemailer.createTransport({
+    // Primary email configuration
+    const emailConfig = {
       service: process.env.EMAIL_SERVICE || 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
       },
-    });
+      tls: {
+        rejectUnauthorized: false
+      }
+    };
+
+    // Alternative SMTP configuration for custom servers
+    if (process.env.SMTP_HOST) {
+      emailConfig.host = process.env.SMTP_HOST;
+      emailConfig.port = parseInt(process.env.SMTP_PORT) || 587;
+      emailConfig.secure = process.env.SMTP_SECURE === 'true';
+      delete emailConfig.service; // Remove service when using custom SMTP
+    }
+
+    transporter = nodemailer.createTransport(emailConfig);
+    emailConfigured = true;
     logger.info('Email transporter configured successfully');
   } else {
-    logger.warn('Email transporter configuration error: EMAIL_USER and EMAIL_PASSWORD not set');
+    logger.warn('Email transporter configuration: EMAIL_USER and EMAIL_PASSWORD not set - OTP emails will be logged instead');
   }
 } catch (error) {
   logger.error('Failed to create email transporter:', error);
+  emailConfigured = false;
 }
 
 // Generate OTP
@@ -56,10 +74,10 @@ if (transporter) {
 
 // Step 1: Login with username/password, send OTP
 exports.login = catchAsync(async (req, res, next) => {
-  const { username, password } = req.body;
+  const { username, password, resendOtp } = req.body;
 
-  // Validate input
-  if (!username || !password) {
+  // Validate input - for resend OTP, we only need username
+  if (!username || (!password && !resendOtp)) {
     return next(new AppError('Username and password are required', 400));
   }
 
@@ -76,12 +94,20 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError('Account is temporarily locked due to multiple failed login attempts', 423));
   }
 
-  // Verify password
-  const isPasswordValid = await user.verifyPassword(password);
-  if (!isPasswordValid) {
-    await user.incrementLoginAttempts();
-    await Metrics.recordError(new Error('Login attempt with invalid password'), user.id, 'auth', 'login_failed');
-    return next(new AppError('Invalid username or password', 401));
+  // For resend OTP, skip password verification if user has an active OTP session
+  if (resendOtp) {
+    const existingSession = await Session.findActiveOtpSession(username);
+    if (!existingSession) {
+      return next(new AppError('No active OTP session found. Please login again.', 400));
+    }
+  } else {
+    // Verify password for initial login
+    const isPasswordValid = await user.verifyPassword(password);
+    if (!isPasswordValid) {
+      await user.incrementLoginAttempts();
+      await Metrics.recordError(new Error('Login attempt with invalid password'), user.id, 'auth', 'login_failed');
+      return next(new AppError('Invalid username or password', 401));
+    }
   }
 
   // Generate OTP
@@ -92,14 +118,18 @@ exports.login = catchAsync(async (req, res, next) => {
   await Session.createOtpSession(username, otp, expirySeconds);
 
   // Send OTP to user's email
-  if (!transporter) {
-    logger.warn('Email transporter not configured, skipping OTP email');
+  if (!transporter || !emailConfigured) {
+    logger.warn('Email transporter not configured, logging OTP instead');
+    logger.info(`OTP for user ${username}: ${otp} (expires in ${Math.floor(expirySeconds / 60)} minutes)`);
+
     // For development/testing, we'll still create the OTP session but not send email
     res.status(200).json({
       success: true,
-      message: 'OTP sent to email. Please verify.',
+      message: 'OTP generated. Check server logs for OTP code (development mode).',
       expiresIn: expirySeconds,
-      requiresOtp: true
+      requiresOtp: true,
+      // Include OTP in response for testing (remove in production)
+      ...(process.env.NODE_ENV === 'development' && { testOtp: otp })
     });
   } else {
     try {

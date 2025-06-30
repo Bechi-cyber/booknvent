@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standalone DH Key Exchange Demo</title>
+    <link rel="stylesheet" href="text_stego.css">
+    <link rel="stylesheet" href="cybersecurity_elements.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .demo-container { max-width: 600px; margin: 2rem auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0002; padding: 2rem; }
+        .demo-row { margin-bottom: 1.5rem; }
+        .demo-label { font-weight: bold; }
+        .demo-key { font-family: monospace; word-break: break-all; background: #f4f4f4; padding: 0.5rem; border-radius: 4px; }
+        .demo-status { margin-top: 1rem; font-weight: bold; }
+        .demo-btn { margin-top: 1rem; }
+        .demo-crypto { margin-top: 2rem; padding: 1rem; background: #f9f9f9; border-radius: 6px; }
+        .demo-crypto label { font-weight: bold; }
+        .demo-crypto input, .demo-crypto textarea { width: 100%; margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h2><i class="fas fa-exchange-alt"></i> Standalone DH Key Exchange Demo</h2>
+        <div class="demo-row">
+            <button id="startBtn" class="btn btn-primary demo-btn"><i class="fas fa-play"></i> Start Demo</button>
+        </div>
+        <div class="demo-row">
+            <span class="demo-label">Alice Public Key:</span>
+            <div id="alicePubKey" class="demo-key">-</div>
+        </div>
+        <div class="demo-row">
+            <span class="demo-label">Bob Public Key:</span>
+            <div id="bobPubKey" class="demo-key">-</div>
+        </div>
+        <div class="demo-row">
+            <span class="demo-label">Shared Secret (Alice):</span>
+            <div id="aliceSecret" class="demo-key">-</div>
+        </div>
+        <div class="demo-row">
+            <span class="demo-label">Shared Secret (Bob):</span>
+            <div id="bobSecret" class="demo-key">-</div>
+        </div>
+        <div id="status" class="demo-status"></div>
+        <div class="demo-crypto" id="cryptoSection" style="display:none;">
+            <h3><i class="fas fa-lock"></i> Secure Message Exchange</h3>
+            <label for="plainMsg">Message from Alice:</label>
+            <textarea id="plainMsg" rows="2" placeholder="Type a message as Alice..."></textarea>
+            <button id="encryptBtn" class="btn btn-outline demo-btn"><i class="fas fa-lock"></i> Encrypt with Shared Secret</button>
+            <label for="encryptedMsg">Encrypted Message (Base64):</label>
+            <textarea id="encryptedMsg" rows="2" readonly></textarea>
+            <button id="decryptBtn" class="btn btn-outline demo-btn"><i class="fas fa-unlock"></i> Decrypt as Bob</button>
+            <label for="decryptedMsg">Decrypted Message (Bob):</label>
+            <textarea id="decryptedMsg" rows="2" readonly></textarea>
+        </div>
+    </div>
+    <script>
+    let aliceSecretRaw, bobSecretRaw, aesKeyAlice, aesKeyBob;
+    async function arrayBufferToBase64(buffer) {
+        return btoa(String.fromCharCode(...new Uint8Array(buffer)));
+    }
+    async function base64ToArrayBuffer(b64) {
+        const bin = atob(b64);
+        const arr = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+        return arr.buffer;
+    }
+    async function deriveAESKey(rawBits) {
+        return await window.crypto.subtle.importKey(
+            'raw', rawBits, { name: 'AES-GCM' }, false, ['encrypt', 'decrypt']
+        );
+    }
+    async function startDemo() {
+        const alicePubKeyDiv = document.getElementById('alicePubKey');
+        const bobPubKeyDiv = document.getElementById('bobPubKey');
+        const aliceSecretDiv = document.getElementById('aliceSecret');
+        const bobSecretDiv = document.getElementById('bobSecret');
+        const statusDiv = document.getElementById('status');
+        const cryptoSection = document.getElementById('cryptoSection');
+        alicePubKeyDiv.textContent = '-';
+        bobPubKeyDiv.textContent = '-';
+        aliceSecretDiv.textContent = '-';
+        bobSecretDiv.textContent = '-';
+        statusDiv.textContent = 'Running key exchange...';
+        statusDiv.style.color = '';
+        cryptoSection.style.display = 'none';
+        try {
+            // Generate Alice's ECDH key pair
+            const aliceKeyPair = await window.crypto.subtle.generateKey(
+                { name: 'ECDH', namedCurve: 'P-256' },
+                true,
+                ['deriveKey', 'deriveBits']
+            );
+            // Generate Bob's ECDH key pair
+            const bobKeyPair = await window.crypto.subtle.generateKey(
+                { name: 'ECDH', namedCurve: 'P-256' },
+                true,
+                ['deriveKey', 'deriveBits']
+            );
+            // Export public keys
+            const alicePubRaw = await window.crypto.subtle.exportKey('raw', aliceKeyPair.publicKey);
+            const bobPubRaw = await window.crypto.subtle.exportKey('raw', bobKeyPair.publicKey);
+            alicePubKeyDiv.textContent = await arrayBufferToBase64(alicePubRaw);
+            bobPubKeyDiv.textContent = await arrayBufferToBase64(bobPubRaw);
+            // Import each other's public keys
+            const aliceImportsBob = await window.crypto.subtle.importKey(
+                'raw', bobPubRaw, { name: 'ECDH', namedCurve: 'P-256' }, true, []);
+            const bobImportsAlice = await window.crypto.subtle.importKey(
+                'raw', alicePubRaw, { name: 'ECDH', namedCurve: 'P-256' }, true, []);
+            // Derive shared secrets
+            aliceSecretRaw = await window.crypto.subtle.deriveBits(
+                { name: 'ECDH', public: aliceImportsBob },
+                aliceKeyPair.privateKey, 256
+            );
+            bobSecretRaw = await window.crypto.subtle.deriveBits(
+                { name: 'ECDH', public: bobImportsAlice },
+                bobKeyPair.privateKey, 256
+            );
+            const aliceSecretB64 = await arrayBufferToBase64(aliceSecretRaw);
+            const bobSecretB64 = await arrayBufferToBase64(bobSecretRaw);
+            aliceSecretDiv.textContent = aliceSecretB64;
+            bobSecretDiv.textContent = bobSecretB64;
+            if (aliceSecretB64 === bobSecretB64) {
+                statusDiv.textContent = 'Key exchange successful! Shared secret matches.';
+                statusDiv.style.color = 'green';
+                // Derive AES keys for both
+                aesKeyAlice = await deriveAESKey(aliceSecretRaw);
+                aesKeyBob = await deriveAESKey(bobSecretRaw);
+                document.getElementById('plainMsg').value = '';
+                document.getElementById('encryptedMsg').value = '';
+                document.getElementById('decryptedMsg').value = '';
+                cryptoSection.style.display = '';
+            } else {
+                statusDiv.textContent = 'Key exchange failed: secrets do not match.';
+                statusDiv.style.color = 'red';
+                cryptoSection.style.display = 'none';
+            }
+        } catch (e) {
+            statusDiv.textContent = 'Error: ' + e.message;
+            statusDiv.style.color = 'red';
+            cryptoSection.style.display = 'none';
+        }
+    }
+    async function encryptMessage() {
+        const msg = document.getElementById('plainMsg').value;
+        if (!msg) return;
+        const iv = window.crypto.getRandomValues(new Uint8Array(12));
+        const enc = new TextEncoder().encode(msg);
+        const ciphertext = await window.crypto.subtle.encrypt(
+            { name: 'AES-GCM', iv }, aesKeyAlice, enc
+        );
+        // Store IV + ciphertext as base64
+        const combined = new Uint8Array(iv.length + ciphertext.byteLength);
+        combined.set(iv, 0);
+        combined.set(new Uint8Array(ciphertext), iv.length);
+        document.getElementById('encryptedMsg').value = await arrayBufferToBase64(combined.buffer);
+        document.getElementById('decryptedMsg').value = '';
+    }
+    async function decryptMessage() {
+        const b64 = document.getElementById('encryptedMsg').value;
+        if (!b64) return;
+        const combined = new Uint8Array(await base64ToArrayBuffer(b64));
+        const iv = combined.slice(0, 12);
+        const ciphertext = combined.slice(12);
+        try {
+            const decrypted = await window.crypto.subtle.decrypt(
+                { name: 'AES-GCM', iv }, aesKeyBob, ciphertext
+            );
+            document.getElementById('decryptedMsg').value = new TextDecoder().decode(decrypted);
+        } catch (e) {
+            document.getElementById('decryptedMsg').value = 'Decryption failed: ' + e.message;
+        }
+    }
+    document.getElementById('startBtn').addEventListener('click', startDemo);
+    document.getElementById('encryptBtn').addEventListener('click', encryptMessage);
+    document.getElementById('decryptBtn').addEventListener('click', decryptMessage);
+    </script>
+</body>
+</html>

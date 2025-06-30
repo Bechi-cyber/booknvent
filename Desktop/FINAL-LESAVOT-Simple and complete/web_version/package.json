@@ -1,0 +1,24 @@
+{
+  "name": "lesavot-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for LESAVOT Steganography Platform",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'No build step required for static frontend'",
+    "start": "echo 'Static site - no start command needed'",
+    "dev": "python -m http.server 8000",
+    "serve": "python -m http.server 8000"
+  },
+  "keywords": [
+    "steganography",
+    "security",
+    "encryption",
+    "frontend",
+    "web-app"
+  ],
+  "author": "LESAVOT Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

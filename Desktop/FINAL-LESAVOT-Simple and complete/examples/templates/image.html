@@ -1,0 +1,471 @@
+{% extends "layout.html" %}
+
+{% block title %}Image Steganography - LESAVOT Secure Platform{% endblock %}
+
+{% block content %}
+<div class="cyber-process">
+    <div class="process-header">
+        <h1>Image Steganography</h1>
+        <p class="cyber-term" data-tooltip="LSB (Least Significant Bit) is a steganography technique that replaces the least important bit in each pixel with bits from the secret message.">
+            Secure LSB Encoding
+            <span class="term-icon">ℹ️</span>
+        </p>
+    </div>
+
+    <div class="cyber-card info-card">
+        <div class="card-header">
+            <h2 class="card-title">How It Works</h2>
+        </div>
+        <div class="info-content">
+            <p>
+                Image steganography hides messages within images by modifying the least significant bits (LSB) of pixel values.
+                These modifications are imperceptible to the human eye but can be decoded by the recipient.
+            </p>
+
+            <div class="tech-details">
+                <div class="detail-item">
+                    <div class="detail-icon">🔍</div>
+                    <div class="detail-text">Undetectable to visual inspection and basic analysis tools</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">🔢</div>
+                    <div class="detail-text">Can hide approximately 10KB of text in a 1024×768 image</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">🖼️</div>
+                    <div class="detail-text">Works best with lossless formats like PNG</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cyber-tabs">
+        <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="encode">Encode Message</button>
+            <button class="tab-btn" data-tab="decode">Decode Message</button>
+        </div>
+
+        <div class="tab-content active" id="encode-content">
+            <div class="cyber-stepper">
+                <div class="step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Upload Image</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Enter Message</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Process</div>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Download</div>
+                </div>
+            </div>
+
+            <div class="cyber-card">
+                <form action="{{ url_for('image_embed') }}" method="post" enctype="multipart/form-data" id="encode-form">
+                    <div class="step-content active" data-step-content="1">
+                        <div class="cyber-upload-area" id="image-upload-area">
+                            <div class="upload-icon">🖼️</div>
+                            <p class="upload-text">Drag and drop your image here or</p>
+                            <label class="upload-btn">
+                                Browse Files
+                                <input type="file" id="image-file" name="file" accept="image/*" hidden required>
+                            </label>
+                            <p class="upload-requirements">Supported formats: PNG, JPG (PNG recommended for best results)</p>
+                        </div>
+
+                        <div class="file-preview" id="image-preview"></div>
+
+                        <div class="step-buttons">
+                            <div></div> <!-- Empty div for spacing -->
+                            <button type="button" class="cyber-btn step-next" id="step1-next" disabled>Next Step</button>
+                        </div>
+                    </div>
+
+                    <div class="step-content" data-step-content="2">
+                        <div class="cyber-form-group">
+                            <label for="message" class="cyber-label">Message to Hide</label>
+                            <textarea id="message" name="message" class="cyber-input cyber-textarea" required placeholder="Enter your secret message here..."></textarea>
+                            <div class="message-stats">
+                                <div class="char-count">0 characters</div>
+                                <div class="capacity-meter">
+                                    <div class="capacity-bar">
+                                        <div class="capacity-fill" style="width: 0%"></div>
+                                    </div>
+                                    <div class="capacity-text">0% of capacity</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-buttons">
+                            <button type="button" class="cyber-btn cyber-btn-secondary step-prev">Previous Step</button>
+                            <button type="button" class="cyber-btn step-next" id="step2-next" disabled>Next Step</button>
+                        </div>
+                    </div>
+
+                    <div class="step-content" data-step-content="3">
+                        <div class="process-summary">
+                            <h3>Encoding Summary</h3>
+                            <div class="summary-details">
+                                <div class="summary-item">
+                                    <div class="summary-label">Image:</div>
+                                    <div class="summary-value" id="summary-filename">No file selected</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">Message Length:</div>
+                                    <div class="summary-value" id="summary-length">0 characters</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">Encryption:</div>
+                                    <div class="summary-value">AES-256 + LSB Encoding</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-buttons">
+                            <button type="button" class="cyber-btn cyber-btn-secondary step-prev">Previous Step</button>
+                            <button type="submit" class="cyber-btn">Process Image</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="tab-content" id="decode-content">
+            <div class="cyber-card">
+                <form action="{{ url_for('image_extract') }}" method="post" enctype="multipart/form-data">
+                    <div class="cyber-form-group">
+                        <label class="cyber-label">Upload Image with Hidden Message</label>
+                        <div class="cyber-upload-area">
+                            <div class="upload-icon">🔍</div>
+                            <p class="upload-text">Drag and drop your encoded image here or</p>
+                            <label class="upload-btn">
+                                Browse Files
+                                <input type="file" id="decode-file" name="file" accept="image/*" hidden required>
+                            </label>
+                        </div>
+
+                        <div class="file-preview" id="decode-preview"></div>
+                    </div>
+
+                    <button type="submit" class="cyber-btn">Extract Hidden Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .cyber-process {
+        margin-bottom: 3rem;
+    }
+
+    .process-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .process-header h1 {
+        margin-bottom: 0.5rem;
+    }
+
+    .cyber-term {
+        display: inline-block;
+        background-color: rgba(0, 180, 216, 0.1);
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 1rem;
+    }
+
+    .term-icon {
+        font-size: 0.875rem;
+        margin-left: 0.25rem;
+        opacity: 0.7;
+    }
+
+    .info-card {
+        margin-bottom: 2rem;
+    }
+
+    .info-content {
+        padding: 0 1rem;
+    }
+
+    .tech-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .detail-item {
+        display: flex;
+        align-items: center;
+        background-color: rgba(10, 25, 41, 0.5);
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        border-radius: 8px;
+        padding: 1rem;
+    }
+
+    .detail-icon {
+        font-size: 1.5rem;
+        margin-right: 1rem;
+    }
+
+    .detail-text {
+        color: var(--cyber-text-secondary);
+        font-size: 0.9rem;
+    }
+
+    .message-stats {
+        margin-top: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .char-count {
+        color: var(--cyber-text-secondary);
+        font-size: 0.875rem;
+    }
+
+    .capacity-meter {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .capacity-bar {
+        width: 100px;
+        height: 6px;
+        background-color: rgba(0, 180, 216, 0.1);
+        border-radius: 3px;
+        overflow: hidden;
+        margin-bottom: 0.25rem;
+    }
+
+    .capacity-fill {
+        height: 100%;
+        background-color: var(--cyber-accent);
+        border-radius: 3px;
+        transition: width 0.3s;
+    }
+
+    .capacity-text {
+        color: var(--cyber-text-secondary);
+        font-size: 0.75rem;
+    }
+
+    .process-summary {
+        background-color: rgba(10, 25, 41, 0.5);
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .process-summary h3 {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        color: var(--cyber-text);
+    }
+
+    .summary-details {
+        display: grid;
+        gap: 0.75rem;
+    }
+
+    .summary-item {
+        display: flex;
+    }
+
+    .summary-label {
+        width: 150px;
+        color: var(--cyber-text-secondary);
+    }
+
+    .summary-value {
+        color: var(--cyber-text);
+        font-family: var(--font-mono);
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialize tabs
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Deactivate all tabs
+                tabButtons.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Activate clicked tab
+                btn.classList.add('active');
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(`${tabId}-content`).classList.add('active');
+            });
+        });
+
+        // Stepper functionality
+        const steps = document.querySelectorAll('.step');
+        const stepContents = document.querySelectorAll('.step-content');
+        const nextButtons = document.querySelectorAll('.step-next');
+        const prevButtons = document.querySelectorAll('.step-prev');
+
+        function goToStep(stepNumber) {
+            // Update step indicators
+            steps.forEach(step => {
+                const sNumber = parseInt(step.getAttribute('data-step'));
+                step.classList.remove('active');
+
+                if (sNumber < stepNumber) {
+                    step.classList.add('completed');
+                }
+
+                if (sNumber === stepNumber) {
+                    step.classList.add('active');
+                }
+            });
+
+            // Show corresponding content
+            stepContents.forEach(content => {
+                content.classList.remove('active');
+
+                if (parseInt(content.getAttribute('data-step-content')) === stepNumber) {
+                    content.classList.add('active');
+                }
+            });
+        }
+
+        nextButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const currentStep = document.querySelector('.step.active');
+                const nextStep = parseInt(currentStep.getAttribute('data-step')) + 1;
+                goToStep(nextStep);
+            });
+        });
+
+        prevButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const currentStep = document.querySelector('.step.active');
+                const prevStep = parseInt(currentStep.getAttribute('data-step')) - 1;
+                goToStep(prevStep);
+            });
+        });
+
+        // File upload handling
+        const imageInput = document.getElementById('image-file');
+        const imagePreview = document.getElementById('image-preview');
+        const step1Next = document.getElementById('step1-next');
+
+        imageInput.addEventListener('change', () => {
+            if (imageInput.files && imageInput.files[0]) {
+                const file = imageInput.files[0];
+
+                // Create image preview
+                imagePreview.innerHTML = '';
+
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'file-preview-image';
+                        imagePreview.appendChild(img);
+
+                        const fileInfo = document.createElement('div');
+                        fileInfo.className = 'file-info';
+                        fileInfo.innerHTML = `
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-meta">${(file.size / 1024).toFixed(2)} KB</div>
+                        `;
+                        imagePreview.appendChild(fileInfo);
+
+                        // Update summary
+                        document.getElementById('summary-filename').textContent = file.name;
+
+                        // Enable next button
+                        step1Next.disabled = false;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+
+        // Message input handling
+        const messageInput = document.getElementById('message');
+        const charCount = document.querySelector('.char-count');
+        const capacityFill = document.querySelector('.capacity-fill');
+        const capacityText = document.querySelector('.capacity-text');
+        const step2Next = document.getElementById('step2-next');
+
+        messageInput.addEventListener('input', () => {
+            const length = messageInput.value.length;
+            charCount.textContent = `${length} characters`;
+            document.getElementById('summary-length').textContent = `${length} characters`;
+
+            // Simulate capacity (in a real app, this would be calculated based on image size)
+            const maxCapacity = 1000;
+            const percentage = Math.min(100, (length / maxCapacity) * 100);
+
+            capacityFill.style.width = `${percentage}%`;
+            capacityText.textContent = `${Math.round(percentage)}% of capacity`;
+
+            // Change color based on capacity
+            if (percentage > 90) {
+                capacityFill.style.backgroundColor = 'var(--cyber-danger)';
+            } else if (percentage > 70) {
+                capacityFill.style.backgroundColor = 'var(--cyber-warning)';
+            } else {
+                capacityFill.style.backgroundColor = 'var(--cyber-accent)';
+            }
+
+            // Enable next button if there's text
+            step2Next.disabled = length === 0;
+        });
+
+        // Decode file upload handling
+        const decodeInput = document.getElementById('decode-file');
+        const decodePreview = document.getElementById('decode-preview');
+
+        decodeInput.addEventListener('change', () => {
+            if (decodeInput.files && decodeInput.files[0]) {
+                const file = decodeInput.files[0];
+
+                // Create image preview
+                decodePreview.innerHTML = '';
+
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'file-preview-image';
+                        decodePreview.appendChild(img);
+
+                        const fileInfo = document.createElement('div');
+                        fileInfo.className = 'file-info';
+                        fileInfo.innerHTML = `
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-meta">${(file.size / 1024).toFixed(2)} KB</div>
+                        `;
+                        decodePreview.appendChild(fileInfo);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

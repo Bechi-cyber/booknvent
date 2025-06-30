@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LESAVOT | Multimodal Steganography</title>
+    <link rel="stylesheet" href="text_stego.css">
+    <link rel="stylesheet" href="cybersecurity_elements.css">
+    <link rel="stylesheet" href="snowy_raindrops.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="header-container">
+                <!-- Floating snowflakes -->
+                <div class="snowflake-container">
+                    <!-- Single raindrops -->
+                    <div class="snowflake snow-1">│</div>
+                    <div class="snowflake snow-2">│</div>
+                    <div class="snowflake snow-3">│</div>
+                    <div class="snowflake snow-4">│</div>
+                    <div class="snowflake snow-5">│</div>
+                    <div class="snowflake snow-6">│</div>
+                    <div class="snowflake snow-7">│</div>
+                    <div class="snowflake snow-8">│</div>
+                    <div class="snowflake snow-9">│</div>
+                    <div class="snowflake snow-10">│</div>
+                    <div class="snowflake snow-11">│</div>
+                    <div class="snowflake snow-12">│</div>
+                    <div class="snowflake snow-13">│</div>
+                    <div class="snowflake snow-14">│</div>
+                    <div class="snowflake snow-15">│</div>
+                    <div class="snowflake snow-16">│</div>
+                    <div class="snowflake snow-17">│</div>
+                    <div class="snowflake snow-18">│</div>
+                    <div class="snowflake snow-19">│</div>
+                    <div class="snowflake snow-20">│</div>
+
+                    <!-- Raindrop lines -->
+                    <div class="raindrop-line rain-line-1">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-2">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-3">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-4">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-5">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-6">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-7">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-8">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-9">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-10">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-11">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-12">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-13">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-14">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-15">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-16">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-17">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-18">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-19">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-20">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-21">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-22">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-23">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-24">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-25">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-26">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-27">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-28">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-29">│<br>│<br>│</div>
+                    <div class="raindrop-line rain-line-30">│<br>│<br>│</div>
+                </div>
+
+                <div class="logo">
+                    <i class="fas fa-shield-alt logo-icon"></i>
+                    <span class="logo-text">LESAVOT</span>
+                </div>
+                <div class="subtitle">THE MORE YOU LOOK, THE LESS YOU SEE</div>
+            </div>
+            <div class="user-info" id="userInfo">
+                <span id="welcomeMessage">Welcome</span>
+                <div class="user-actions">
+                    <a href="profile.html" class="btn-icon" title="Profile">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <a href="auth.html" class="btn-icon active-logout" title="Sign Out" id="signOutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <div class="tab-navigation">
+            <button type="button" class="tab-btn active">
+                <i class="fas fa-font"></i>
+                <span>Text</span>
+            </button>
+            <button type="button" class="tab-btn" onclick="window.location.href='image_stego.html'">
+                <i class="fas fa-image"></i>
+                <span>Image</span>
+            </button>
+            <button type="button" class="tab-btn" onclick="window.location.href='audio_stego.html'">
+                <i class="fas fa-volume-up"></i>
+                <span>Audio</span>
+            </button>
+            <button type="button" class="tab-btn" onclick="window.location.href='history.html'">
+                <i class="fas fa-history"></i>
+                <span>History</span>
+            </button>
+        </div>
+
+        <div id="notificationArea"></div>
+
+        <main>
+            <!-- Main Content Area -->
+            <div class="content-container">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-font"></i>
+                        <h2>Text Steganography</h2>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="mode-selector">
+                            <label class="radio-container">
+                                <input type="radio" name="textMode" value="encrypt" checked>
+                                <span class="radio-label">Encrypt</span>
+                            </label>
+                            <label class="radio-container">
+                                <input type="radio" name="textMode" value="decrypt">
+                                <span class="radio-label">Decrypt</span>
+                            </label>
+                        </div>
+
+                        <div id="textEncrypt" class="mode-content">
+                            <div class="form-group">
+                                <label for="textMessage">Secret Message:</label>
+                                <textarea id="textMessage" placeholder=""></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="textContent">Cover Text:</label>
+                                <textarea id="textContent" placeholder=""></textarea>
+                                <small class="helper-text">This text will appear normal but contain your hidden message</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="textPassword">Password (optional):</label>
+                                <div class="password-input">
+                                    <input type="password" id="textPassword" placeholder="">
+                                </div>
+                            </div>
+
+                            <button type="button" id="textEncryptBtn" class="btn btn-primary">
+                                <i class="fas fa-lock"></i> Encrypt
+                            </button>
+
+                            <div id="textOutputContainer" class="form-group output-container">
+                                <label for="textOutput">Output Text:</label>
+                                <textarea id="textOutput" readonly></textarea>
+                                <small class="helper-text">This text looks like your cover text but contains your hidden message</small>
+                                <div class="output-actions">
+                                    <button type="button" id="textCopyBtn" class="btn btn-outline">
+                                        <i class="fas fa-copy"></i> Copy to Clipboard
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="textDecrypt" class="mode-content">
+                            <div class="form-group">
+                                <label for="textDecryptContent">Encrypted Text:</label>
+                                <textarea id="textDecryptContent" placeholder=""></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="textDecryptPassword">Password (if required):</label>
+                                <div class="password-input">
+                                    <input type="password" id="textDecryptPassword" placeholder="">
+                                </div>
+                            </div>
+
+                            <button type="button" id="textDecryptBtn" class="btn btn-primary">
+                                <i class="fas fa-unlock"></i> Decrypt
+                            </button>
+
+                            <div class="form-group">
+                                <label for="textExtractedMessage">Decrypted Message:</label>
+                                <textarea id="textExtractedMessage" readonly placeholder=""></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="api-client.js"></script>
+    <script src="user-auth.js"></script>
+    <script src="text_stego.js"></script>
+</body>
+</html>

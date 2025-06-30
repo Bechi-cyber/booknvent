@@ -1,0 +1,271 @@
+/**
+ * Accessibility Styles
+ * 
+ * This file contains styles to improve the accessibility of the LESAVOT application.
+ * It includes styles for focus states, screen reader utilities, and high contrast mode.
+ */
+
+/* Focus Styles */
+:focus {
+  outline: 3px solid #4d90fe;
+  outline-offset: 2px;
+}
+
+/* Remove outline for non-keyboard focus */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Restore outline for keyboard focus */
+:focus-visible {
+  outline: 3px solid #4d90fe;
+  outline-offset: 2px;
+}
+
+/* Skip to content link */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #0a192f;
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* Screen reader only utilities */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only-focusable:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* High Contrast Mode */
+@media (forced-colors: active) {
+  /* Ensure buttons have visible borders */
+  button, 
+  .button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"] {
+    border: 2px solid currentColor;
+  }
+  
+  /* Ensure links are underlined */
+  a {
+    text-decoration: underline;
+  }
+  
+  /* Ensure focus states are visible */
+  :focus {
+    outline: 3px solid;
+    outline-offset: 2px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .snowflake {
+    animation: none !important;
+  }
+  
+  .animation {
+    animation: none !important;
+  }
+}
+
+/* Increased Text Spacing for readability */
+.increased-spacing {
+  letter-spacing: 0.12em;
+  word-spacing: 0.16em;
+  line-height: 1.5;
+}
+
+/* Large Text Mode */
+.large-text {
+  font-size: 120%;
+}
+
+.larger-text {
+  font-size: 150%;
+}
+
+.largest-text {
+  font-size: 200%;
+}
+
+/* High Contrast Themes */
+.high-contrast-dark {
+  --bg-color: #000000;
+  --text-color: #ffffff;
+  --primary-color: #ffff00;
+  --secondary-color: #00ffff;
+  --accent-color: #ff00ff;
+  --error-color: #ff0000;
+  --success-color: #00ff00;
+  --warning-color: #ffaa00;
+  --info-color: #00aaff;
+  --card-bg: #222222;
+  --border-color: #ffffff;
+}
+
+.high-contrast-light {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --primary-color: #0000ff;
+  --secondary-color: #006600;
+  --accent-color: #aa00aa;
+  --error-color: #cc0000;
+  --success-color: #006600;
+  --warning-color: #cc6600;
+  --info-color: #0066cc;
+  --card-bg: #eeeeee;
+  --border-color: #000000;
+}
+
+/* Dyslexia-friendly font */
+.dyslexic-font {
+  font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  word-spacing: 0.1em;
+}
+
+/* Accessibility Controls */
+.accessibility-controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+.accessibility-controls.collapsed {
+  transform: translateY(calc(100% - 40px));
+}
+
+.accessibility-toggle {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 4px 4px 0 0;
+  padding: 8px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.accessibility-toggle:focus {
+  outline: 3px solid var(--accent-color);
+}
+
+.accessibility-controls h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.accessibility-option {
+  margin-bottom: 8px;
+}
+
+.accessibility-option label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+/* Form Accessibility */
+input:invalid,
+textarea:invalid,
+select:invalid {
+  border-color: var(--error-color);
+}
+
+input:invalid:focus,
+textarea:invalid:focus,
+select:invalid:focus {
+  outline-color: var(--error-color);
+}
+
+.form-error {
+  color: var(--error-color);
+  font-size: 0.875rem;
+  margin-top: 4px;
+}
+
+/* ARIA live regions */
+.live-region {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.live-region[aria-live="assertive"],
+.live-region[aria-live="polite"] {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  padding: 10px;
+  z-index: 1001;
+  clip: auto;
+  height: auto;
+  transform: translateY(100%);
+  transition: transform 0.3s;
+}
+
+.live-region.visible {
+  transform: translateY(0);
+}

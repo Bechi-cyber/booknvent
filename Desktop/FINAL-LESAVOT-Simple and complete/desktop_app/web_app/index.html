@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to LESAVOT | Multimodal Steganography</title>
+    <meta name="description" content="LESAVOT is a sophisticated multimodal steganography platform designed for secure information concealment in text, images, and audio.">
+    <meta name="theme-color" content="#0a192f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="LESAVOT">
+
+    <!-- Favicon and App Icons -->
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="favicon.svg">
+
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="text_stego.css">
+    <link rel="stylesheet" href="welcome.css">
+    <link rel="stylesheet" href="snowy_raindrops.css">
+    <link rel="stylesheet" href="css/pwa.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Preconnect to CDNs -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!-- Error tracking -->
+    <script src="error-tracking.js"></script>
+
+    <!-- Offline detection -->
+    <script>
+        // Check if the user is offline
+        if (!navigator.onLine) {
+            window.location.href = './offline.html';
+        }
+
+        // Listen for online/offline events
+        window.addEventListener('online', () => {
+            document.body.classList.remove('offline-mode');
+            const offlineBar = document.getElementById('offline-bar');
+            if (offlineBar) {
+                offlineBar.style.display = 'none';
+            }
+        });
+
+        window.addEventListener('offline', () => {
+            document.body.classList.add('offline-mode');
+
+            // Create offline notification bar if it doesn't exist
+            let offlineBar = document.getElementById('offline-bar');
+            if (!offlineBar) {
+                offlineBar = document.createElement('div');
+                offlineBar.id = 'offline-bar';
+                offlineBar.className = 'offline-bar';
+                offlineBar.innerHTML = `
+                    <span>You are currently offline. Some features may be limited.</span>
+                    <button id="offline-close">×</button>
+                `;
+                document.body.insertBefore(offlineBar, document.body.firstChild);
+
+                // Add close button functionality
+                document.getElementById('offline-close').addEventListener('click', () => {
+                    offlineBar.style.display = 'none';
+                });
+            } else {
+                offlineBar.style.display = 'block';
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="app" class="welcome-page">
+        <!-- Notification area -->
+        <div id="notificationArea" class="notification-area"></div>
+        <header>
+            <div class="snowflake-container">
+                <!-- Single raindrops -->
+                <div class="snowflake snow-1">│</div>
+                <div class="snowflake snow-2">│</div>
+                <div class="snowflake snow-3">│</div>
+                <div class="snowflake snow-4">│</div>
+                <div class="snowflake snow-5">│</div>
+                <div class="snowflake snow-6">│</div>
+                <div class="snowflake snow-7">│</div>
+                <div class="snowflake snow-8">│</div>
+                <div class="snowflake snow-9">│</div>
+                <div class="snowflake snow-10">│</div>
+                <div class="snowflake snow-11">│</div>
+                <div class="snowflake snow-12">│</div>
+                <div class="snowflake snow-13">│</div>
+                <div class="snowflake snow-14">│</div>
+                <div class="snowflake snow-15">│</div>
+                <div class="snowflake snow-16">│</div>
+                <div class="snowflake snow-17">│</div>
+                <div class="snowflake snow-18">│</div>
+                <div class="snowflake snow-19">│</div>
+                <div class="snowflake snow-20">│</div>
+
+                <!-- Raindrop lines -->
+                <div class="raindrop-line rain-line-1">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-2">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-3">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-4">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-5">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-6">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-7">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-8">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-9">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-10">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-11">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-12">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-13">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-14">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-15">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-16">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-17">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-18">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-19">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-20">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-21">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-22">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-23">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-24">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-25">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-26">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-27">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-28">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-29">│<br>│<br>│</div>
+                <div class="raindrop-line rain-line-30">│<br>│<br>│</div>
+            </div>
+            <div class="header-container">
+                <div class="logo">
+                    <i class="fas fa-shield-alt logo-icon"></i>
+                    <span class="logo-text">LESAVOT</span>
+                </div>
+                <div class="subtitle">THE MORE YOU LOOK, THE LESS YOU SEE</div>
+            </div>
+        </header>
+
+        <main>
+            <div class="welcome-container">
+                <div class="welcome-card">
+                    <div class="welcome-header">
+                        <i class="fas fa-shield-alt"></i>
+                        <h1>Welcome to LESAVOT</h1>
+                    </div>
+                    <div class="welcome-body">
+                        <p class="welcome-intro">
+                            Welcome to LESAVOT, a sophisticated multimodal steganography platform designed for secure information concealment. Our advanced technology enables you to hide confidential messages within text, images, and audio files with military-grade security protocols.
+                        </p>
+
+                        <div class="features-section">
+                            <h2>Key Features</h2>
+                            <ul class="features-list">
+                                <li>
+                                    <i class="fas fa-font"></i>
+                                    <div>
+                                        <h3>Text Steganography</h3>
+                                        <p>Implement advanced zero-width character encoding to seamlessly conceal sensitive information within ordinary text, making detection virtually impossible to the untrained observer.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-image"></i>
+                                    <div>
+                                        <h3>Image Steganography</h3>
+                                        <p>Utilize sophisticated algorithms to embed confidential data within image files without perceptible visual degradation, ensuring your messages remain hidden in plain sight.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-volume-up"></i>
+                                    <div>
+                                        <h3>Audio Steganography</h3>
+                                        <p>Employ cutting-edge techniques to integrate encrypted messages within audio files, preserving acoustic fidelity while maintaining the highest levels of information security.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-key"></i>
+                                    <div>
+                                        <h3>Password Protection</h3>
+                                        <p>Enhance your security posture with military-grade encryption protocols, implementing multi-layered protection through sophisticated key derivation and salt generation algorithms.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="guide-section">
+                            <h2>Implementation Protocol</h2>
+                            <ol class="guide-steps">
+                                <li>
+                                    <span class="step-number">1</span>
+                                    <div>
+                                        <h3>Select Steganographic Modality</h3>
+                                        <p>Choose your preferred concealment vector (textual, visual, or auditory) via the dedicated navigation interface to initiate the information security protocol.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="step-number">2</span>
+                                    <div>
+                                        <h3>Determine Operational Mode</h3>
+                                        <p>Specify whether you intend to implement data concealment (encryption) or extract previously embedded information (decryption) from the carrier medium.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="step-number">3</span>
+                                    <div>
+                                        <h3>Encryption Protocol</h3>
+                                        <p>Input your classified information, select an appropriate carrier medium (text, image, or audio file), implement cryptographic protection with a secure passphrase, and execute the encryption algorithm.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="step-number">4</span>
+                                    <div>
+                                        <h3>Decryption Protocol</h3>
+                                        <p>Submit the steganographically modified medium, provide the corresponding cryptographic key if applicable, and initiate the extraction sequence to recover the concealed information.</p>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="security-section">
+                            <h2>Security Protocols</h2>
+                            <ul class="security-tips">
+                                <li>
+                                    <i class="fas fa-lock"></i>
+                                    <p>Implement high-entropy cryptographic keys utilizing a minimum 16-character combination of alphanumeric characters, symbols, and varied capitalization to maximize resistance against brute-force attacks.</p>
+                                </li>
+                                <li>
+                                    <i class="fas fa-user-secret"></i>
+                                    <p>Establish secure out-of-band communication channels for cryptographic key exchange, employing end-to-end encrypted messaging platforms or secure key exchange protocols to prevent interception.</p>
+                                </li>
+                                <li>
+                                    <i class="fas fa-shield-alt"></i>
+                                    <p>Deploy a comprehensive defense-in-depth strategy by implementing multiple security layers: steganographic concealment, cryptographic encryption, and robust authentication mechanisms for maximum information protection.</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="cta-container">
+                            <a href="auth.html" class="btn btn-primary cta-button">
+                                <i class="fas fa-shield-alt"></i> INITIATE SECURE PLATFORM
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2025 LESAVOT Advanced Security Systems. All rights reserved.</p>
+                <p>Enterprise-Grade Multimodal Steganographic Information Protection Platform</p>
+                <p><small>CONFIDENTIALITY NOTICE: Unauthorized access or usage is strictly prohibited and may result in legal action.</small></p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="user-auth.js"></script>
+    <script src="index.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        // Register service worker for PWA support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered with scope:', registration.scope);
+
+                        // Check for updates
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            console.log('Service Worker update found!');
+
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // New version available
+                                    showUpdateNotification();
+                                }
+                            });
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Service Worker registration failed:', error);
+                    });
+
+                // Handle service worker updates
+                let refreshing = false;
+                navigator.serviceWorker.addEventListener('controllerchange', () => {
+                    if (!refreshing) {
+                        refreshing = true;
+                        window.location.reload();
+                    }
+                });
+            });
+        }
+
+        // Show update notification
+        function showUpdateNotification() {
+            const updateBar = document.createElement('div');
+            updateBar.className = 'update-bar';
+            updateBar.innerHTML = `
+                <span>A new version is available!</span>
+                <button id="update-button">Update Now</button>
+            `;
+            document.body.appendChild(updateBar);
+
+            document.getElementById('update-button').addEventListener('click', () => {
+                // Reload the page to activate the new service worker
+                window.location.reload();
+            });
+        }
+
+        // Add to home screen functionality
+        let deferredPrompt;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent Chrome 67 and earlier from automatically showing the prompt
+            e.preventDefault();
+            // Stash the event so it can be triggered later
+            deferredPrompt = e;
+
+            // Show the install button
+            const installButton = document.createElement('button');
+            installButton.id = 'install-button';
+            installButton.className = 'install-button';
+            installButton.innerHTML = '<i class="fas fa-download"></i> Install App';
+
+            // Add to the footer
+            const footer = document.querySelector('footer');
+            if (footer) {
+                footer.appendChild(installButton);
+
+                // Add click event
+                installButton.addEventListener('click', (e) => {
+                    // Hide the button
+                    installButton.style.display = 'none';
+
+                    // Show the prompt
+                    deferredPrompt.prompt();
+
+                    // Wait for the user to respond to the prompt
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User accepted the install prompt');
+                        } else {
+                            console.log('User dismissed the install prompt');
+                            // Show the button again
+                            installButton.style.display = 'block';
+                        }
+                        deferredPrompt = null;
+                    });
+                });
+            }
+        });
+    </script>
+
+    <!-- Performance monitoring -->
+    <script>
+        // Simple performance monitoring
+        if (window.performance && window.performance.timing) {
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    const timing = window.performance.timing;
+                    const pageLoadTime = timing.loadEventEnd - timing.navigationStart;
+                    const domReadyTime = timing.domComplete - timing.domLoading;
+
+                    console.log('Page load time:', pageLoadTime, 'ms');
+                    console.log('DOM ready time:', domReadyTime, 'ms');
+
+                    // Send metrics to server if online
+                    if (navigator.onLine && pageLoadTime > 0) {
+                        try {
+                            const metrics = {
+                                pageLoadTime,
+                                domReadyTime,
+                                url: window.location.pathname,
+                                timestamp: new Date().toISOString(),
+                                userAgent: navigator.userAgent
+                            };
+
+                            // Use sendBeacon for non-blocking metrics sending
+                            if (navigator.sendBeacon) {
+                                navigator.sendBeacon('/api/v1/metrics/performance', JSON.stringify(metrics));
+                            } else {
+                                // Fallback to fetch
+                                fetch('/api/v1/metrics/performance', {
+                                    method: 'POST',
+                                    body: JSON.stringify(metrics),
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    keepalive: true
+                                }).catch(err => console.error('Error sending metrics:', err));
+                            }
+                        } catch (error) {
+                            console.error('Error processing performance metrics:', error);
+                        }
+                    }
+                }, 0);
+            });
+        }
+    </script>
+</body>
+</html>

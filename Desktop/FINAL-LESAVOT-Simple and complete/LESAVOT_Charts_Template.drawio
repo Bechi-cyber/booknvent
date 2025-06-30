@@ -1,0 +1,66 @@
+<mxfile host="app.diagrams.net" modified="2024-01-15T10:00:00.000Z" agent="5.0" etag="template" version="22.1.16">
+  <diagram name="Table 3.1 Demographics" id="demographics">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="table-header" value="Table 3.1: Participant Demographics by Academic Program" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="500" height="30" as="geometry" />
+        </mxCell>
+        <!-- Table structure will be created in draw.io -->
+      </root>
+    </mxGraphModel>
+  </diagram>
+  
+  <diagram name="Academic Program Bar Chart" id="barchart">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="chart-title" value="Participant Distribution by Academic Program" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="500" height="30" as="geometry" />
+        </mxCell>
+        <!-- Bar chart elements will be created in draw.io -->
+      </root>
+    </mxGraphModel>
+  </diagram>
+  
+  <diagram name="Survey Response Table" id="surveytable">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="survey-header" value="Table 4.1: Survey Response Frequency Distribution" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="600" height="30" as="geometry" />
+        </mxCell>
+        <!-- Survey table will be created in draw.io -->
+      </root>
+    </mxGraphModel>
+  </diagram>
+  
+  <diagram name="Stacked Bar Chart" id="stackedbar">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="stacked-title" value="Survey Response Distribution (Stacked Bar Chart)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="600" height="30" as="geometry" />
+        </mxCell>
+        <!-- Stacked bars will be created in draw.io -->
+      </root>
+    </mxGraphModel>
+  </diagram>
+  
+  <diagram name="Sampling Pie Chart" id="piechart">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="pie-title" value="Judgement Sampling Distribution" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="50" width="300" height="30" as="geometry" />
+        </mxCell>
+        <!-- Pie chart will be created in draw.io -->
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

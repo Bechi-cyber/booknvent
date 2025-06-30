@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication Test - LESAVOT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+        }
+        input, button {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        .status {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔐 LESAVOT Authentication System Test</h1>
+    
+    <div class="test-section">
+        <h2>📊 System Status</h2>
+        <div id="systemStatus" class="status">Checking system status...</div>
+        <button onclick="checkSystemHealth()">🔄 Refresh Status</button>
+        <div id="healthResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📝 User Registration Test</h2>
+        <div class="test-form">
+            <input type="text" id="signupUsername" placeholder="Username" value="testuser123">
+            <input type="email" id="signupEmail" placeholder="Email" value="test123@example.com">
+            <input type="password" id="signupPassword" placeholder="Password" value="testpass123">
+            <input type="text" id="signupFullName" placeholder="Full Name" value="Test User 123">
+            <button onclick="testSignup()">🚀 Test Sign Up</button>
+        </div>
+        <div id="signupResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔑 Login & OTP Test</h2>
+        <div class="test-form">
+            <input type="text" id="loginUsername" placeholder="Username" value="testuser">
+            <input type="password" id="loginPassword" placeholder="Password" value="testpass123">
+            <button onclick="testLogin()">🔐 Test Login</button>
+            <button onclick="testResendOtp()" id="resendBtn" disabled>📧 Resend OTP</button>
+        </div>
+        <div id="loginResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>✅ OTP Verification Test</h2>
+        <div class="test-form">
+            <input type="text" id="otpCode" placeholder="Enter OTP Code" maxlength="6">
+            <button onclick="testOtpVerification()" id="verifyBtn" disabled>✅ Verify OTP</button>
+        </div>
+        <div id="otpResult" class="result"></div>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        let currentUsername = '';
+        let lastOtp = '';
+
+        // Check system health
+        async function checkSystemHealth() {
+            const resultDiv = document.getElementById('healthResult');
+            const statusDiv = document.getElementById('systemStatus');
+            
+            try {
+                statusDiv.textContent = 'Checking system status...';
+                resultDiv.className = 'result info';
+                resultDiv.textContent = 'Connecting to server...';
+
+                const apiUrl = window.CONFIG.getApiUrl('health');
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (response.ok) {
+                    statusDiv.textContent = '✅ System Online';
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `Status: ${data.status}\nMessage: ${data.message}\nDatabase: ${data.database}\nTimestamp: ${data.timestamp}`;
+                } else {
+                    statusDiv.textContent = '❌ System Error';
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `Error: ${response.status} ${response.statusText}\n${JSON.stringify(data, null, 2)}`;
+                }
+            } catch (error) {
+                statusDiv.textContent = '❌ Connection Failed';
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `Connection Error: ${error.message}`;
+            }
+        }
+
+        // Test signup
+        async function testSignup() {
+            const resultDiv = document.getElementById('signupResult');
+            const username = document.getElementById('signupUsername').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const fullName = document.getElementById('signupFullName').value;
+
+            try {
+                resultDiv.className = 'result info';
+                resultDiv.textContent = 'Creating user account...';
+
+                const apiUrl = window.CONFIG.getApiUrl('auth/signup');
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password, fullName })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ Signup Successful!\n${JSON.stringify(data, null, 2)}`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ Signup Failed!\nStatus: ${response.status}\n${JSON.stringify(data, null, 2)}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ Signup Error: ${error.message}`;
+            }
+        }
+
+        // Test login
+        async function testLogin() {
+            const resultDiv = document.getElementById('loginResult');
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                currentUsername = username;
+                resultDiv.className = 'result info';
+                resultDiv.textContent = 'Logging in...';
+
+                const apiUrl = window.CONFIG.getApiUrl('auth/login');
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.requiresOtp) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ Login Successful! OTP Required.\n${JSON.stringify(data, null, 2)}`;
+                    
+                    // Enable OTP verification and resend buttons
+                    document.getElementById('verifyBtn').disabled = false;
+                    document.getElementById('resendBtn').disabled = false;
+                    
+                    // Auto-fill OTP if provided (for testing)
+                    if (data.testOtp) {
+                        document.getElementById('otpCode').value = data.testOtp;
+                        lastOtp = data.testOtp;
+                    }
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ Login Failed!\nStatus: ${response.status}\n${JSON.stringify(data, null, 2)}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ Login Error: ${error.message}`;
+            }
+        }
+
+        // Test resend OTP
+        async function testResendOtp() {
+            const resultDiv = document.getElementById('loginResult');
+
+            try {
+                resultDiv.className = 'result info';
+                resultDiv.textContent = 'Resending OTP...';
+
+                const apiUrl = window.CONFIG.getApiUrl('auth/login');
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: currentUsername, resendOtp: true })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ OTP Resent!\n${JSON.stringify(data, null, 2)}`;
+                    
+                    // Auto-fill new OTP if provided (for testing)
+                    if (data.testOtp) {
+                        document.getElementById('otpCode').value = data.testOtp;
+                        lastOtp = data.testOtp;
+                    }
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ Resend Failed!\nStatus: ${response.status}\n${JSON.stringify(data, null, 2)}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ Resend Error: ${error.message}`;
+            }
+        }
+
+        // Test OTP verification
+        async function testOtpVerification() {
+            const resultDiv = document.getElementById('otpResult');
+            const otp = document.getElementById('otpCode').value;
+
+            try {
+                resultDiv.className = 'result info';
+                resultDiv.textContent = 'Verifying OTP...';
+
+                const apiUrl = window.CONFIG.getApiUrl('auth/verify-otp');
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: currentUsername, otp })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ OTP Verification Successful!\n${JSON.stringify(data, null, 2)}`;
+                    
+                    // Store tokens for future use
+                    if (data.token) {
+                        localStorage.setItem('jwt_token', data.token);
+                        if (data.refreshToken) {
+                            localStorage.setItem('refresh_token', data.refreshToken);
+                        }
+                    }
+                    
+                    // Disable buttons after successful verification
+                    document.getElementById('verifyBtn').disabled = true;
+                    document.getElementById('resendBtn').disabled = true;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ OTP Verification Failed!\nStatus: ${response.status}\n${JSON.stringify(data, null, 2)}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ OTP Verification Error: ${error.message}`;
+            }
+        }
+
+        // Initialize page
+        window.onload = function() {
+            checkSystemHealth();
+        };
+    </script>
+</body>
+</html>

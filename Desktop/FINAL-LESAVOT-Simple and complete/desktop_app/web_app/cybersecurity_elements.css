@@ -1,0 +1,225 @@
+/* LESAVOT - Cybersecurity Visual Elements
+   This file contains cybersecurity-themed visual elements to enhance the security vibe */
+
+/* Variables */
+:root {
+    --cyber-accent: rgba(100, 255, 218, 0.05);
+    --cyber-glow: 0 0 15px rgba(100, 255, 218, 0.2);
+    --cyber-border: rgba(100, 255, 218, 0.2);
+}
+
+/* Enhanced body background */
+body {
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Binary code background layer */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIxMCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxMCIgZmlsbD0icmdiYSgxMDAsMjU1LDIxOCwwLjAyKSI+MDExMDAxMDE8L3RleHQ+PHRleHQgeT0iMjAiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9InJnYmEoMTAwLDI1NSwyMTgsMC4wMikiPjEwMDExMTAwPC90ZXh0Pjx0ZXh0IHk9IjMwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjEwIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDIpIj4wMDExMDExMDwvdGV4dD48dGV4dCB5PSI0MCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxMCIgZmlsbD0icmdiYSgxMDAsMjU1LDIxOCwwLjAyKSI+MTEwMDEwMDE8L3RleHQ+PHRleHQgeT0iNTAiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9InJnYmEoMTAwLDI1NSwyMTgsMC4wMikiPjAxMDExMDEwPC90ZXh0Pjx0ZXh0IHk9IjYwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjEwIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDIpIj4xMTAxMDAxMDwvdGV4dD48dGV4dCB5PSI3MCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxMCIgZmlsbD0icmdiYSgxMDAsMjU1LDIxOCwwLjAyKSI+MDAxMTAxMDE8L3RleHQ+PHRleHQgeT0iODAiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9InJnYmEoMTAwLDI1NSwyMTgsMC4wMikiPjExMDAxMDExPC90ZXh0Pjx0ZXh0IHk9IjkwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjEwIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDIpIj4wMTAxMTAwMTwvdGV4dD48dGV4dCB5PSIxMDAiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9InJnYmEoMTAwLDI1NSwyMTgsMC4wMikiPjEwMDExMDEwPC90ZXh0Pjwvc3ZnPg==');
+    background-size: 200px 200px;
+    opacity: 0.3;
+    z-index: -3;
+    pointer-events: none;
+}
+
+/* Digital circuit pattern */
+#app::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNMTAgMTBMNTAgMTBMNTAgNTBMOTAgNTBMOTAgOTAiIHN0cm9rZT0icmdiYSgxMDAsMjU1LDIxOCwwLjAyKSIgc3Ryb2tlLXdpZHRoPSIwLjUiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNMjAgMjBMNjAgMjBMNjAgNjBMODAgNjAiIHN0cm9rZT0icmdiYSgxMDAsMjU1LDIxOCwwLjAyKSIgc3Ryb2tlLXdpZHRoPSIwLjUiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNMzAgMzBMNzAgMzBMNzAgNzAiIHN0cm9rZT0icmdiYSgxMDAsMjU1LDIxOCwwLjAyKSIgc3Ryb2tlLXdpZHRoPSIwLjUiIGZpbGw9Im5vbmUiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIzIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDMpIi8+PGNpcmNsZSBjeD0iODAiIGN5PSI2MCIgcj0iMyIgZmlsbD0icmdiYSgxMDAsMjU1LDIxOCwwLjAzKSIvPjxjaXJjbGUgY3g9IjkwIiBjeT0iOTAiIHI9IjMiIGZpbGw9InJnYmEoMTAwLDI1NSwyMTgsMC4wMykiLz48Y2lyY2xlIGN4PSI3MCIgY3k9IjcwIiByPSIzIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDMpIi8+PC9zdmc+');
+    background-size: 300px 300px;
+    opacity: 0.2;
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* Enhanced header with cybersecurity elements */
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--cyber-accent), 
+        transparent
+    );
+    opacity: 0.7;
+    z-index: 1;
+}
+
+/* Shield icon in header background */
+.header-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDFMMyA1djZjMCA1LjU1IDMuODQgMTAuNzQgOSAxMiA1LjE2LTEuMjYgOS02LjQ1IDktMTJWNWwtOS00em0wIDJsMSAuNDVWMTFoNnYxYzAgNC40Mi0zLjEgOC4yNC03LjMgOS4yNy00LjItMS4wMy03LjMtNC44NS03LjMtOS4yN3YtMWg2VjMuNWw2LTIuNXptLTEgNVY1aDJ2M2gzdjJoLTN2M2gtMnYtM0g4VjhoM3oiIGZpbGw9InJnYmEoMTAwLDI1NSwyMTgsMC4wMykiLz48L3N2Zz4=');
+    background-repeat: no-repeat;
+    opacity: 0.05;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Enhanced logo with glow effect */
+.logo-icon {
+    text-shadow: var(--cyber-glow);
+    position: relative;
+}
+
+/* Enhanced card styling */
+.card {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Top gradient border for cards */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--cyber-accent), 
+        transparent
+    );
+    opacity: 0.7;
+    z-index: 1;
+}
+
+/* Fingerprint pattern in card background */
+.card::after {
+    content: '';
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 150px;
+    height: 150px;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNNTAgMTBDMjggMTAgMTAgMjggMTAgNTBzMTggNDAgNDAgNDBjMjIgMCA0MC0xOCA0MC00MFM3MiAxMCA1MCAxMHptMCA3YzE4IDAgMzMgMTUgMzMgMzNTNjggODMgNTAgODMgMTcgNjggMTcgNTAgMzIgMTcgNTAgMTd6bTAgN2MtMTQgMC0yNiAxMi0yNiAyNnMxMiAyNiAyNiAyNiAyNi0xMiAyNi0yNi0xMi0yNi0yNi0yNnptMCA3YzEwIDAgMTkgOSAxOSAxOXMtOSAxOS0xOSAxOS0xOS05LTE5LTE5IDktMTkgMTktMTl6bTAgN2MtNiAwLTEyIDUtMTIgMTJzNiAxMiAxMiAxMiAxMi01IDEyLTEyLTYtMTItMTItMTJ6bTAgN2MzIDAgNSAyIDUgNXMtMiA1LTUgNS01LTItNS01IDItNSA1LTV6IiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDIpIi8+PC9zdmc+');
+    background-repeat: no-repeat;
+    opacity: 0.05;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Enhanced card header with gradient separator */
+.card-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(74, 144, 226, 0.2), 
+        rgba(74, 144, 226, 0.3), 
+        rgba(74, 144, 226, 0.2), 
+        transparent
+    );
+}
+
+/* Digital rain effect for card body */
+.card-body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 100%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MCA1MDAiPjx0ZXh0IHg9IjAiIHk9IjEwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjEwIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDMpIj4xPC90ZXh0Pjx0ZXh0IHg9IjAiIHk9IjIwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjEwIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDMpIj4wPC90ZXh0Pjx0ZXh0IHg9IjAiIHk9IjMwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjEwIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDMpIj4xPC90ZXh0Pjx0ZXh0IHg9IjAiIHk9IjQwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjEwIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDMpIj4wPC90ZXh0Pjx0ZXh0IHg9IjAiIHk9IjUwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjEwIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDMpIj4xPC90ZXh0Pjx0ZXh0IHg9IjAiIHk9IjYwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjEwIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDMpIj4wPC90ZXh0Pjx0ZXh0IHg9IjAiIHk9IjcwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjEwIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDMpIj4xPC90ZXh0Pjx0ZXh0IHg9IjAiIHk9IjgwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjEwIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDMpIj4wPC90ZXh0Pjx0ZXh0IHg9IjAiIHk9IjkwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjEwIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDMpIj4xPC90ZXh0Pjx0ZXh0IHg9IjAiIHk9IjEwMCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxMCIgZmlsbD0icmdiYSgxMDAsMjU1LDIxOCwwLjAzKSI+MDwvdGV4dD48L3N2Zz4=');
+    background-repeat: repeat-y;
+    opacity: 0.1;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Enhanced form elements */
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.1);
+}
+
+/* Password input security icon */
+.password-input::after {
+    content: '🔒';
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    opacity: 0.3;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.password-input:hover::after {
+    opacity: 0.6;
+}
+
+/* Enhanced buttons with subtle glow */
+.btn-primary {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.7s ease;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+/* Network connections animation for output container */
+@keyframes pulse {
+    0% { opacity: 0.01; }
+    50% { opacity: 0.05; }
+    100% { opacity: 0.01; }
+}
+
+.output-container {
+    position: relative;
+}
+
+.output-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIyIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMSkiLz48Y2lyY2xlIGN4PSI2MCIgY3k9IjQwIiByPSIyIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMSkiLz48Y2lyY2xlIGN4PSIxMDAiIGN5PSIyMCIgcj0iMiIgZmlsbD0icmdiYSgxMDAsMjU1LDIxOCwwLjEpIi8+PGNpcmNsZSBjeD0iMTQwIiBjeT0iNDAiIHI9IjIiIGZpbGw9InJnYmEoMTAwLDI1NSwyMTgsMC4xKSIvPjxjaXJjbGUgY3g9IjE4MCIgY3k9IjIwIiByPSIyIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMSkiLz48Y2lyY2xlIGN4PSIyMCIgY3k9IjgwIiByPSIyIiBmaWxsPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMSkiLz48Y2lyY2xlIGN4PSI2MCIgY3k9IjEwMCIgcj0iMiIgZmlsbD0icmdiYSgxMDAsMjU1LDIxOCwwLjEpIi8+PGNpcmNsZSBjeD0iMTAwIiBjeT0iODAiIHI9IjIiIGZpbGw9InJnYmEoMTAwLDI1NSwyMTgsMC4xKSIvPjxjaXJjbGUgY3g9IjE0MCIgY3k9IjEwMCIgcj0iMiIgZmlsbD0icmdiYSgxMDAsMjU1LDIxOCwwLjEpIi8+PGNpcmNsZSBjeD0iMTgwIiBjeT0iODAiIHI9IjIiIGZpbGw9InJnYmEoMTAwLDI1NSwyMTgsMC4xKSIvPjxsaW5lIHgxPSIyMCIgeTE9IjIwIiB4Mj0iNjAiIHkyPSI0MCIgc3Ryb2tlPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDUpIiBzdHJva2Utd2lkdGg9IjAuNSIvPjxsaW5lIHgxPSI2MCIgeTE9IjQwIiB4Mj0iMTAwIiB5Mj0iMjAiIHN0cm9rZT0icmdiYSgxMDAsMjU1LDIxOCwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIwLjUiLz48bGluZSB4MT0iMTAwIiB5MT0iMjAiIHgyPSIxNDAiIHkyPSI0MCIgc3Ryb2tlPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDUpIiBzdHJva2Utd2lkdGg9IjAuNSIvPjxsaW5lIHgxPSIxNDAiIHkxPSI0MCIgeDI9IjE4MCIgeTI9IjIwIiBzdHJva2U9InJnYmEoMTAwLDI1NSwyMTgsMC4wNSkiIHN0cm9rZS13aWR0aD0iMC41Ii8+PGxpbmUgeDE9IjIwIiB5MT0iODAiIHgyPSI2MCIgeTI9IjEwMCIgc3Ryb2tlPSJyZ2JhKDEwMCwyNTUsMjE4LDAuMDUpIiBzdHJva2Utd2lkdGg9IjAuNSIvPjxsaW5lIHgxPSI2MCIgeTE9IjEwMCIgeDI9IjEwMCIgeTI9IjgwIiBzdHJva2U9InJnYmEoMTAwLDI1NSwyMTgsMC4wNSkiIHN0cm9rZS13aWR0aD0iMC41Ii8+PGxpbmUgeDE9IjEwMCIgeTE9IjgwIiB4Mj0iMTQwIiB5Mj0iMTAwIiBzdHJva2U9InJnYmEoMTAwLDI1NSwyMTgsMC4wNSkiIHN0cm9rZS13aWR0aD0iMC41Ii8+PGxpbmUgeDE9IjE0MCIgeTE9IjEwMCIgeDI9IjE4MCIgeTI9IjgwIiBzdHJva2U9InJnYmEoMTAwLDI1NSwyMTgsMC4wNSkiIHN0cm9rZS13aWR0aD0iMC41Ii8+PC9zdmc+');
+    background-size: 200px 200px;
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+    animation: pulse 8s infinite ease-in-out;
+}

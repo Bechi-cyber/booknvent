@@ -1,0 +1,93 @@
+{
+  "name": "lesavot-desktop",
+  "version": "1.0.0",
+  "description": "LESAVOT - Advanced Multimodal Steganographic Security Platform (Desktop Application)",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build-win": "electron-builder --win",
+    "build-mac": "electron-builder --mac",
+    "build-linux": "electron-builder --linux",
+    "dist": "electron-builder --publish=never",
+    "pack": "electron-builder --dir",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "keywords": [
+    "steganography",
+    "security",
+    "encryption",
+    "multimodal",
+    "cybersecurity",
+    "lesavot"
+  ],
+  "author": {
+    "name": "LESAVOT Security Systems",
+    "email": "seclesavot@gmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "dependencies": {
+    "electron-updater": "^6.1.7"
+  },
+  "build": {
+    "appId": "com.lesavot.desktop",
+    "productName": "LESAVOT Security Platform",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer.js",
+      "web_app/**/*",
+      "assets/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64", "ia32"]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        }
+      ],
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.security"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.png",
+      "category": "Security"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "LESAVOT Security Platform"
+    }
+  },
+  "homepage": "https://github.com/Bechi-cyber/FINAL-LESAVOT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Bechi-cyber/FINAL-LESAVOT.git"
+  }
+}

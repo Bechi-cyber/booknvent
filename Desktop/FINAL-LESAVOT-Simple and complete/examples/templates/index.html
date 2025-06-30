@@ -1,0 +1,350 @@
+{% extends "layout.html" %}
+
+{% block title %}LESAVOT - Secure Steganography Platform{% endblock %}
+
+{% block content %}
+<div class="cyber-hero">
+    <h1>Secure Your Messages with Advanced Steganography</h1>
+    <p>
+        LESAVOT provides cutting-edge steganography tools to hide your sensitive information
+        within ordinary files, making them invisible to unauthorized observers.
+    </p>
+
+    <div class="hero-actions">
+        {% if session.username %}
+            <a href="{{ url_for('dashboard') }}" class="cyber-btn" data-nav>Go to Dashboard</a>
+        {% else %}
+            <a href="{{ url_for('signup') }}" class="cyber-btn" data-nav>Get Started</a>
+            <a href="{{ url_for('login') }}" class="cyber-btn cyber-btn-secondary" data-nav>Login</a>
+        {% endif %}
+    </div>
+
+    <div class="hero-visual">
+        <div class="encryption-visualization">
+            <div class="visualization-container">
+                <div class="original-data">
+                    <div class="data-label">Original</div>
+                    <div class="data-grid">
+                        <div class="data-cell">FF</div>
+                        <div class="data-cell">A4</div>
+                        <div class="data-cell">3B</div>
+                        <div class="data-cell">C7</div>
+                        <div class="data-cell">01</div>
+                        <div class="data-cell">9E</div>
+                        <div class="data-cell">D2</div>
+                        <div class="data-cell">5F</div>
+                    </div>
+                </div>
+
+                <div class="process-arrow">→</div>
+
+                <div class="encrypted-data">
+                    <div class="data-label">Encoded</div>
+                    <div class="data-grid">
+                        <div class="data-cell changed">FE</div>
+                        <div class="data-cell">A4</div>
+                        <div class="data-cell changed">3A</div>
+                        <div class="data-cell">C7</div>
+                        <div class="data-cell changed">00</div>
+                        <div class="data-cell">9E</div>
+                        <div class="data-cell changed">D3</div>
+                        <div class="data-cell">5F</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section-title">
+    <h2>Multimodal Steganography</h2>
+    <p>Hide your data in various file formats with our advanced techniques</p>
+</div>
+
+<div class="cyber-tools">
+    <div class="tool-card">
+        <div class="tool-icon">🖼️</div>
+        <h3>Image Steganography</h3>
+        <p>
+            Hide messages within image files using LSB (Least Significant Bit) technique,
+            making them invisible to the naked eye while preserving image quality.
+        </p>
+        <div class="tool-footer">
+            <div>
+                <span class="tool-tag">PNG</span>
+                <span class="tool-tag">JPG</span>
+            </div>
+            <span class="arrow-icon">→</span>
+        </div>
+    </div>
+
+    <div class="tool-card">
+        <div class="tool-icon">📝</div>
+        <h3>Text Steganography</h3>
+        <p>
+            Conceal messages within text files using whitespace encoding and other
+            techniques, making them undetectable to casual readers.
+        </p>
+        <div class="tool-footer">
+            <div>
+                <span class="tool-tag">TXT</span>
+            </div>
+            <span class="arrow-icon">→</span>
+        </div>
+    </div>
+
+    <div class="tool-card">
+        <div class="tool-icon">🔊</div>
+        <h3>Audio Steganography</h3>
+        <p>
+            Embed secret messages in audio files using phase encoding, making them
+            inaudible to listeners while maintaining audio quality.
+        </p>
+        <div class="tool-footer">
+            <div>
+                <span class="tool-tag">WAV</span>
+            </div>
+            <span class="arrow-icon">→</span>
+        </div>
+    </div>
+</div>
+
+<div class="cyber-card security-features">
+    <div class="card-header">
+        <h2 class="card-title">Advanced Security Features</h2>
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-item">
+            <div class="feature-icon">🔒</div>
+            <h3>End-to-End Encryption</h3>
+            <p>Your messages are encrypted before being hidden, adding an extra layer of security.</p>
+        </div>
+
+        <div class="feature-item">
+            <div class="feature-icon">👁️</div>
+            <h3>Undetectable Encoding</h3>
+            <p>Our techniques leave minimal statistical footprints, making detection extremely difficult.</p>
+        </div>
+
+        <div class="feature-item">
+            <div class="feature-icon">🔑</div>
+            <h3>Secure Key Management</h3>
+            <p>Encryption keys are never stored on our servers, ensuring only you can access your data.</p>
+        </div>
+
+        <div class="feature-item">
+            <div class="feature-icon">📊</div>
+            <h3>Capacity Optimization</h3>
+            <p>Advanced algorithms maximize the amount of data that can be hidden without detection.</p>
+        </div>
+    </div>
+</div>
+
+<div class="cyber-cta">
+    <h2>Ready to Secure Your Communications?</h2>
+    <p>Join thousands of users who trust LESAVOT for their steganography needs.</p>
+
+    {% if not session.username %}
+        <a href="{{ url_for('signup') }}" class="cyber-btn" data-nav>Create Free Account</a>
+    {% else %}
+        <a href="{{ url_for('dashboard') }}" class="cyber-btn" data-nav>Go to Dashboard</a>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .cyber-hero {
+        text-align: center;
+        padding: 3rem 1rem;
+        margin-bottom: 3rem;
+        position: relative;
+    }
+
+    .cyber-hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(90deg, var(--cyber-accent), #90e0ef);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 20px rgba(0, 180, 216, 0.5);
+    }
+
+    .cyber-hero p {
+        font-size: 1.2rem;
+        max-width: 800px;
+        margin: 0 auto 2rem;
+        color: var(--cyber-text-secondary);
+    }
+
+    .hero-actions {
+        margin-bottom: 3rem;
+    }
+
+    .hero-visual {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .encryption-visualization {
+        background-color: rgba(10, 25, 41, 0.5);
+        border: 1px solid rgba(0, 180, 216, 0.3);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .visualization-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .data-label {
+        text-align: center;
+        color: var(--cyber-text-secondary);
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .data-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.5rem;
+    }
+
+    .data-cell {
+        background-color: rgba(10, 25, 41, 0.8);
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        padding: 0.5rem;
+        text-align: center;
+        font-family: var(--font-mono);
+        color: var(--cyber-text);
+        border-radius: 4px;
+        transition: all 0.3s;
+    }
+
+    .data-cell.changed {
+        border-color: var(--cyber-accent);
+        color: var(--cyber-accent);
+        animation: pulse 2s infinite;
+    }
+
+    .process-arrow {
+        font-size: 2rem;
+        color: var(--cyber-accent);
+        margin: 0 2rem;
+    }
+
+    .section-title {
+        text-align: center;
+        margin: 4rem 0 2rem;
+    }
+
+    .section-title h2 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        color: var(--cyber-text);
+    }
+
+    .section-title p {
+        color: var(--cyber-text-secondary);
+    }
+
+    .security-features {
+        margin: 4rem 0;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 1.5rem;
+    }
+
+    .feature-item {
+        text-align: center;
+    }
+
+    .feature-item .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--cyber-accent);
+    }
+
+    .feature-item h3 {
+        margin-bottom: 0.5rem;
+        color: var(--cyber-text);
+    }
+
+    .feature-item p {
+        color: var(--cyber-text-secondary);
+        font-size: 0.9rem;
+    }
+
+    .cyber-cta {
+        text-align: center;
+        background-color: rgba(10, 25, 41, 0.5);
+        border: 1px solid rgba(0, 180, 216, 0.3);
+        border-radius: 12px;
+        padding: 3rem 2rem;
+        margin: 4rem 0 2rem;
+    }
+
+    .cyber-cta h2 {
+        margin-bottom: 1rem;
+        color: var(--cyber-text);
+    }
+
+    .cyber-cta p {
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        color: var(--cyber-text-secondary);
+    }
+
+    @media (max-width: 768px) {
+        .visualization-container {
+            flex-direction: column;
+        }
+
+        .process-arrow {
+            transform: rotate(90deg);
+            margin: 1rem 0;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Animate the encryption visualization
+        function animateEncryption() {
+            const changedCells = document.querySelectorAll('.data-cell.changed');
+            let index = 0;
+
+            function highlightNext() {
+                if (index >= changedCells.length) {
+                    index = 0;
+                    setTimeout(highlightNext, 2000);
+                    return;
+                }
+
+                changedCells[index].classList.add('highlight');
+
+                setTimeout(() => {
+                    changedCells[index].classList.remove('highlight');
+                    index++;
+                    setTimeout(highlightNext, 500);
+                }, 1000);
+            }
+
+            highlightNext();
+        }
+
+        // Start animation
+        animateEncryption();
+    });
+</script>
+{% endblock %}

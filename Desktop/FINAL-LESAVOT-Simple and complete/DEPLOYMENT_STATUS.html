@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LESAVOT Deployment Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border-radius: 10px;
+        }
+        .status-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            color: black;
+        }
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 5px solid #2a5298;
+        }
+        .status-online {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+        .status-pending {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+        }
+        .status-offline {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+        .check-btn {
+            background: #2a5298;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .check-btn:hover {
+            background: #1e3c72;
+        }
+        .deployment-guide {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .step {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border-left: 3px solid #2a5298;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 LESAVOT Deployment Status</h1>
+    <p>Monitor your LESAVOT application deployments and access links</p>
+
+    <div class="status-container">
+        <h2>📊 Deployment Status</h2>
+
+        <div class="status-item status-pending" id="vercel-status">
+            <div>
+                <strong>🚀 Vercel Deployment</strong><br>
+                <small>https://lesavot.vercel.app</small>
+            </div>
+            <div>
+                <button type="button" class="check-btn" onclick="checkVercel()">Check Status</button>
+                <a href="https://lesavot.vercel.app" target="_blank" rel="noopener" class="check-btn">Visit Site</a>
+            </div>
+        </div>
+
+        <div class="status-item status-pending" id="github-status">
+            <div>
+                <strong>📱 GitHub Pages</strong><br>
+                <small>https://bechi-cyber.github.io/FINAL-LESAVOT/</small>
+            </div>
+            <div>
+                <button type="button" class="check-btn" onclick="checkGitHub()">Check Status</button>
+                <a href="https://bechi-cyber.github.io/FINAL-LESAVOT/" target="_blank" rel="noopener" class="check-btn">Visit Site</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="status-container">
+        <h2>📋 Quick Deployment Guide</h2>
+        <div class="deployment-guide">
+            <h3>🚀 Deploy to Vercel (Recommended)</h3>
+            <div class="step">
+                <strong>Step 1:</strong> Go to <a href="https://vercel.com/dashboard" target="_blank" rel="noopener">vercel.com/dashboard</a>
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Click "New Project" → Import "FINAL-LESAVOT"
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Use settings: Framework: Other, Root: ./, Build: (empty)
+            </div>
+            <div class="step">
+                <strong>Step 4:</strong> Click "Deploy" and wait 1-2 minutes
+            </div>
+
+            <h3>📱 Enable GitHub Pages</h3>
+            <div class="step">
+                <strong>Step 1:</strong> Go to <a href="https://github.com/Bechi-cyber/FINAL-LESAVOT" target="_blank" rel="noopener">your repository</a>
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Click "Settings" → "Pages"
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Select "GitHub Actions" as source
+            </div>
+            <div class="step">
+                <strong>Step 4:</strong> Save and wait for deployment
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function checkVercel() {
+            const statusDiv = document.getElementById('vercel-status');
+            statusDiv.className = 'status-item status-pending';
+            statusDiv.querySelector('small').textContent = 'https://lesavot.vercel.app - 🔄 Checking...';
+
+            try {
+                // Use a more reliable method to check if the site is accessible
+                const img = new Image();
+                img.onload = function() {
+                    statusDiv.className = 'status-item status-online';
+                    statusDiv.querySelector('small').textContent = 'https://lesavot.vercel.app - ✅ Online & Working';
+                };
+                img.onerror = function() {
+                    // Try direct fetch as fallback
+                    fetch('https://lesavot.vercel.app', { mode: 'no-cors' })
+                        .then(() => {
+                            statusDiv.className = 'status-item status-online';
+                            statusDiv.querySelector('small').textContent = 'https://lesavot.vercel.app - ✅ Online & Working';
+                        })
+                        .catch(() => {
+                            statusDiv.className = 'status-item status-offline';
+                            statusDiv.querySelector('small').textContent = 'https://lesavot.vercel.app - ❌ Not accessible';
+                        });
+                };
+                // Use favicon as a test image
+                img.src = 'https://lesavot.vercel.app/favicon.ico?' + Date.now();
+            } catch (error) {
+                statusDiv.className = 'status-item status-offline';
+                statusDiv.querySelector('small').textContent = 'https://lesavot.vercel.app - ❌ Error checking status';
+            }
+        }
+
+        async function checkGitHub() {
+            const statusDiv = document.getElementById('github-status');
+            statusDiv.className = 'status-item status-pending';
+            statusDiv.querySelector('small').textContent = 'https://bechi-cyber.github.io/FINAL-LESAVOT/ - 🔄 Checking...';
+
+            try {
+                // Use a more reliable method to check if the site is accessible
+                const img = new Image();
+                img.onload = function() {
+                    statusDiv.className = 'status-item status-online';
+                    statusDiv.querySelector('small').textContent = 'https://bechi-cyber.github.io/FINAL-LESAVOT/ - ✅ Online & Working';
+                };
+                img.onerror = function() {
+                    // Try direct fetch as fallback
+                    fetch('https://bechi-cyber.github.io/FINAL-LESAVOT/', { mode: 'no-cors' })
+                        .then(() => {
+                            statusDiv.className = 'status-item status-online';
+                            statusDiv.querySelector('small').textContent = 'https://bechi-cyber.github.io/FINAL-LESAVOT/ - ✅ Online & Working';
+                        })
+                        .catch(() => {
+                            statusDiv.className = 'status-item status-offline';
+                            statusDiv.querySelector('small').textContent = 'https://bechi-cyber.github.io/FINAL-LESAVOT/ - ❌ Not deployed yet';
+                        });
+                };
+                // Use a test image from the site
+                img.src = 'https://bechi-cyber.github.io/FINAL-LESAVOT/favicon.ico?' + Date.now();
+            } catch (error) {
+                statusDiv.className = 'status-item status-offline';
+                statusDiv.querySelector('small').textContent = 'https://bechi-cyber.github.io/FINAL-LESAVOT/ - ❌ Error checking status';
+            }
+        }
+
+        // Auto-check status on load and refresh every 30 seconds
+        window.onload = function() {
+            checkVercel();
+            setTimeout(checkGitHub, 2000);
+
+            // Auto-refresh status every 30 seconds
+            setInterval(function() {
+                checkVercel();
+                setTimeout(checkGitHub, 2000);
+            }, 30000);
+        };
+    </script>
+</body>
+</html>

@@ -12,7 +12,8 @@
     "test": "jest",
     "migrate": "node scripts/migrate-db.js",
     "backup-db": "node scripts/backup-db.js",
-    "monitor": "node scripts/monitor.js"
+    "monitor": "node scripts/monitor.js",
+    "build": "echo 'No build step required for Node.js backend'"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

@@ -1,0 +1,47 @@
+{
+  "name": "LESAVOT Steganography Platform",
+  "short_name": "LESAVOT",
+  "description": "Secure multimodal steganography platform for text, image, and audio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a192f",
+  "theme_color": "#0a192f",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Text Steganography",
+      "short_name": "Text",
+      "description": "Hide messages in text",
+      "url": "/text_stego.html",
+      "icons": [{ "src": "favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Image Steganography",
+      "short_name": "Image",
+      "description": "Hide messages in images",
+      "url": "/image_stego.html",
+      "icons": [{ "src": "favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Audio Steganography",
+      "short_name": "Audio",
+      "description": "Hide messages in audio files",
+      "url": "/audio_stego.html",
+      "icons": [{ "src": "favicon.svg", "sizes": "any" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "screenshots": [],
+  "categories": ["security", "utilities", "productivity"],
+  "lang": "en-US",
+  "dir": "ltr"
+}

@@ -1,0 +1,67 @@
+﻿{
+  "version": 2,
+  "name": "lesavot",
+  "public": true,
+  "functions": {
+    "web_version/server/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/auth",
+      "destination": "/web_version/auth.html"
+    },
+    {
+      "source": "/text",
+      "destination": "/web_version/text_stego.html"
+    },
+    {
+      "source": "/image",
+      "destination": "/web_version/image_stego.html"
+    },
+    {
+      "source": "/audio",
+      "destination": "/web_version/audio_stego.html"
+    },
+    {
+      "source": "/profile",
+      "destination": "/web_version/profile.html"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/web_version/server/$1"
+    },
+    {
+      "source": "/(.*\\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot))",
+      "destination": "/web_version/$1"
+    },
+    {
+      "source": "/web_version/(.*)",
+      "destination": "/web_version/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    }
+  ]
+}

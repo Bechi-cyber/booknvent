@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LESAVOT | DH Key Exchange Demo</title>
+    <link rel="stylesheet" href="text_stego.css">
+    <link rel="stylesheet" href="cybersecurity_elements.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .demo-container { max-width: 600px; margin: 2rem auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0002; padding: 2rem; }
+        .demo-row { margin-bottom: 1.5rem; }
+        .demo-label { font-weight: bold; }
+        .demo-key { font-family: monospace; word-break: break-all; background: #f4f4f4; padding: 0.5rem; border-radius: 4px; }
+        .demo-status { margin-top: 1rem; font-weight: bold; }
+        .demo-btn { margin-top: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h2><i class="fas fa-exchange-alt"></i> Diffie-Hellman Key Exchange Demo</h2>
+        <div class="demo-row">
+            <button id="startBtn" class="btn btn-primary demo-btn"><i class="fas fa-play"></i> Start Key Exchange</button>
+        </div>
+        <div class="demo-row">
+            <span class="demo-label">Server Public Key:</span>
+            <div id="serverPubKey" class="demo-key">-</div>
+        </div>
+        <div class="demo-row">
+            <span class="demo-label">Client Public Key:</span>
+            <div id="clientPubKey" class="demo-key">-</div>
+        </div>
+        <div class="demo-row">
+            <span class="demo-label">Derived Shared Secret (Client):</span>
+            <div id="clientSecret" class="demo-key">-</div>
+        </div>
+        <div class="demo-row">
+            <span class="demo-label">Derived Shared Secret (Server):</span>
+            <div id="serverSecret" class="demo-key">-</div>
+        </div>
+        <div id="status" class="demo-status"></div>
+    </div>
+    <script type="module">
+    import { DiffieHellmanKeyExchange } from './key-exchange.js';
+    const startBtn = document.getElementById('startBtn');
+    const serverPubKeyDiv = document.getElementById('serverPubKey');
+    const clientPubKeyDiv = document.getElementById('clientPubKey');
+    const clientSecretDiv = document.getElementById('clientSecret');
+    const serverSecretDiv = document.getElementById('serverSecret');
+    const statusDiv = document.getElementById('status');
+
+    startBtn.addEventListener('click', async () => {
+        statusDiv.textContent = 'Starting key exchange...';
+        serverPubKeyDiv.textContent = '-';
+        clientPubKeyDiv.textContent = '-';
+        clientSecretDiv.textContent = '-';
+        serverSecretDiv.textContent = '-';
+        try {
+            const dh = new DiffieHellmanKeyExchange();
+            const serverParams = await dh.fetchServerParams();
+            serverPubKeyDiv.textContent = serverParams.serverPublicKey;
+            await dh.generateClientKeyPair();
+            const clientPubKey = await dh.exportClientPublicKey();
+            clientPubKeyDiv.textContent = clientPubKey;
+            await dh.computeAndDeriveKey();
+            clientSecretDiv.textContent = dh.derivedKey;
+            const serverResult = await dh.completeKeyExchange();
+            serverSecretDiv.textContent = serverResult;
+            if (dh.derivedKey === serverResult) {
+                statusDiv.textContent = 'Key exchange successful! Shared secret matches.';
+                statusDiv.style.color = 'green';
+            } else {
+                statusDiv.textContent = 'Key exchange failed: secrets do not match.';
+                statusDiv.style.color = 'red';
+            }
+        } catch (e) {
+            statusDiv.textContent = 'Error: ' + e.message;
+            statusDiv.style.color = 'red';
+        }
+    });
+    </script>
+</body>
+</html>

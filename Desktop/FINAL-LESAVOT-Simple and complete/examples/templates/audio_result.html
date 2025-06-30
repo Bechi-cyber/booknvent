@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Steganography Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .nav a {
+            display: inline-block;
+            background-color: #555;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 0 5px;
+        }
+        .nav a:hover {
+            background-color: #333;
+        }
+        .result-container {
+            margin-top: 30px;
+        }
+        .audio-container {
+            margin-top: 20px;
+            text-align: center;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .message-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .download-btn {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            margin-top: 15px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .download-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Message Hidden Successfully</h1>
+    
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/image">Image</a>
+        <a href="/text">Text</a>
+        <a href="/audio">Audio</a>
+    </div>
+    
+    <div class="result-container">
+        <p>Your message has been successfully hidden in the audio file using phase encoding steganography.</p>
+        
+        <div class="audio-container">
+            <h2>Steganographic Audio</h2>
+            <p>The audio file below contains your hidden message. The message is encoded in the phase of audio segments.</p>
+            <audio controls>
+                <source src="{{ url_for('download', filename=stego_filename) }}" type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
+            <div>
+                <a href="{{ url_for('download', filename=stego_filename) }}" class="download-btn">Download Audio File</a>
+            </div>
+        </div>
+        
+        <div class="message-box">
+            <h3>Hidden Message:</h3>
+            <p>{{ message }}</p>
+        </div>
+    </div>
+</body>
+</html>

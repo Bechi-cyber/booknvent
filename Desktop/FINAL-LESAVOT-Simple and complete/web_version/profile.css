@@ -1,0 +1,189 @@
+/* LESAVOT - Profile Page Styles */
+
+/* Profile grid layout */
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Profile card */
+.profile-card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Profile avatar */
+.profile-avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.profile-avatar i {
+    font-size: 5rem;
+    color: var(--primary-blue);
+    margin-bottom: 1rem;
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.25rem;
+}
+
+.profile-email {
+    font-size: 0.9rem;
+    color: var(--text-medium);
+}
+
+/* Security card */
+.security-card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Security sections */
+.security-section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.security-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.security-section h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+/* MFA status */
+.mfa-status {
+    margin-bottom: 1rem;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background-color: var(--bg-light);
+    margin-bottom: 1rem;
+}
+
+.status-indicator.enabled {
+    background-color: rgba(72, 187, 120, 0.1);
+    color: #38a169;
+}
+
+.status-indicator.disabled {
+    background-color: rgba(229, 62, 62, 0.1);
+    color: #e53e3e;
+}
+
+.status-indicator i {
+    font-size: 1.1rem;
+}
+
+/* MFA actions */
+.mfa-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Danger zone */
+.danger-zone {
+    background-color: rgba(229, 62, 62, 0.05);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(229, 62, 62, 0.2);
+}
+
+.danger-zone h3 {
+    color: #e53e3e;
+}
+
+.danger-zone p {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-medium);
+}
+
+/* Password strength meter */
+.password-strength {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.strength-meter {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.strength-segment {
+    height: 4px;
+    flex: 1;
+    background-color: var(--border-color);
+    border-radius: 2px;
+}
+
+.strength-segment.weak {
+    background-color: #e53e3e;
+}
+
+.strength-segment.medium {
+    background-color: #ecc94b;
+}
+
+.strength-segment.strong {
+    background-color: #38a169;
+}
+
+.strength-text {
+    font-size: 0.75rem;
+    color: var(--text-light);
+}
+
+/* Danger button */
+.btn-danger {
+    background-color: #e53e3e;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c53030;
+}
+
+.btn-outline.btn-danger {
+    background-color: transparent;
+    color: #e53e3e;
+    border-color: #e53e3e;
+}
+
+.btn-outline.btn-danger:hover {
+    background-color: rgba(229, 62, 62, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-card,
+    .security-card {
+        margin-bottom: 1.5rem;
+    }
+}

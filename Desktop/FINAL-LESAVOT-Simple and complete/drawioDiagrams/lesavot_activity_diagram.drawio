@@ -1,0 +1,333 @@
+<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="5.0" etag="def456" version="22.1.16" type="device">
+  <diagram name="LESAVOT Activity Diagram" id="activity-diagram">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Start Node -->
+        <mxCell id="start" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="580" y="30" width="30" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- User Authentication -->
+        <mxCell id="auth-activity" value="User Authentication" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="520" y="90" width="150" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Authentication Decision -->
+        <mxCell id="auth-decision" value="Authentication&#xa;Successful?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="540" y="160" width="110" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Login Failed -->
+        <mxCell id="login-failed" value="Display Error&#xa;Message" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="720" y="180" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Select Operation Mode -->
+        <mxCell id="select-mode" value="Select Operation Mode&#xa;(Encrypt/Decrypt)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="520" y="280" width="150" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Select Modality -->
+        <mxCell id="select-modality" value="Select Steganography&#xa;Modality" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="520" y="360" width="150" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Modality Decision -->
+        <mxCell id="modality-decision" value="Which&#xa;Modality?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="545" y="440" width="100" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Text Branch -->
+        <mxCell id="text-process" value="Process Text&#xa;Steganography" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="200" y="560" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Image Branch -->
+        <mxCell id="image-process" value="Process Image&#xa;Steganography" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="535" y="560" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Audio Branch -->
+        <mxCell id="audio-process" value="Process Audio&#xa;Steganography" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="870" y="560" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Multimodal Branch -->
+        <mxCell id="multi-process" value="Process Multimodal&#xa;Steganography" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="460" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- File Upload -->
+        <mxCell id="file-upload" value="Upload Files" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="535" y="650" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Validation -->
+        <mxCell id="validation" value="Validate Input&#xa;Files" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="535" y="720" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Validation Decision -->
+        <mxCell id="validation-decision" value="Files Valid?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="545" y="790" width="100" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Validation Error -->
+        <mxCell id="validation-error" value="Display Validation&#xa;Error" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="720" y="800" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Password Input -->
+        <mxCell id="password-input" value="Enter Password" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="535" y="880" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Execute Operation -->
+        <mxCell id="execute-operation" value="Execute Steganographic&#xa;Operation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="535" y="950" width="120" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Operation Success Decision -->
+        <mxCell id="operation-decision" value="Operation&#xa;Successful?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="545" y="1030" width="100" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Operation Error -->
+        <mxCell id="operation-error" value="Display Operation&#xa;Error" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="720" y="1050" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Generate Result -->
+        <mxCell id="generate-result" value="Generate Result&#xa;File" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="535" y="1140" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- End Node -->
+        <mxCell id="end" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="580" y="1210" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="end-inner" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="585" y="1215" width="20" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Flow Arrows -->
+        <!-- Start to Auth -->
+        <mxCell id="flow1" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="start" target="auth-activity">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="70" as="sourcePoint" />
+            <mxPoint x="640" y="20" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Auth to Decision -->
+        <mxCell id="flow2" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="auth-activity" target="auth-decision">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="140" as="sourcePoint" />
+            <mxPoint x="640" y="90" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Auth Decision to Error (No) -->
+        <mxCell id="flow3" value="No" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="auth-decision" target="login-failed">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="660" y="200" as="sourcePoint" />
+            <mxPoint x="710" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Auth Decision to Select Mode (Yes) -->
+        <mxCell id="flow4" value="Yes" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="auth-decision" target="select-mode">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="250" as="sourcePoint" />
+            <mxPoint x="640" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Select Mode to Select Modality -->
+        <mxCell id="flow5" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="select-mode" target="select-modality">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="340" as="sourcePoint" />
+            <mxPoint x="640" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Select Modality to Decision -->
+        <mxCell id="flow6" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="select-modality" target="modality-decision">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="420" as="sourcePoint" />
+            <mxPoint x="640" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Modality Decision to Text -->
+        <mxCell id="flow7" value="Text" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="modality-decision" target="text-process">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="540" y="480" as="sourcePoint" />
+            <mxPoint x="260" y="540" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="260" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Modality Decision to Image -->
+        <mxCell id="flow8" value="Image" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="modality-decision" target="image-process">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="530" as="sourcePoint" />
+            <mxPoint x="640" y="480" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Modality Decision to Audio -->
+        <mxCell id="flow9" value="Audio" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="modality-decision" target="audio-process">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="650" y="480" as="sourcePoint" />
+            <mxPoint x="930" y="540" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="930" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Modality Decision to Multimodal -->
+        <mxCell id="flow10" value="Multi" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="modality-decision" target="multi-process">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="640" y="450" as="sourcePoint" />
+            <mxPoint x="1040" y="485" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="950" y="450" />
+              <mxPoint x="950" y="485" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Convergence to File Upload -->
+        <mxCell id="flow11" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="text-process" target="file-upload">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="260" y="620" as="sourcePoint" />
+            <mxPoint x="520" y="670" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="260" y="670" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="flow12" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="image-process" target="file-upload">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="620" as="sourcePoint" />
+            <mxPoint x="640" y="570" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="flow13" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="audio-process" target="file-upload">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="930" y="620" as="sourcePoint" />
+            <mxPoint x="670" y="670" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="930" y="670" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Continue with remaining flows -->
+        <mxCell id="flow14" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="file-upload" target="validation">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="700" as="sourcePoint" />
+            <mxPoint x="640" y="650" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="flow15" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="validation" target="validation-decision">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="770" as="sourcePoint" />
+            <mxPoint x="640" y="720" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="flow16" value="No" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="validation-decision" target="validation-error">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="650" y="820" as="sourcePoint" />
+            <mxPoint x="700" y="770" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="flow17" value="Yes" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="validation-decision" target="password-input">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="860" as="sourcePoint" />
+            <mxPoint x="640" y="810" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="flow18" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="password-input" target="execute-operation">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="930" as="sourcePoint" />
+            <mxPoint x="640" y="880" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="flow19" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="execute-operation" target="operation-decision">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="1010" as="sourcePoint" />
+            <mxPoint x="640" y="960" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="flow20" value="No" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="operation-decision" target="operation-error">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="650" y="1070" as="sourcePoint" />
+            <mxPoint x="700" y="1020" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="flow21" value="Yes" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="operation-decision" target="generate-result">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="1120" as="sourcePoint" />
+            <mxPoint x="640" y="1070" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="flow22" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="generate-result" target="end">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="1190" as="sourcePoint" />
+            <mxPoint x="640" y="1140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Error flows back to start -->
+        <mxCell id="error-flow1" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="login-failed" target="auth-activity">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="780" y="170" as="sourcePoint" />
+            <mxPoint x="680" y="110" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="780" y="110" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="error-flow2" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="validation-error" target="file-upload">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="780" y="790" as="sourcePoint" />
+            <mxPoint x="670" y="670" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="780" y="670" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="error-flow3" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="operation-error" target="execute-operation">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="780" y="1040" as="sourcePoint" />
+            <mxPoint x="670" y="975" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="780" y="975" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

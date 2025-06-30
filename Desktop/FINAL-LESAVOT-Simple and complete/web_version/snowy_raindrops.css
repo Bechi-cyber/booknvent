@@ -1,0 +1,554 @@
+/* LESAVOT - Raindrop Animation */
+
+/* Container for the floating raindrops */
+.snowflake-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Individual raindrop styles */
+.snowflake {
+    position: absolute;
+    color: white;
+    opacity: 0;
+    font-size: 1.2rem;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    z-index: 0;
+    bottom: -20px; /* Start below the visible area */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+}
+
+/* Raindrop line styles */
+.raindrop-line {
+    position: absolute;
+    color: white;
+    opacity: 0;
+    font-size: 1.2rem;
+    line-height: 0.7;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    z-index: 0;
+    bottom: -50px; /* Start below the visible area */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+}
+
+/* Raindrop 1 */
+.snow-1 {
+    left: 10%;
+    animation-name: float-up-1;
+    animation-duration: 8s;
+    animation-delay: 0s;
+}
+
+/* Raindrop 2 */
+.snow-2 {
+    left: 25%;
+    animation-name: float-up-2;
+    animation-duration: 7s;
+    animation-delay: 0.5s;
+}
+
+/* Raindrop 3 */
+.snow-3 {
+    left: 40%;
+    animation-name: float-up-3;
+    animation-duration: 6s;
+    animation-delay: 1s;
+}
+
+/* Raindrop 4 */
+.snow-4 {
+    left: 60%;
+    animation-name: float-up-4;
+    animation-duration: 9s;
+    animation-delay: 0.2s;
+}
+
+/* Raindrop 5 */
+.snow-5 {
+    left: 80%;
+    animation-name: float-up-5;
+    animation-duration: 7.5s;
+    animation-delay: 0.7s;
+}
+
+/* Raindrop 6 */
+.snow-6 {
+    left: 15%;
+    animation-name: float-up-6;
+    animation-duration: 8.5s;
+    animation-delay: 1.2s;
+}
+
+/* Raindrop 7 */
+.snow-7 {
+    left: 35%;
+    animation-name: float-up-7;
+    animation-duration: 6.5s;
+    animation-delay: 0.3s;
+}
+
+/* Raindrop 8 */
+.snow-8 {
+    left: 55%;
+    animation-name: float-up-8;
+    animation-duration: 7.2s;
+    animation-delay: 0.8s;
+}
+
+/* Raindrop 9 */
+.snow-9 {
+    left: 75%;
+    animation-name: float-up-9;
+    animation-duration: 8.8s;
+    animation-delay: 0.1s;
+}
+
+/* Raindrop 10 */
+.snow-10 {
+    left: 5%;
+    animation-name: float-up-10;
+    animation-duration: 7.8s;
+    animation-delay: 0.6s;
+}
+
+/* Raindrop 11 */
+.snow-11 {
+    left: 20%;
+    animation-name: float-up-11;
+    animation-duration: 6.2s;
+    animation-delay: 1.1s;
+}
+
+/* Raindrop 12 */
+.snow-12 {
+    left: 45%;
+    animation-name: float-up-12;
+    animation-duration: 9.2s;
+    animation-delay: 0.4s;
+}
+
+/* Raindrop 13 */
+.snow-13 {
+    left: 65%;
+    animation-name: float-up-13;
+    animation-duration: 7.6s;
+    animation-delay: 0.9s;
+}
+
+/* Raindrop 14 */
+.snow-14 {
+    left: 85%;
+    animation-name: float-up-14;
+    animation-duration: 8.3s;
+    animation-delay: 0.2s;
+}
+
+/* Raindrop 15 */
+.snow-15 {
+    left: 30%;
+    animation-name: float-up-15;
+    animation-duration: 6.8s;
+    animation-delay: 0.7s;
+}
+
+/* Raindrop 16 */
+.snow-16 {
+    left: 50%;
+    animation-name: float-up-16;
+    animation-duration: 7.4s;
+    animation-delay: 1.2s;
+}
+
+/* Raindrop 17 */
+.snow-17 {
+    left: 70%;
+    animation-name: float-up-17;
+    animation-duration: 8.7s;
+    animation-delay: 0.3s;
+}
+
+/* Raindrop 18 */
+.snow-18 {
+    left: 12%;
+    animation-name: float-up-18;
+    animation-duration: 6.4s;
+    animation-delay: 0.8s;
+}
+
+/* Raindrop 19 */
+.snow-19 {
+    left: 90%;
+    animation-name: float-up-19;
+    animation-duration: 7.9s;
+    animation-delay: 0.1s;
+}
+
+/* Raindrop 20 */
+.snow-20 {
+    left: 42%;
+    animation-name: float-up-20;
+    animation-duration: 8.1s;
+    animation-delay: 0.6s;
+}
+
+/* Raindrop Lines */
+.rain-line-1 {
+    left: 8%;
+    animation-name: float-up-1;
+    animation-duration: 5.5s;
+    animation-delay: 0.2s;
+}
+
+.rain-line-2 {
+    left: 22%;
+    animation-name: float-up-2;
+    animation-duration: 6.2s;
+    animation-delay: 0.7s;
+}
+
+.rain-line-3 {
+    left: 38%;
+    animation-name: float-up-3;
+    animation-duration: 5.8s;
+    animation-delay: 0.3s;
+}
+
+.rain-line-4 {
+    left: 58%;
+    animation-name: float-up-4;
+    animation-duration: 6.5s;
+    animation-delay: 0.9s;
+}
+
+.rain-line-5 {
+    left: 78%;
+    animation-name: float-up-5;
+    animation-duration: 5.2s;
+    animation-delay: 0.4s;
+}
+
+.rain-line-6 {
+    left: 13%;
+    animation-name: float-up-6;
+    animation-duration: 6.8s;
+    animation-delay: 0.1s;
+}
+
+.rain-line-7 {
+    left: 33%;
+    animation-name: float-up-7;
+    animation-duration: 5.4s;
+    animation-delay: 0.8s;
+}
+
+.rain-line-8 {
+    left: 53%;
+    animation-name: float-up-8;
+    animation-duration: 6.1s;
+    animation-delay: 0.5s;
+}
+
+.rain-line-9 {
+    left: 73%;
+    animation-name: float-up-9;
+    animation-duration: 5.7s;
+    animation-delay: 0.2s;
+}
+
+.rain-line-10 {
+    left: 93%;
+    animation-name: float-up-10;
+    animation-duration: 6.4s;
+    animation-delay: 0.6s;
+}
+
+.rain-line-11 {
+    left: 3%;
+    animation-name: float-up-11;
+    animation-duration: 5.3s;
+    animation-delay: 0.3s;
+}
+
+.rain-line-12 {
+    left: 18%;
+    animation-name: float-up-12;
+    animation-duration: 6.7s;
+    animation-delay: 0.9s;
+}
+
+.rain-line-13 {
+    left: 28%;
+    animation-name: float-up-13;
+    animation-duration: 5.6s;
+    animation-delay: 0.4s;
+}
+
+.rain-line-14 {
+    left: 48%;
+    animation-name: float-up-14;
+    animation-duration: 6.3s;
+    animation-delay: 0.1s;
+}
+
+.rain-line-15 {
+    left: 68%;
+    animation-name: float-up-15;
+    animation-duration: 5.9s;
+    animation-delay: 0.7s;
+}
+
+.rain-line-16 {
+    left: 88%;
+    animation-name: float-up-16;
+    animation-duration: 6.6s;
+    animation-delay: 0.2s;
+}
+
+.rain-line-17 {
+    left: 7%;
+    animation-name: float-up-17;
+    animation-duration: 5.1s;
+    animation-delay: 0.8s;
+}
+
+.rain-line-18 {
+    left: 17%;
+    animation-name: float-up-18;
+    animation-duration: 6.9s;
+    animation-delay: 0.3s;
+}
+
+.rain-line-19 {
+    left: 37%;
+    animation-name: float-up-19;
+    animation-duration: 5.5s;
+    animation-delay: 0.9s;
+}
+
+.rain-line-20 {
+    left: 57%;
+    animation-name: float-up-20;
+    animation-duration: 6.2s;
+    animation-delay: 0.4s;
+}
+
+.rain-line-21 {
+    left: 77%;
+    animation-name: float-up-1;
+    animation-duration: 5.8s;
+    animation-delay: 0.1s;
+}
+
+.rain-line-22 {
+    left: 97%;
+    animation-name: float-up-2;
+    animation-duration: 6.5s;
+    animation-delay: 0.6s;
+}
+
+.rain-line-23 {
+    left: 2%;
+    animation-name: float-up-3;
+    animation-duration: 5.2s;
+    animation-delay: 0.3s;
+}
+
+.rain-line-24 {
+    left: 27%;
+    animation-name: float-up-4;
+    animation-duration: 6.8s;
+    animation-delay: 0.8s;
+}
+
+.rain-line-25 {
+    left: 47%;
+    animation-name: float-up-5;
+    animation-duration: 5.4s;
+    animation-delay: 0.5s;
+}
+
+.rain-line-26 {
+    left: 67%;
+    animation-name: float-up-6;
+    animation-duration: 6.1s;
+    animation-delay: 0.2s;
+}
+
+.rain-line-27 {
+    left: 87%;
+    animation-name: float-up-7;
+    animation-duration: 5.7s;
+    animation-delay: 0.7s;
+}
+
+.rain-line-28 {
+    left: 6%;
+    animation-name: float-up-8;
+    animation-duration: 6.4s;
+    animation-delay: 0.4s;
+}
+
+.rain-line-29 {
+    left: 16%;
+    animation-name: float-up-9;
+    animation-duration: 5.3s;
+    animation-delay: 0.1s;
+}
+
+.rain-line-30 {
+    left: 36%;
+    animation-name: float-up-10;
+    animation-duration: 6.7s;
+    animation-delay: 0.6s;
+}
+
+/* Animation keyframes for each raindrop - bottom to top with disappearing */
+@keyframes float-up-1 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-30px); opacity: 0.9; }
+    95% { transform: translateY(-300px); opacity: 0.9; }
+    100% { transform: translateY(-330px); opacity: 0; }
+}
+
+@keyframes float-up-2 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-25px); opacity: 0.9; }
+    95% { transform: translateY(-320px); opacity: 0.9; }
+    100% { transform: translateY(-345px); opacity: 0; }
+}
+
+@keyframes float-up-3 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-20px); opacity: 0.9; }
+    95% { transform: translateY(-280px); opacity: 0.9; }
+    100% { transform: translateY(-300px); opacity: 0; }
+}
+
+@keyframes float-up-4 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-30px); opacity: 0.9; }
+    95% { transform: translateY(-310px); opacity: 0.9; }
+    100% { transform: translateY(-340px); opacity: 0; }
+}
+
+@keyframes float-up-5 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-25px); opacity: 0.9; }
+    95% { transform: translateY(-290px); opacity: 0.9; }
+    100% { transform: translateY(-315px); opacity: 0; }
+}
+
+@keyframes float-up-6 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-20px); opacity: 0.9; }
+    95% { transform: translateY(-300px); opacity: 0.9; }
+    100% { transform: translateY(-320px); opacity: 0; }
+}
+
+@keyframes float-up-7 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-30px); opacity: 0.9; }
+    95% { transform: translateY(-280px); opacity: 0.9; }
+    100% { transform: translateY(-310px); opacity: 0; }
+}
+
+@keyframes float-up-8 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-25px); opacity: 0.9; }
+    95% { transform: translateY(-320px); opacity: 0.9; }
+    100% { transform: translateY(-345px); opacity: 0; }
+}
+
+@keyframes float-up-9 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-20px); opacity: 0.9; }
+    95% { transform: translateY(-300px); opacity: 0.9; }
+    100% { transform: translateY(-320px); opacity: 0; }
+}
+
+@keyframes float-up-10 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-30px); opacity: 0.9; }
+    95% { transform: translateY(-290px); opacity: 0.9; }
+    100% { transform: translateY(-320px); opacity: 0; }
+}
+
+@keyframes float-up-11 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-25px); opacity: 0.9; }
+    95% { transform: translateY(-310px); opacity: 0.9; }
+    100% { transform: translateY(-335px); opacity: 0; }
+}
+
+@keyframes float-up-12 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-20px); opacity: 0.9; }
+    95% { transform: translateY(-280px); opacity: 0.9; }
+    100% { transform: translateY(-300px); opacity: 0; }
+}
+
+@keyframes float-up-13 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-30px); opacity: 0.9; }
+    95% { transform: translateY(-320px); opacity: 0.9; }
+    100% { transform: translateY(-350px); opacity: 0; }
+}
+
+@keyframes float-up-14 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-25px); opacity: 0.9; }
+    95% { transform: translateY(-300px); opacity: 0.9; }
+    100% { transform: translateY(-325px); opacity: 0; }
+}
+
+@keyframes float-up-15 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-20px); opacity: 0.9; }
+    95% { transform: translateY(-290px); opacity: 0.9; }
+    100% { transform: translateY(-310px); opacity: 0; }
+}
+
+@keyframes float-up-16 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-30px); opacity: 0.9; }
+    95% { transform: translateY(-310px); opacity: 0.9; }
+    100% { transform: translateY(-340px); opacity: 0; }
+}
+
+@keyframes float-up-17 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-25px); opacity: 0.9; }
+    95% { transform: translateY(-280px); opacity: 0.9; }
+    100% { transform: translateY(-305px); opacity: 0; }
+}
+
+@keyframes float-up-18 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-20px); opacity: 0.9; }
+    95% { transform: translateY(-320px); opacity: 0.9; }
+    100% { transform: translateY(-340px); opacity: 0; }
+}
+
+@keyframes float-up-19 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-30px); opacity: 0.9; }
+    95% { transform: translateY(-300px); opacity: 0.9; }
+    100% { transform: translateY(-330px); opacity: 0; }
+}
+
+@keyframes float-up-20 {
+    0% { transform: translateY(0); opacity: 0; }
+    5% { transform: translateY(-25px); opacity: 0.9; }
+    95% { transform: translateY(-290px); opacity: 0.9; }
+    100% { transform: translateY(-315px); opacity: 0; }
+}

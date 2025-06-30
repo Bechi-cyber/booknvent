@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Steganography Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .nav a {
+            display: inline-block;
+            background-color: #555;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 0 5px;
+        }
+        .nav a:hover {
+            background-color: #333;
+        }
+        .result-container {
+            margin-top: 30px;
+        }
+        .text-container {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            font-family: monospace;
+        }
+        .message-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .download-btn {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            margin-top: 15px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .download-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Message Hidden Successfully</h1>
+    
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/image">Image</a>
+        <a href="/text">Text</a>
+        <a href="/audio">Audio</a>
+    </div>
+    
+    <div class="result-container">
+        <p>Your message has been successfully hidden in the text file using whitespace steganography.</p>
+        
+        <div>
+            <h2>Steganographic Text</h2>
+            <p>The text below contains your hidden message. The message is encoded in the spacing between words.</p>
+            <div class="text-container">{{ stego_text }}</div>
+            <div>
+                <a href="{{ url_for('download', filename=stego_filename) }}" class="download-btn">Download Text File</a>
+            </div>
+        </div>
+        
+        <div class="message-box">
+            <h3>Hidden Message:</h3>
+            <p>{{ message }}</p>
+        </div>
+    </div>
+</body>
+</html>

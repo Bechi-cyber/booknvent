@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LESAVOT URL Tester & QR Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border-radius: 10px;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            color: black;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+        .url-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .url-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .url-card.online {
+            border-color: #28a745;
+            background: #f8fff9;
+        }
+        .url-card.offline {
+            border-color: #dc3545;
+            background: #fff8f8;
+        }
+        .url-card.checking {
+            border-color: #ffc107;
+            background: #fffdf5;
+        }
+        .url-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1e3c72;
+        }
+        .url-link {
+            font-size: 0.9rem;
+            word-break: break-all;
+            margin-bottom: 15px;
+            padding: 8px;
+            background: #f5f5f5;
+            border-radius: 5px;
+        }
+        .status-indicator {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .test-btn, .visit-btn, .qr-btn {
+            background: #2a5298;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .test-btn:hover, .visit-btn:hover, .qr-btn:hover {
+            background: #1e3c72;
+        }
+        .qr-section {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px dashed #2a5298;
+            border-radius: 10px;
+        }
+        .qr-display {
+            margin: 20px 0;
+            min-height: 100px;
+        }
+        .custom-url {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .generate-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .generate-btn:hover {
+            background: #218838;
+        }
+        @media (max-width: 768px) {
+            .url-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 LESAVOT URL Tester & QR Generator</h1>
+            <p>Test your LESAVOT deployments and generate QR codes for easy access</p>
+        </div>
+
+        <div class="url-section">
+            <div class="url-card checking" id="vercel-card">
+                <div class="url-title">🚀 Vercel Deployment</div>
+                <div class="status-indicator" id="vercel-status">🔄</div>
+                <div class="url-link">https://lesavot.vercel.app</div>
+                <button type="button" class="test-btn" onclick="testVercel()">Test Connection</button>
+                <a href="https://lesavot.vercel.app" target="_blank" class="visit-btn">Visit Site</a>
+                <button type="button" class="qr-btn" onclick="generateQRForVercel()">Generate QR</button>
+            </div>
+
+            <div class="url-card checking" id="github-card">
+                <div class="url-title">📱 GitHub Pages</div>
+                <div class="status-indicator" id="github-status">🔄</div>
+                <div class="url-link">https://bechi-cyber.github.io/FINAL-LESAVOT/</div>
+                <button type="button" class="test-btn" onclick="testGitHub()">Test Connection</button>
+                <a href="https://bechi-cyber.github.io/FINAL-LESAVOT/" target="_blank" class="visit-btn">Visit Site</a>
+                <button type="button" class="qr-btn" onclick="generateQRForGitHub()">Generate QR</button>
+            </div>
+        </div>
+
+        <div class="qr-section">
+            <h2>📱 QR Code Generator</h2>
+            <p>Generate QR codes for any URL:</p>
+            <input type="text" class="custom-url" id="customUrl" placeholder="Enter any URL (e.g., https://example.com)">
+            <br>
+            <button type="button" class="generate-btn" onclick="generateCustomQR()">Generate QR Code</button>
+            
+            <div class="qr-display" id="qrDisplay">
+                <p>QR codes will appear here...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-test on page load
+        window.onload = function() {
+            testVercel();
+            setTimeout(testGitHub, 2000);
+        };
+
+        function testVercel() {
+            const card = document.getElementById('vercel-card');
+            const status = document.getElementById('vercel-status');
+            
+            card.className = 'url-card checking';
+            status.textContent = '🔄';
+            
+            testURL('https://lesavot.vercel.app')
+                .then(isOnline => {
+                    if (isOnline) {
+                        card.className = 'url-card online';
+                        status.textContent = '✅';
+                    } else {
+                        card.className = 'url-card offline';
+                        status.textContent = '❌';
+                    }
+                });
+        }
+
+        function testGitHub() {
+            const card = document.getElementById('github-card');
+            const status = document.getElementById('github-status');
+            
+            card.className = 'url-card checking';
+            status.textContent = '🔄';
+            
+            testURL('https://bechi-cyber.github.io/FINAL-LESAVOT/')
+                .then(isOnline => {
+                    if (isOnline) {
+                        card.className = 'url-card online';
+                        status.textContent = '✅';
+                    } else {
+                        card.className = 'url-card offline';
+                        status.textContent = '❌';
+                    }
+                });
+        }
+
+        async function testURL(url) {
+            try {
+                // Method 1: Try to load a favicon or small resource
+                const testImage = new Image();
+                return new Promise((resolve) => {
+                    testImage.onload = () => resolve(true);
+                    testImage.onerror = () => {
+                        // Method 2: Try fetch with no-cors
+                        fetch(url, { mode: 'no-cors' })
+                            .then(() => resolve(true))
+                            .catch(() => resolve(false));
+                    };
+                    testImage.src = url + '/favicon.ico?' + Date.now();
+                });
+            } catch (error) {
+                return false;
+            }
+        }
+
+        function generateQRForVercel() {
+            generateQR('https://lesavot.vercel.app');
+        }
+
+        function generateQRForGitHub() {
+            generateQR('https://bechi-cyber.github.io/FINAL-LESAVOT/');
+        }
+
+        function generateCustomQR() {
+            const url = document.getElementById('customUrl').value.trim();
+            if (!url) {
+                alert('Please enter a URL');
+                return;
+            }
+            generateQR(url);
+        }
+
+        function generateQR(url) {
+            const qrDisplay = document.getElementById('qrDisplay');
+            qrDisplay.innerHTML = '<p>🔄 Generating QR Code...</p>';
+
+            try {
+                // Validate URL
+                new URL(url);
+            } catch (e) {
+                qrDisplay.innerHTML = '<p style="color: red;">❌ Invalid URL format</p>';
+                return;
+            }
+
+            const encodedUrl = encodeURIComponent(url);
+            const qrServices = [
+                `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodedUrl}`,
+                `https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${encodedUrl}`
+            ];
+
+            let serviceIndex = 0;
+
+            function tryNextService() {
+                if (serviceIndex >= qrServices.length) {
+                    createFallbackDisplay(url);
+                    return;
+                }
+
+                const img = document.createElement('img');
+                img.src = qrServices[serviceIndex];
+                img.alt = 'QR Code for ' + url;
+                img.style.cssText = `
+                    border: 5px solid #1e3c72;
+                    border-radius: 10px;
+                    max-width: 300px;
+                    height: auto;
+                    display: block;
+                    margin: 20px auto;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                `;
+
+                img.onload = function() {
+                    qrDisplay.innerHTML = '';
+                    qrDisplay.appendChild(img);
+                    
+                    const successMsg = document.createElement('p');
+                    successMsg.textContent = '✅ QR Code generated successfully!';
+                    successMsg.style.color = 'green';
+                    qrDisplay.appendChild(successMsg);
+                    
+                    const urlInfo = document.createElement('p');
+                    urlInfo.innerHTML = `<strong>URL:</strong> ${url}`;
+                    urlInfo.style.fontSize = '0.9rem';
+                    qrDisplay.appendChild(urlInfo);
+                    
+                    addDownloadButton(img.src);
+                };
+
+                img.onerror = function() {
+                    serviceIndex++;
+                    tryNextService();
+                };
+            }
+
+            tryNextService();
+        }
+
+        function createFallbackDisplay(url) {
+            const qrDisplay = document.getElementById('qrDisplay');
+            qrDisplay.innerHTML = `
+                <div style="border: 3px solid #1e3c72; border-radius: 10px; padding: 20px; background: #f8f9fa;">
+                    <h3>📱 LESAVOT Access</h3>
+                    <p><strong>URL:</strong></p>
+                    <p style="background: #e9ecef; padding: 10px; border-radius: 5px; word-break: break-all;">${url}</p>
+                    <button onclick="copyToClipboard('${url}')" style="background: #1e3c72; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">📋 Copy URL</button>
+                    <p style="color: orange; margin-top: 10px;">⚠️ QR Code service unavailable. Use the URL above to access LESAVOT.</p>
+                </div>
+            `;
+        }
+
+        function addDownloadButton(imgSrc) {
+            const qrDisplay = document.getElementById('qrDisplay');
+            const downloadBtn = document.createElement('button');
+            downloadBtn.textContent = '💾 Download QR Code';
+            downloadBtn.style.cssText = `
+                background: #28a745;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-top: 10px;
+            `;
+            
+            downloadBtn.onclick = function() {
+                const link = document.createElement('a');
+                link.href = imgSrc;
+                link.download = 'LESAVOT-QR-Code.png';
+                link.click();
+            };
+            
+            qrDisplay.appendChild(downloadBtn);
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('✅ URL copied to clipboard!');
+            }).catch(function() {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('✅ URL copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+</html>

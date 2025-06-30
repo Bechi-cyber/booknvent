@@ -1,0 +1,391 @@
+/* LESAVOT - Cybersecurity-themed Steganography Application
+   Modern Cybersecurity Theme */
+
+:root {
+    /* Cybersecurity color palette */
+    --cyber-dark: #0a1929;
+    --cyber-medium: #102a43;
+    --cyber-light: #1e3a5f;
+    --cyber-accent: #00b4d8;
+    --cyber-accent-dark: #0096c7;
+    --cyber-success: #06d6a0;
+    --cyber-warning: #ffd166;
+    --cyber-danger: #ef476f;
+    --cyber-text: #e0e0e0;
+    --cyber-text-secondary: #90a4ae;
+    --cyber-card: rgba(16, 42, 67, 0.8);
+    --cyber-gradient: linear-gradient(135deg, var(--cyber-dark) 0%, var(--cyber-medium) 100%);
+    --cyber-glow: 0 0 10px rgba(0, 180, 216, 0.5);
+
+    /* Font settings */
+    --font-primary: 'Inter', 'Roboto', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* Base styles */
+body {
+    background-color: var(--cyber-dark);
+    background-image:
+        url('../images/circuit-pattern.svg'),
+        var(--cyber-gradient);
+    background-blend-mode: overlay;
+    color: var(--cyber-text);
+    font-family: var(--font-primary);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--cyber-text);
+    font-weight: 600;
+    margin-top: 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1.25rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    margin-bottom: 1.5rem;
+    color: var(--cyber-text-secondary);
+}
+
+a {
+    color: var(--cyber-accent);
+    text-decoration: none;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+a:hover {
+    color: var(--cyber-accent-dark);
+    text-shadow: 0 0 8px rgba(0, 180, 216, 0.5);
+}
+
+/* Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Header */
+.cyber-header {
+    background-color: rgba(10, 25, 41, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 1rem 0;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cyber-logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--cyber-text);
+    text-decoration: none;
+}
+
+.logo-icon {
+    margin-right: 0.75rem;
+    font-size: 2rem;
+}
+
+/* Navigation */
+.cyber-nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--cyber-text-secondary);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
+    border-radius: 4px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--cyber-text);
+    background-color: rgba(0, 180, 216, 0.1);
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--cyber-accent);
+    box-shadow: 0 0 8px var(--cyber-accent);
+}
+
+.auth-btn {
+    background-color: var(--cyber-accent);
+    color: var(--cyber-dark);
+    padding: 0.5rem 1.25rem;
+    border-radius: 4px;
+    font-weight: 500;
+    margin-left: 1rem;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.auth-btn:hover {
+    background-color: var(--cyber-accent-dark);
+    box-shadow: 0 0 15px rgba(0, 180, 216, 0.7);
+    transform: translateY(-2px);
+}
+
+/* Cards */
+.cyber-card {
+    background-color: var(--cyber-card);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 180, 216, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--cyber-glow);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cyber-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 180, 216, 0.3);
+}
+
+.cyber-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyber-accent), transparent);
+    opacity: 0.5;
+}
+
+.card-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+}
+
+.card-title {
+    color: var(--cyber-text);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Forms */
+.cyber-form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.cyber-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--cyber-text);
+}
+
+.cyber-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: rgba(10, 25, 41, 0.5);
+    border: 1px solid rgba(0, 180, 216, 0.3);
+    border-radius: 4px;
+    color: var(--cyber-text);
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.cyber-input:focus {
+    outline: none;
+    border-color: var(--cyber-accent);
+    box-shadow: 0 0 0 2px rgba(0, 180, 216, 0.2);
+}
+
+.cyber-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.cyber-btn {
+    background-color: var(--cyber-accent);
+    color: var(--cyber-dark);
+    border: none;
+    border-radius: 4px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.cyber-btn:hover {
+    background-color: var(--cyber-accent-dark);
+    box-shadow: 0 0 15px rgba(0, 180, 216, 0.7);
+    transform: translateY(-2px);
+}
+
+.cyber-btn-secondary {
+    background-color: transparent;
+    border: 1px solid var(--cyber-accent);
+    color: var(--cyber-accent);
+}
+
+.cyber-btn-secondary:hover {
+    background-color: rgba(0, 180, 216, 0.1);
+    color: var(--cyber-text);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-20px); }
+}
+
+@keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 180, 216, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 180, 216, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 180, 216, 0); }
+}
+
+.page-enter {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+.page-exit {
+    animation: fadeOut 0.3s ease-in forwards;
+}
+
+/* Footer */
+.cyber-footer {
+    background-color: var(--cyber-dark);
+    color: var(--cyber-text);
+    padding: 2rem 0;
+    margin-top: 3rem;
+    border-top: 1px solid rgba(0, 180, 216, 0.2);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--cyber-text);
+    margin-bottom: 0.25rem;
+}
+
+.footer-tagline {
+    color: var(--cyber-text-secondary);
+    font-size: 0.875rem;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-links a {
+    color: var(--cyber-text-secondary);
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--cyber-accent);
+    text-shadow: 0 0 8px rgba(0, 180, 216, 0.5);
+}
+
+.footer-copyright {
+    color: var(--cyber-text-secondary);
+    font-size: 0.875rem;
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 180, 216, 0.1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .cyber-nav {
+        margin-top: 1rem;
+        width: 100%;
+        overflow-x: auto;
+        justify-content: center;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-links {
+        margin-top: 1rem;
+        justify-content: center;
+    }
+}

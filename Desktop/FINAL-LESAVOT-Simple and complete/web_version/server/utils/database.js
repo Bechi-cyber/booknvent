@@ -24,7 +24,11 @@ class Database {
       ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
       max: 20, // Maximum number of clients in the pool
       idleTimeoutMillis: 30000, // Close idle clients after 30 seconds
-      connectionTimeoutMillis: 10000, // Return an error after 10 seconds if connection could not be established
+      connectionTimeoutMillis: 20000, // Increased timeout to 20 seconds
+      query_timeout: 30000, // Query timeout
+      statement_timeout: 30000, // Statement timeout
+      keepAlive: true,
+      keepAliveInitialDelayMillis: 10000,
     };
 
     if (!this.config.connectionString && (!this.config.host || !this.config.database)) {

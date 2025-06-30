@@ -1,0 +1,33 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE files
+.idea/
+.vscode/
+
+# Uploaded files
+examples/data/uploads/
+
+# User database
+examples/data/users/
+
+# Embedded git repositories
+LESAVOT/.git/
+
+# Node.js dependencies
+node_modules/
+web_version/server/node_modules/
+package-lock.json
+web_version/server/package-lock.json

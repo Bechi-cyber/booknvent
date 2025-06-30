@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Steganography - LESAVOT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="{{ url_for('index') }}" class="logo">
+                <span class="logo-icon">🔐</span>LESAVOT
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('image') }}">Image</a>
+                <a href="{{ url_for('text') }}" class="active">Text</a>
+                <a href="{{ url_for('audio') }}">Audio</a>
+                <a href="{{ url_for('files') }}">My Files</a>
+                <a href="{{ url_for('logout') }}" class="auth-btn">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Text Steganography</h2>
+                <p>
+                    Text steganography hides messages within text files by manipulating whitespace characters.
+                    This technique uses single spaces and double spaces to encode binary data, making it invisible to casual readers.
+                </p>
+            </div>
+        </div>
+
+        <div class="two-column-grid">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Hide a Message</h2>
+                    <p>Upload a text file and enter a message to hide within it.</p>
+                </div>
+
+                <form action="{{ url_for('text_embed') }}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="file">Select a text file:</label>
+                        <input type="file" id="file" name="file" accept=".txt" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message to hide:</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn">Hide Message</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Extract a Message</h2>
+                    <p>Upload a text file that contains a hidden message to extract it.</p>
+                </div>
+
+                <form action="{{ url_for('text_extract') }}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="extract-file">Select a text file:</label>
+                        <input type="file" id="extract-file" name="file" accept=".txt" required>
+                    </div>
+
+                    <button type="submit" class="btn">Extract Message</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div>© 2025 LESAVOT - Secure Steganography</div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

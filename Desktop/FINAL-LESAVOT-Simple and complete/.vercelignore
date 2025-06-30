@@ -1,0 +1,93 @@
+# Python files
+*.py
+*.pyc
+__pycache__/
+*.egg-info/
+requirements.txt
+setup.py
+
+# Desktop app
+desktop_app/
+Run_LESAVOT_Desktop.bat
+
+# Documentation and development files
+*.md
+THESIS*
+CHAPTER*
+EVALUATION*
+IMPROVEMENTS*
+DrawIO*
+Frequency*
+Judgement*
+Table*
+UPDATE*
+BROWSER*
+DEPLOYMENT*
+HOW_TO*
+QUICK*
+FINAL*
+
+# Development tools
+*.bat
+*.sh
+*.ps1
+build_app.py
+create_*.py
+list_files.py
+modern_lesavot*.py
+simplified_lesavot_app.py
+test_*.py
+upload_*.py
+update_*.py
+add_newline.ps1
+commit_message.txt
+
+# Archives and zips
+*.zip
+
+# Examples and data
+examples/
+data/
+figures/
+
+# Git sync tools
+git-sync*
+
+# Temporary files
+*.tmp
+*.temp
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node modules (keep only web_version/server/node_modules)
+/node_modules/
+
+# Logs
+*.log
+
+# Testing files
+test.html
+open_*.html
+run_*.html
+lesavot-*.html
+
+# Netlify config
+netlify.toml
+
+# References
+references.bib
+
+# Diagrams
+drawioDiagrams/
+*.drawio
+
+# Charts and templates
+*_Template*
+*_Chart*
+*_Analysis*

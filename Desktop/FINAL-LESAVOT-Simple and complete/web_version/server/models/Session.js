@@ -120,6 +120,31 @@ class Session {
   }
 
   /**
+   * Find active OTP session by username
+   */
+  static async findActiveOtpSession(username) {
+    try {
+      const result = await database.query(`
+        SELECT id, session_id, user_id, username, session_type, otp_code,
+               is_verified, expires_at, created_at
+        FROM sessions
+        WHERE username = $1 AND session_type = 'otp' AND expires_at > CURRENT_TIMESTAMP
+        ORDER BY created_at DESC
+        LIMIT 1
+      `, [username]);
+
+      if (result.rows.length === 0) {
+        return null;
+      }
+
+      return new Session(result.rows[0]);
+    } catch (error) {
+      logger.error('Error finding active OTP session:', error);
+      throw error;
+    }
+  }
+
+  /**
    * Create OTP session
    */
   static async createOtpSession(username, otp, expirySeconds = 300) {

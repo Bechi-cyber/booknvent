@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Steganography Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .nav a {
+            display: inline-block;
+            background-color: #555;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 0 5px;
+        }
+        .nav a:hover {
+            background-color: #333;
+        }
+        .result-container {
+            margin-top: 30px;
+        }
+        .image-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            max-height: 400px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .message-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .download-btn {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            margin-top: 15px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .download-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Message Hidden Successfully</h1>
+
+    <div class="nav">
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('image') }}">Image</a>
+        <a href="{{ url_for('text') }}">Text</a>
+        <a href="{{ url_for('audio') }}">Audio</a>
+        <a href="{{ url_for('files') }}">My Files</a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="result-container">
+        <p>Your message has been successfully hidden in the image using LSB steganography.</p>
+
+        <div class="image-container">
+            <h2>Steganographic Image</h2>
+            <img src="data:image/png;base64,{{ stego_image }}" alt="Steganographic Image">
+            <div>
+                <a href="{{ url_for('download', filename=stego_filename) }}" class="download-btn">Download Image</a>
+            </div>
+        </div>
+
+        <div class="message-box">
+            <h3>Hidden Message:</h3>
+            <p>{{ message }}</p>
+        </div>
+    </div>
+</body>
+</html>
