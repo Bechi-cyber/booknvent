@@ -5,7 +5,7 @@
 
 const fetch = require('node-fetch');
 
-const BASE_URL = 'http://localhost:3000/api';
+const BASE_URL = 'https://lasavot-backend.onrender.com/api';
 
 async function testCompleteAuthSystem() {
     console.log('🔐 Starting Complete Authentication System Test...\n');
@@ -44,6 +44,7 @@ async function testCompleteAuthSystem() {
         });
 
         const loginData = await loginResponse.json();
+        console.log('Login response data:', JSON.stringify(loginData, null, 2));
         if (!loginData.success || !loginData.requiresOtp) {
             throw new Error(`Login should trigger OTP: ${loginData.message}`);
         }

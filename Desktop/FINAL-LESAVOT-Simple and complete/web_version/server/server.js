@@ -48,7 +48,9 @@ const limiter = rateLimit({
 });
 
 // Configure CORS
-const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [];
+const allowedOrigins = process.env.ALLOWED_ORIGINS ?
+  process.env.ALLOWED_ORIGINS.split(',') :
+  ['https://lasavot.onrender.com', 'http://localhost:3000', 'http://127.0.0.1:3000'];
 const allowedMethods = process.env.ALLOWED_METHODS ? process.env.ALLOWED_METHODS.split(',') : ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'];
 const allowedHeaders = process.env.ALLOWED_HEADERS ? process.env.ALLOWED_HEADERS.split(',') : ['Content-Type', 'Authorization'];
 

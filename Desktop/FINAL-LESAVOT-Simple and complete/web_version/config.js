@@ -24,7 +24,7 @@
     isDevelopment: isDevelopment,
     isProduction: isProduction,
 
-    // API Configuration - Production ready
+    // API Configuration - Using test server for integration testing
     apiBaseUrl: isDevelopment ? 'http://localhost:3000/api' : 'https://lasavot-backend.onrender.com/api',
     apiVersion: 'v1',
 

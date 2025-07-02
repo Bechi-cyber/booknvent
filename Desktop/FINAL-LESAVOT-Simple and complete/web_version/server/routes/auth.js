@@ -21,6 +21,7 @@ if (process.env.ENABLE_CSRF_PROTECTION === 'true') {
 // Public routes with rate limiting
 router.post('/signup', authLimiter, validateSignup, authController.signup);
 router.post('/login', authLimiter, validateLogin, authController.login);
+router.post('/simple-login', authLimiter, validateLogin, authController.simpleLogin);
 router.post('/logout', authController.logout);
 
 // Password reset routes with strict rate limiting

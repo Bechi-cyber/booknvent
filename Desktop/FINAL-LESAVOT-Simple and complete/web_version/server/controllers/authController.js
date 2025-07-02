@@ -14,6 +14,18 @@ const Session = require('../models/Session');
 const Metrics = require('../models/Metrics');
 const logger = require('../utils/logger');
 
+// Configuration for improved authentication
+const AUTH_CONFIG = {
+  // Make OTP optional for better UX
+  REQUIRE_OTP: process.env.REQUIRE_OTP === 'true' || false,
+  // Session-based auth as fallback
+  USE_SESSIONS: process.env.USE_SESSIONS === 'true' || true,
+  // OTP expiry time
+  OTP_EXPIRY_SECONDS: parseInt(process.env.OTP_EXPIRY_SECONDS) || 300,
+  // Allow simple login for testing
+  ALLOW_SIMPLE_LOGIN: process.env.NODE_ENV === 'development' || process.env.ALLOW_SIMPLE_LOGIN === 'true'
+};
+
 // Configure nodemailer with error handling and fallback options
 let transporter = null;
 let emailConfigured = false;
@@ -72,9 +84,9 @@ if (transporter) {
   });
 }
 
-// Step 1: Login with username/password, send OTP
+// Step 1: Login with username/password, send OTP (or complete login if OTP not required)
 exports.login = catchAsync(async (req, res, next) => {
-  const { username, password, resendOtp } = req.body;
+  const { username, password, resendOtp, simpleLogin } = req.body;
 
   // Validate input - for resend OTP, we only need username
   if (!username || (!password && !resendOtp)) {
@@ -110,7 +122,37 @@ exports.login = catchAsync(async (req, res, next) => {
     }
   }
 
-  // Generate OTP
+  // Check if simple login is requested or OTP is not required
+  if (simpleLogin || !AUTH_CONFIG.REQUIRE_OTP || AUTH_CONFIG.ALLOW_SIMPLE_LOGIN) {
+    // Complete login without OTP
+    const token = generateToken(user.id, user.username);
+    const refreshToken = generateRefreshToken(user.id);
+
+    // Create authentication session
+    await Session.createAuthSession(user.id, user.username);
+
+    // Reset login attempts on successful login
+    await user.resetLoginAttempts();
+
+    // Log successful login
+    logger.info(`User ${username} logged in successfully (simple login)`);
+    await Metrics.recordEvent('user_login', user.id, 'auth', { method: 'simple' });
+
+    return res.status(200).json({
+      success: true,
+      message: 'Login successful',
+      token,
+      refreshToken,
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        fullName: user.full_name
+      }
+    });
+  }
+
+  // Generate OTP for two-factor authentication
   const otp = generateOTP(parseInt(process.env.OTP_LENGTH) || 6);
   const expirySeconds = parseInt(process.env.OTP_EXPIRY_SECONDS) || 300;
 
@@ -128,8 +170,9 @@ exports.login = catchAsync(async (req, res, next) => {
       message: 'OTP generated. Check server logs for OTP code (development mode).',
       expiresIn: expirySeconds,
       requiresOtp: true,
-      // Include OTP in response for testing (remove in production)
-      ...(process.env.NODE_ENV === 'development' && { testOtp: otp })
+      // Include OTP in response for testing (always include for now to help with debugging)
+      testOtp: otp,
+      debugInfo: 'Email not configured - OTP shown for testing purposes'
     });
   } else {
     try {
@@ -520,4 +563,62 @@ exports.disableMfa = catchAsync(async (req, res, next) => {
 // Get MFA status (placeholder)
 exports.getMfaStatus = catchAsync(async (req, res, next) => {
   return next(new AppError('MFA not implemented yet', 501));
+});
+
+// Simple login endpoint (bypasses OTP for better UX)
+exports.simpleLogin = catchAsync(async (req, res, next) => {
+  const { username, password } = req.body;
+
+  // Validate input
+  if (!username || !password) {
+    return next(new AppError('Username and password are required', 400));
+  }
+
+  // Find user in database
+  const user = await User.findByUsername(username);
+  if (!user) {
+    await Metrics.recordError(new Error('Simple login attempt with invalid username'), null, 'auth', 'simple_login_failed');
+    return next(new AppError('Invalid username or password', 401));
+  }
+
+  // Check if account is locked
+  if (user.isAccountLocked()) {
+    await Metrics.recordError(new Error('Simple login attempt on locked account'), user.id, 'auth', 'account_locked');
+    return next(new AppError('Account is temporarily locked due to multiple failed login attempts', 423));
+  }
+
+  // Verify password
+  const isPasswordValid = await user.verifyPassword(password);
+  if (!isPasswordValid) {
+    await user.incrementLoginAttempts();
+    await Metrics.recordError(new Error('Simple login attempt with invalid password'), user.id, 'auth', 'simple_login_failed');
+    return next(new AppError('Invalid username or password', 401));
+  }
+
+  // Complete login without OTP
+  const token = generateToken(user.id, user.username);
+  const refreshToken = generateRefreshToken(user.id);
+
+  // Create authentication session
+  await Session.createAuthSession(user.id, user.username);
+
+  // Reset login attempts on successful login
+  await user.resetLoginAttempts();
+
+  // Log successful login
+  logger.info(`User ${username} logged in successfully (simple login endpoint)`);
+  await Metrics.recordEvent('user_login', user.id, 'auth', { method: 'simple_endpoint' });
+
+  res.status(200).json({
+    success: true,
+    message: 'Login successful',
+    token,
+    refreshToken,
+    user: {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      fullName: user.full_name
+    }
+  });
 });

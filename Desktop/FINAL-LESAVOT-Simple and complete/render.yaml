@@ -1,0 +1,60 @@
+services:
+  - type: web
+    name: lasavot-frontend
+    env: static
+    buildCommand: chmod +x build.sh && ./build.sh
+    staticPublishPath: ./web_version
+    routes:
+      - type: rewrite
+        source: /
+        destination: /index.html
+      - type: rewrite
+        source: /auth
+        destination: /auth.html
+      - type: rewrite
+        source: /text
+        destination: /text_stego.html
+      - type: rewrite
+        source: /image
+        destination: /image_stego.html
+      - type: rewrite
+        source: /audio
+        destination: /audio_stego.html
+      - type: rewrite
+        source: /profile
+        destination: /profile.html
+      - type: rewrite
+        source: /history
+        destination: /history.html
+      - type: rewrite
+        source: /demo
+        destination: /steganography-demo.html
+      - type: rewrite
+        source: /dh-demo
+        destination: /dh-demo.html
+    headers:
+      - path: /*
+        headers:
+          X-Frame-Options: DENY
+          X-XSS-Protection: "1; mode=block"
+          X-Content-Type-Options: nosniff
+          Referrer-Policy: strict-origin-when-cross-origin
+          Permissions-Policy: "camera=(), microphone=(), geolocation=()"
+      - path: /static/*
+        headers:
+          Cache-Control: "public, max-age=31536000, immutable"
+      - path: "*.js"
+        headers:
+          Cache-Control: "public, max-age=31536000, immutable"
+      - path: "*.css"
+        headers:
+          Cache-Control: "public, max-age=31536000, immutable"
+      - path: "*.png"
+        headers:
+          Cache-Control: "public, max-age=31536000, immutable"
+      - path: "*.jpg"
+        headers:
+          Cache-Control: "public, max-age=31536000, immutable"
+      - path: "*.svg"
+        headers:
+          Cache-Control: "public, max-age=31536000, immutable"

@@ -283,24 +283,66 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!username || !password) { showNotification('Please enter both username and password', 'error'); return; }
         showNotification('Authenticating...', 'info');
         try {
-            // Use proper API endpoint for login
+            // Try simple login first for better UX
+            const simpleApiUrl = window.CONFIG ? window.CONFIG.getApiUrl('auth/simple-login') : '/api/v1/auth/simple-login';
+            console.log('Making simple login request to:', simpleApiUrl);
+
+            const simpleResponse = await fetch(simpleApiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (simpleResponse.ok) {
+                const data = await simpleResponse.json();
+                console.log('Simple login successful:', data);
+
+                // Store authentication data
+                if (data.token) {
+                    localStorage.setItem('authToken', data.token);
+                    if (data.refreshToken) {
+                        localStorage.setItem('refreshToken', data.refreshToken);
+                    }
+                    if (data.user) {
+                        localStorage.setItem('userData', JSON.stringify(data.user));
+                    }
+                }
+
+                showNotification(`Welcome back, ${data.user?.fullName || data.user?.username || username}!`, 'success');
+                if (rememberMe) {
+                    showNotification('Login credentials will be remembered', 'info');
+                }
+
+                // Redirect or update UI
+                window.location.reload();
+                return;
+            }
+
+            // Fallback to OTP login if simple login fails
             const apiUrl = window.CONFIG ? window.CONFIG.getApiUrl('auth/login') : '/api/v1/auth/login';
+            console.log('Simple login failed, trying OTP login:', apiUrl);
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password, rememberMe })
             });
             const data = await response.json();
+            console.log('OTP Login response:', data);
             if (response.ok) {
-                showNotification('OTP sent to your email. Please enter it to continue.', 'info');
+                if (data.testOtp) {
+                    showNotification(`OTP sent to your email: ${data.testOtp} (development mode)`, 'info');
+                } else {
+                    showNotification('OTP sent to your email. Please enter it to continue.', 'info');
+                }
                 otpUsername = username;
                 showOtpModal();
             } else {
+                console.error('Login failed:', data);
                 showNotification(data.message || 'Invalid username or password', 'error');
             }
         } catch (error) {
             console.error('Authentication error:', error);
-            showNotification('An error occurred during authentication. Please try again.', 'error');
+            showNotification(`An error occurred during authentication: ${error.message}. Please try again.`, 'error');
         }
     });
 

@@ -1,0 +1,13 @@
+# Redirect rules for LESAVOT frontend
+/auth           /auth.html          200
+/text           /text_stego.html    200
+/image          /image_stego.html   200
+/audio          /audio_stego.html   200
+/profile        /profile.html       200
+/history        /history.html       200
+/demo           /steganography-demo.html  200
+/dh-demo        /dh-demo.html       200
+/mfa-setup      /mfa-setup.html     200
+
+# Fallback for SPA routing
+/*              /index.html         200
