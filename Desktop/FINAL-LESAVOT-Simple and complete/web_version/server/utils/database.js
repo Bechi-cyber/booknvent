@@ -97,6 +97,8 @@ class Database {
             failed_login_attempts INTEGER DEFAULT 0,
             account_locked_until TIMESTAMP,
             last_login TIMESTAMP,
+            password_reset_token VARCHAR(255),
+            password_reset_expires TIMESTAMP,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           )
@@ -134,6 +136,19 @@ class Database {
             metadata JSONB,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          )
+        `);
+
+        // Steganography history table (for compatibility with existing controllers)
+        await client.query(`
+          CREATE TABLE IF NOT EXISTS stego_history (
+            id SERIAL PRIMARY KEY,
+            user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+            type VARCHAR(20) NOT NULL CHECK (type IN ('text', 'image', 'audio')),
+            mode VARCHAR(20) NOT NULL CHECK (mode IN ('encrypt', 'decrypt')),
+            has_password BOOLEAN DEFAULT FALSE,
+            metadata JSONB DEFAULT '{}',
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           )
         `);
 
@@ -178,6 +193,11 @@ class Database {
         await client.query('CREATE INDEX IF NOT EXISTS idx_stego_created_at ON steganography_operations(created_at)');
         await client.query('CREATE INDEX IF NOT EXISTS idx_stego_operation_type ON steganography_operations(operation_type)');
         await client.query('CREATE INDEX IF NOT EXISTS idx_stego_status ON steganography_operations(status)');
+
+        await client.query('CREATE INDEX IF NOT EXISTS idx_stego_history_user_id ON stego_history(user_id)');
+        await client.query('CREATE INDEX IF NOT EXISTS idx_stego_history_created_at ON stego_history(created_at)');
+        await client.query('CREATE INDEX IF NOT EXISTS idx_stego_history_type ON stego_history(type)');
+        await client.query('CREATE INDEX IF NOT EXISTS idx_stego_history_mode ON stego_history(mode)');
 
         await client.query('CREATE INDEX IF NOT EXISTS idx_metrics_user_id ON metrics(user_id)');
         await client.query('CREATE INDEX IF NOT EXISTS idx_metrics_timestamp ON metrics(timestamp)');

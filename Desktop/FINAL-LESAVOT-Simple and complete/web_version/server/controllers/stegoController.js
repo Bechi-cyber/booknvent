@@ -5,7 +5,7 @@
  */
 
 const { AppError, catchAsync } = require('../utils/errorHandler');
-const pool = require('../config/database');
+const database = require('../utils/database');
 const logger = require('../utils/logger');
 
 // Save steganography operation to history
@@ -31,29 +31,22 @@ exports.saveOperation = catchAsync(async (req, res, next) => {
   }
 
   try {
-    // Map frontend modes to database operation types
-    let operationType;
-    if (mode === 'encrypt' || mode === 'embed') {
-      operationType = 'embed';
-    } else if (mode === 'decrypt' || mode === 'extract') {
-      operationType = 'extract';
-    }
-
+    // Insert into stego_history table for compatibility
     const query = `
-      INSERT INTO steganography_operations (user_id, operation_type, message, metadata, status)
+      INSERT INTO stego_history (user_id, type, mode, has_password, metadata)
       VALUES ($1, $2, $3, $4, $5)
-      RETURNING id, user_id, operation_type, message, metadata, status, created_at
+      RETURNING id, user_id, type, mode, has_password, metadata, created_at
     `;
 
     const values = [
       userId,
-      operationType,
-      metadata?.secret_message || null,
-      metadata || {},
-      'completed'
+      type,
+      mode,
+      hasPassword || false,
+      metadata || {}
     ];
 
-    const result = await pool.query(query, values);
+    const result = await database.query(query, values);
     const operation = result.rows[0];
 
     logger.info(`Steganography operation saved: ${operation.id} for user ${userId}`);
@@ -81,17 +74,17 @@ exports.getHistory = catchAsync(async (req, res, next) => {
 
   try {
     let query = `
-      SELECT id, user_id, operation_type, message, metadata, status, created_at, updated_at
-      FROM steganography_operations
+      SELECT id, user_id, type, mode, has_password, metadata, created_at
+      FROM stego_history
       WHERE user_id = $1
     `;
     let values = [userId];
     let paramCount = 1;
 
-    // Filter by operation type if provided
-    if (type && ['embed', 'extract'].includes(type)) {
+    // Filter by type if provided
+    if (type && ['text', 'image', 'audio'].includes(type)) {
       paramCount++;
-      query += ` AND operation_type = $${paramCount}`;
+      query += ` AND type = $${paramCount}`;
       values.push(type);
     }
 
@@ -99,19 +92,19 @@ exports.getHistory = catchAsync(async (req, res, next) => {
     query += ` ORDER BY created_at DESC LIMIT $${paramCount + 1} OFFSET $${paramCount + 2}`;
     values.push(parseInt(limit), offset);
 
-    const result = await pool.query(query, values);
+    const result = await database.query(query, values);
     const history = result.rows;
 
     // Get total count for pagination
-    let countQuery = `SELECT COUNT(*) FROM steganography_operations WHERE user_id = $1`;
+    let countQuery = `SELECT COUNT(*) FROM stego_history WHERE user_id = $1`;
     let countValues = [userId];
 
-    if (type && ['embed', 'extract'].includes(type)) {
-      countQuery += ` AND operation_type = $2`;
+    if (type && ['text', 'image', 'audio'].includes(type)) {
+      countQuery += ` AND type = $2`;
       countValues.push(type);
     }
 
-    const countResult = await pool.query(countQuery, countValues);
+    const countResult = await database.query(countQuery, countValues);
     const totalCount = parseInt(countResult.rows[0].count);
 
     logger.info(`Retrieved ${history.length} history entries for user ${userId}`);
@@ -145,12 +138,12 @@ exports.deleteHistoryEntry = catchAsync(async (req, res, next) => {
 
   try {
     const query = `
-      DELETE FROM steganography_operations
+      DELETE FROM stego_history
       WHERE id = $1 AND user_id = $2
       RETURNING id
     `;
 
-    const result = await pool.query(query, [id, userId]);
+    const result = await database.query(query, [id, userId]);
 
     if (result.rows.length === 0) {
       return next(new AppError('History entry not found or unauthorized', 404));
@@ -174,11 +167,11 @@ exports.clearHistory = catchAsync(async (req, res, next) => {
 
   try {
     const query = `
-      DELETE FROM steganography_operations
+      DELETE FROM stego_history
       WHERE user_id = $1
     `;
 
-    const result = await pool.query(query, [userId]);
+    const result = await database.query(query, [userId]);
     const deletedCount = result.rowCount;
 
     logger.info(`Cleared ${deletedCount} history entries for user ${userId}`);
