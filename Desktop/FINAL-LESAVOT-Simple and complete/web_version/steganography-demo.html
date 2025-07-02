@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LESAVOT | Steganography Demo</title>
+    <link rel="stylesheet" href="text_stego.css">
+    <link rel="stylesheet" href="cybersecurity_elements.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .demo-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .demo-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .demo-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .demo-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .demo-tab {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+        
+        .demo-tab.active {
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .demo-content {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .demo-section {
+            display: none;
+        }
+        
+        .demo-section.active {
+            display: block;
+        }
+        
+        .demo-row {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .demo-label {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .demo-input {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .demo-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .demo-textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .demo-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+        
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .demo-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .demo-output {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            min-height: 100px;
+            white-space: pre-wrap;
+        }
+        
+        .demo-file-input {
+            display: none;
+        }
+        
+        .demo-file-label {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #f8f9fa;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .demo-file-label:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .demo-preview {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            margin-top: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .demo-audio {
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        .demo-result {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        
+        .demo-error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            padding: 10px 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .back-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .demo-container {
+                margin: 1rem;
+                padding: 1rem;
+            }
+            
+            .demo-header h1 {
+                font-size: 2rem;
+            }
+            
+            .demo-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .demo-tab {
+                width: 200px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+    
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1><i class="fas fa-eye-slash"></i> LESAVOT Steganography Demo</h1>
+            <p>Experience the power of hiding data in text, images, and audio files</p>
+        </div>
+        
+        <div class="demo-tabs">
+            <div class="demo-tab active" data-tab="text">
+                <i class="fas fa-font"></i> Text Steganography
+            </div>
+            <div class="demo-tab" data-tab="image">
+                <i class="fas fa-image"></i> Image Steganography
+            </div>
+            <div class="demo-tab" data-tab="audio">
+                <i class="fas fa-music"></i> Audio Steganography
+            </div>
+        </div>
+        
+        <div class="demo-content">
+            <!-- Text Steganography Demo -->
+            <div id="text-demo" class="demo-section active">
+                <h2><i class="fas fa-font"></i> Text Steganography Demo</h2>
+                <p>Hide secret messages within normal text using invisible characters and spacing techniques.</p>
+                
+                <div class="demo-row">
+                    <label class="demo-label">Cover Text (Text to hide message in):</label>
+                    <textarea id="textCover" class="demo-input demo-textarea" placeholder="Enter the text that will contain your hidden message...">The quick brown fox jumps over the lazy dog. This is a sample text that can be used to demonstrate steganography techniques. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</textarea>
+                </div>
+                
+                <div class="demo-row">
+                    <label class="demo-label">Secret Message:</label>
+                    <input type="text" id="textSecret" class="demo-input" placeholder="Enter your secret message..." value="Hello World!">
+                </div>
+                
+                <div class="demo-row">
+                    <label class="demo-label">Password (optional):</label>
+                    <input type="password" id="textPassword" class="demo-input" placeholder="Enter password for encryption...">
+                </div>
+                
+                <div class="demo-row">
+                    <button type="button" id="textEncryptBtn" class="demo-btn">
+                        <i class="fas fa-lock"></i> Hide Message
+                    </button>
+                    <button type="button" id="textDecryptBtn" class="demo-btn">
+                        <i class="fas fa-unlock"></i> Extract Message
+                    </button>
+                </div>
+                
+                <div class="demo-row">
+                    <label class="demo-label">Result:</label>
+                    <div id="textOutput" class="demo-output">Click "Hide Message" to see the result...</div>
+                </div>
+            </div>
+
+            <!-- Image Steganography Demo -->
+            <div id="image-demo" class="demo-section">
+                <h2><i class="fas fa-image"></i> Image Steganography Demo</h2>
+                <p>Hide secret messages within image files using LSB (Least Significant Bit) techniques.</p>
+
+                <div class="demo-row">
+                    <label class="demo-label">Cover Image:</label>
+                    <input type="file" id="imageFile" class="demo-file-input" accept="image/*">
+                    <label for="imageFile" class="demo-file-label">
+                        <i class="fas fa-upload"></i> Choose Image File
+                    </label>
+                    <img id="imagePreview" class="demo-preview" style="display: none;">
+                </div>
+
+                <div class="demo-row">
+                    <label class="demo-label">Secret Message:</label>
+                    <input type="text" id="imageSecret" class="demo-input" placeholder="Enter your secret message..." value="Secret data hidden in image!">
+                </div>
+
+                <div class="demo-row">
+                    <label class="demo-label">Password (optional):</label>
+                    <input type="password" id="imagePassword" class="demo-input" placeholder="Enter password for encryption...">
+                </div>
+
+                <div class="demo-row">
+                    <button type="button" id="imageEncryptBtn" class="demo-btn" disabled>
+                        <i class="fas fa-lock"></i> Hide in Image
+                    </button>
+                    <button type="button" id="imageDecryptBtn" class="demo-btn" disabled>
+                        <i class="fas fa-unlock"></i> Extract from Image
+                    </button>
+                </div>
+
+                <div class="demo-row">
+                    <label class="demo-label">Result:</label>
+                    <div id="imageOutput" class="demo-output">Upload an image to begin...</div>
+                    <img id="imageResult" class="demo-preview" style="display: none;">
+                </div>
+            </div>
+
+            <!-- Audio Steganography Demo -->
+            <div id="audio-demo" class="demo-section">
+                <h2><i class="fas fa-music"></i> Audio Steganography Demo</h2>
+                <p>Hide secret messages within audio files using advanced audio processing techniques.</p>
+
+                <div class="demo-row">
+                    <label class="demo-label">Cover Audio:</label>
+                    <input type="file" id="audioFile" class="demo-file-input" accept="audio/*">
+                    <label for="audioFile" class="demo-file-label">
+                        <i class="fas fa-upload"></i> Choose Audio File
+                    </label>
+                    <audio id="audioPreview" class="demo-audio" controls style="display: none;"></audio>
+                </div>
+
+                <div class="demo-row">
+                    <label class="demo-label">Secret Message:</label>
+                    <input type="text" id="audioSecret" class="demo-input" placeholder="Enter your secret message..." value="Hidden audio message!">
+                </div>
+
+                <div class="demo-row">
+                    <label class="demo-label">Password (optional):</label>
+                    <input type="password" id="audioPassword" class="demo-input" placeholder="Enter password for encryption...">
+                </div>
+
+                <div class="demo-row">
+                    <button type="button" id="audioEncryptBtn" class="demo-btn" disabled>
+                        <i class="fas fa-lock"></i> Hide in Audio
+                    </button>
+                    <button type="button" id="audioDecryptBtn" class="demo-btn" disabled>
+                        <i class="fas fa-unlock"></i> Extract from Audio
+                    </button>
+                </div>
+
+                <div class="demo-row">
+                    <label class="demo-label">Result:</label>
+                    <div id="audioOutput" class="demo-output">Upload an audio file to begin...</div>
+                    <audio id="audioResult" class="demo-audio" controls style="display: none;"></audio>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="steganography-demo.js"></script>
+</body>
+</html>

@@ -591,3 +591,157 @@
 {"level":"warn","message":"Email transporter configuration error:","service":"lesavot-api","timestamp":"2025-06-30 07:06:59:659"}
 {"cause":{},"level":"error","message":"Failed to initialize PostgreSQL connection pool: Connection terminated due to connection timeout","service":"lesavot-api","stack":"Error: Connection terminated due to connection timeout\n    at C:\\Users\\I AM\\Desktop\\FINAL-LESAVOT-Simple and complete\\web_version\\server\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-06-30 07:07:08:78"}
 {"cause":{},"level":"error","message":"Failed to connect to PostgreSQL: Connection terminated due to connection timeout","service":"lesavot-api","stack":"Error: Connection terminated due to connection timeout\n    at C:\\Users\\I AM\\Desktop\\FINAL-LESAVOT-Simple and complete\\web_version\\server\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async Database.connect (C:\\Users\\I AM\\Desktop\\FINAL-LESAVOT-Simple and complete\\web_version\\server\\utils\\database.js:51:22)\n    at async initializeDatabase (C:\\Users\\I AM\\Desktop\\FINAL-LESAVOT-Simple and complete\\web_version\\server\\server.js:116:5)\n    at async startServer (C:\\Users\\I AM\\Desktop\\FINAL-LESAVOT-Simple and complete\\web_version\\server\\server.js:301:5)","timestamp":"2025-06-30 07:07:08:78"}
+{"level":"warn","message":"Email transporter configuration: EMAIL_USER and EMAIL_PASSWORD not set - OTP emails will be logged instead","service":"lesavot-api","timestamp":"2025-06-30 07:24:44:2444"}
+{"level":"info","message":"HTTP server created for development","service":"lesavot-api","timestamp":"2025-06-30 07:24:45:2445"}
+{"level":"info","message":"Connecting to PostgreSQL...","service":"lesavot-api","timestamp":"2025-06-30 07:24:45:2445"}
+{"level":"debug","message":"New client connected to PostgreSQL pool","service":"lesavot-api","timestamp":"2025-06-30 07:24:47:2447"}
+{"level":"info","message":"Successfully connected to PostgreSQL database: lesavotdb","service":"lesavot-api","timestamp":"2025-06-30 07:24:47:2447"}
+{"level":"info","message":"Connection test - Time: Mon Jun 30 2025 07:24:47 GMT+0100 (West Africa Standard Time)","service":"lesavot-api","timestamp":"2025-06-30 07:24:47:2447"}
+{"level":"info","message":"PostgreSQL version: PostgreSQL","service":"lesavot-api","timestamp":"2025-06-30 07:24:47:2447"}
+{"level":"info","message":"Initializing PostgreSQL schema...","service":"lesavot-api","timestamp":"2025-06-30 07:24:47:2447"}
+{"level":"info","message":"PostgreSQL connection pool initialized successfully","service":"lesavot-api","timestamp":"2025-06-30 07:24:47:2447"}
+{"level":"info","message":"PostgreSQL schema and indexes initialized successfully","service":"lesavot-api","timestamp":"2025-06-30 07:24:54:2454"}
+{"level":"info","message":"Database initialized successfully","service":"lesavot-api","timestamp":"2025-06-30 07:24:54:2454"}
+{"level":"info","message":"Server running on port 3000 in development mode","service":"lesavot-api","timestamp":"2025-06-30 07:24:54:2454"}
+{"level":"info","message":"API version: v1","service":"lesavot-api","timestamp":"2025-06-30 07:24:54:2454"}
+{"level":"info","message":"Database connection established","service":"lesavot-api","timestamp":"2025-06-30 07:24:54:2454"}
+{"level":"debug","message":"Client removed from PostgreSQL pool","service":"lesavot-api","timestamp":"2025-06-30 07:25:18:2518"}
+{"ip":"::1","level":"info","message":"GET /api/health","service":"lesavot-api","timestamp":"2025-06-30 07:26:20:2620","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"http","message":"::1 - - [30/Jun/2025:06:26:24 +0000] \"GET /api/health HTTP/1.1\" 200 865 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 07:26:24:2624"}
+{"level":"warn","message":"Slow request: GET /api/health took 4550ms","service":"lesavot-api","timestamp":"2025-06-30 07:26:24:2624"}
+{"ip":"::1","level":"info","message":"POST /api/v1/auth/signup","service":"lesavot-api","timestamp":"2025-06-30 07:26:24:2624","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"http","message":"::1 - - [30/Jun/2025:06:26:26 +0000] \"POST /api/v1/auth/signup HTTP/1.1\" 201 642 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 07:26:26:2626"}
+{"level":"warn","message":"Slow request: POST /api/v1/auth/signup took 1724ms","service":"lesavot-api","timestamp":"2025-06-30 07:26:26:2626"}
+{"ip":"::1","level":"info","message":"POST /api/v1/auth/login","service":"lesavot-api","timestamp":"2025-06-30 07:26:26:2626","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"warn","message":"Email transporter not configured, logging OTP instead","service":"lesavot-api","timestamp":"2025-06-30 07:26:27:2627"}
+{"level":"info","message":"OTP for user testuser_1751264784593: 276183 (expires in 5 minutes)","service":"lesavot-api","timestamp":"2025-06-30 07:26:27:2627"}
+{"level":"http","message":"::1 - - [30/Jun/2025:06:26:27 +0000] \"POST /api/v1/auth/login HTTP/1.1\" 200 148 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 07:26:27:2627"}
+{"level":"warn","message":"Slow request: POST /api/v1/auth/login took 1054ms","service":"lesavot-api","timestamp":"2025-06-30 07:26:27:2627"}
+{"ip":"::1","level":"info","message":"POST /api/v1/auth/verify-otp","service":"lesavot-api","timestamp":"2025-06-30 07:26:59:2659","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"http","message":"::1 - - [30/Jun/2025:06:27:05 +0000] \"POST /api/v1/auth/verify-otp HTTP/1.1\" 200 668 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 07:27:05:275"}
+{"level":"warn","message":"Slow request: POST /api/v1/auth/verify-otp took 5991ms","service":"lesavot-api","timestamp":"2025-06-30 07:27:05:275"}
+{"level":"info","message":"SIGINT received, shutting down gracefully","service":"lesavot-api","timestamp":"2025-06-30 07:48:42:4842"}
+{"level":"warn","message":"Email transporter configuration: EMAIL_USER and EMAIL_PASSWORD not set - OTP emails will be logged instead","service":"lesavot-api","timestamp":"2025-06-30 07:53:17:5317"}
+{"level":"info","message":"HTTP server created for development","service":"lesavot-api","timestamp":"2025-06-30 07:53:18:5318"}
+{"level":"info","message":"Connecting to PostgreSQL...","service":"lesavot-api","timestamp":"2025-06-30 07:53:18:5318"}
+{"level":"debug","message":"New client connected to PostgreSQL pool","service":"lesavot-api","timestamp":"2025-06-30 07:53:33:5333"}
+{"level":"info","message":"Successfully connected to PostgreSQL database: lesavotdb","service":"lesavot-api","timestamp":"2025-06-30 07:53:41:5341"}
+{"level":"info","message":"Connection test - Time: Mon Jun 30 2025 07:53:41 GMT+0100 (West Africa Standard Time)","service":"lesavot-api","timestamp":"2025-06-30 07:53:41:5341"}
+{"level":"info","message":"PostgreSQL version: PostgreSQL","service":"lesavot-api","timestamp":"2025-06-30 07:53:41:5341"}
+{"level":"info","message":"Initializing PostgreSQL schema...","service":"lesavot-api","timestamp":"2025-06-30 07:53:41:5341"}
+{"level":"info","message":"PostgreSQL connection pool initialized successfully","service":"lesavot-api","timestamp":"2025-06-30 07:53:41:5341"}
+{"level":"debug","message":"Client removed from PostgreSQL pool","service":"lesavot-api","timestamp":"2025-06-30 07:54:18:5418"}
+{"level":"info","message":"PostgreSQL schema and indexes initialized successfully","service":"lesavot-api","timestamp":"2025-06-30 07:54:49:5449"}
+{"level":"info","message":"Database initialized successfully","service":"lesavot-api","timestamp":"2025-06-30 07:54:49:5449"}
+{"level":"info","message":"Server running on port 3000 in development mode","service":"lesavot-api","timestamp":"2025-06-30 07:54:49:5449"}
+{"level":"info","message":"API version: v1","service":"lesavot-api","timestamp":"2025-06-30 07:54:49:5449"}
+{"level":"info","message":"Database connection established","service":"lesavot-api","timestamp":"2025-06-30 07:54:49:5449"}
+{"ip":"::1","level":"info","message":"GET /api/health","service":"lesavot-api","timestamp":"2025-06-30 07:56:34:5634","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"http","message":"::1 - - [30/Jun/2025:06:56:42 +0000] \"GET /api/health HTTP/1.1\" 200 865 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 07:56:42:5642"}
+{"level":"warn","message":"Slow request: GET /api/health took 8639ms","service":"lesavot-api","timestamp":"2025-06-30 07:56:42:5642"}
+{"ip":"::1","level":"info","message":"POST /api/v1/auth/signup","service":"lesavot-api","timestamp":"2025-06-30 07:56:43:5643","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"http","message":"::1 - - [30/Jun/2025:06:56:45 +0000] \"POST /api/v1/auth/signup HTTP/1.1\" 201 642 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 07:56:45:5645"}
+{"level":"warn","message":"Slow request: POST /api/v1/auth/signup took 2135ms","service":"lesavot-api","timestamp":"2025-06-30 07:56:45:5645"}
+{"ip":"::1","level":"info","message":"POST /api/v1/auth/login","service":"lesavot-api","timestamp":"2025-06-30 07:56:45:5645","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"warn","message":"Email transporter not configured, logging OTP instead","service":"lesavot-api","timestamp":"2025-06-30 07:56:46:5646"}
+{"level":"info","message":"OTP for user testuser_1751266603013: 127946 (expires in 5 minutes)","service":"lesavot-api","timestamp":"2025-06-30 07:56:46:5646"}
+{"level":"http","message":"::1 - - [30/Jun/2025:06:56:46 +0000] \"POST /api/v1/auth/login HTTP/1.1\" 200 148 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 07:56:46:5646"}
+{"level":"warn","message":"Slow request: POST /api/v1/auth/login took 1297ms","service":"lesavot-api","timestamp":"2025-06-30 07:56:46:5646"}
+{"ip":"::1","level":"info","message":"POST /api/v1/auth/verify-otp","service":"lesavot-api","timestamp":"2025-06-30 07:57:19:5719","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"ip":"::1","level":"error","message":"Error: Invalid or expired OTP","method":"POST","path":"/api/v1/auth/verify-otp","service":"lesavot-api","stack":"Error: Invalid or expired OTP\n    at C:\\Users\\I AM\\Desktop\\FINAL-LESAVOT-Simple and complete\\web_version\\server\\controllers\\authController.js:186:17\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-06-30 07:57:26:5726","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"http","message":"::1 - - [30/Jun/2025:06:57:26 +0000] \"POST /api/v1/auth/verify-otp HTTP/1.1\" 401 304 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 07:57:26:5726"}
+{"level":"warn","message":"Slow request: POST /api/v1/auth/verify-otp took 7607ms","service":"lesavot-api","timestamp":"2025-06-30 07:57:26:5726"}
+{"ip":"::1","level":"info","message":"GET /api/health","service":"lesavot-api","timestamp":"2025-06-30 07:59:02:592","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"http","message":"::1 - - [30/Jun/2025:06:59:09 +0000] \"GET /api/health HTTP/1.1\" 200 865 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 07:59:09:599"}
+{"level":"warn","message":"Slow request: GET /api/health took 6351ms","service":"lesavot-api","timestamp":"2025-06-30 07:59:09:599"}
+{"ip":"::1","level":"info","message":"POST /api/v1/auth/signup","service":"lesavot-api","timestamp":"2025-06-30 07:59:09:599","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"http","message":"::1 - - [30/Jun/2025:06:59:12 +0000] \"POST /api/v1/auth/signup HTTP/1.1\" 201 642 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 07:59:12:5912"}
+{"level":"warn","message":"Slow request: POST /api/v1/auth/signup took 3464ms","service":"lesavot-api","timestamp":"2025-06-30 07:59:12:5912"}
+{"ip":"::1","level":"info","message":"POST /api/v1/auth/login","service":"lesavot-api","timestamp":"2025-06-30 07:59:12:5912","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"warn","message":"Email transporter not configured, logging OTP instead","service":"lesavot-api","timestamp":"2025-06-30 07:59:13:5913"}
+{"level":"info","message":"OTP for user testuser_1751266742688: 865279 (expires in 5 minutes)","service":"lesavot-api","timestamp":"2025-06-30 07:59:13:5913"}
+{"level":"http","message":"::1 - - [30/Jun/2025:06:59:13 +0000] \"POST /api/v1/auth/login HTTP/1.1\" 200 148 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 07:59:13:5913"}
+{"level":"warn","message":"Slow request: POST /api/v1/auth/login took 1045ms","service":"lesavot-api","timestamp":"2025-06-30 07:59:13:5913"}
+{"ip":"::1","level":"info","message":"POST /api/v1/auth/verify-otp","service":"lesavot-api","timestamp":"2025-06-30 07:59:13:5913","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"http","message":"::1 - - [30/Jun/2025:06:59:18 +0000] \"POST /api/v1/auth/verify-otp HTTP/1.1\" 200 668 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 07:59:18:5918"}
+{"level":"warn","message":"Slow request: POST /api/v1/auth/verify-otp took 4898ms","service":"lesavot-api","timestamp":"2025-06-30 07:59:18:5918"}
+{"ip":"::1","level":"info","message":"GET /api/v1/auth/me","service":"lesavot-api","timestamp":"2025-06-30 07:59:18:5918","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"error","message":"Authentication middleware error: session.updateLastActivity is not a function","service":"lesavot-api","stack":"TypeError: session.updateLastActivity is not a function\n    at exports.protect (C:\\Users\\I AM\\Desktop\\FINAL-LESAVOT-Simple and complete\\web_version\\server\\middleware\\auth.js:70:21)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-06-30 07:59:19:5919"}
+{"level":"http","message":"::1 - - [30/Jun/2025:06:59:19 +0000] \"GET /api/v1/auth/me HTTP/1.1\" 500 73 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 07:59:19:5919"}
+{"ip":"::1","level":"info","message":"GET /api/health","service":"lesavot-api","timestamp":"2025-06-30 08:04:19:419","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"http","message":"::1 - - [30/Jun/2025:07:04:22 +0000] \"GET /api/health HTTP/1.1\" 200 865 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 08:04:22:422"}
+{"level":"warn","message":"Slow request: GET /api/health took 3757ms","service":"lesavot-api","timestamp":"2025-06-30 08:04:22:422"}
+{"ip":"::1","level":"info","message":"POST /api/v1/auth/signup","service":"lesavot-api","timestamp":"2025-06-30 08:04:23:423","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"http","message":"::1 - - [30/Jun/2025:07:04:24 +0000] \"POST /api/v1/auth/signup HTTP/1.1\" 201 642 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 08:04:24:424"}
+{"level":"warn","message":"Slow request: POST /api/v1/auth/signup took 1618ms","service":"lesavot-api","timestamp":"2025-06-30 08:04:24:424"}
+{"ip":"::1","level":"info","message":"POST /api/v1/auth/login","service":"lesavot-api","timestamp":"2025-06-30 08:04:24:424","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"warn","message":"Email transporter not configured, logging OTP instead","service":"lesavot-api","timestamp":"2025-06-30 08:04:26:426"}
+{"level":"info","message":"OTP for user testuser_1751267059177: 568887 (expires in 5 minutes)","service":"lesavot-api","timestamp":"2025-06-30 08:04:26:426"}
+{"level":"http","message":"::1 - - [30/Jun/2025:07:04:26 +0000] \"POST /api/v1/auth/login HTTP/1.1\" 200 148 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 08:04:26:426"}
+{"level":"warn","message":"Slow request: POST /api/v1/auth/login took 1774ms","service":"lesavot-api","timestamp":"2025-06-30 08:04:26:426"}
+{"ip":"::1","level":"info","message":"POST /api/v1/auth/verify-otp","service":"lesavot-api","timestamp":"2025-06-30 08:04:26:426","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"http","message":"::1 - - [30/Jun/2025:07:04:28 +0000] \"POST /api/v1/auth/verify-otp HTTP/1.1\" 200 668 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 08:04:28:428"}
+{"level":"warn","message":"Slow request: POST /api/v1/auth/verify-otp took 2090ms","service":"lesavot-api","timestamp":"2025-06-30 08:04:28:428"}
+{"ip":"::1","level":"info","message":"GET /api/v1/auth/me","service":"lesavot-api","timestamp":"2025-06-30 08:04:28:428","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"error","message":"Authentication middleware error: session.updateLastActivity is not a function","service":"lesavot-api","stack":"TypeError: session.updateLastActivity is not a function\n    at exports.protect (C:\\Users\\I AM\\Desktop\\FINAL-LESAVOT-Simple and complete\\web_version\\server\\middleware\\auth.js:70:21)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-06-30 08:04:29:429"}
+{"level":"http","message":"::1 - - [30/Jun/2025:07:04:29 +0000] \"GET /api/v1/auth/me HTTP/1.1\" 500 73 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-06-30 08:04:29:429"}
+{"level":"warn","message":"Email transporter configuration: EMAIL_USER and EMAIL_PASSWORD not set - OTP emails will be logged instead","service":"lesavot-api","timestamp":"2025-07-02 03:17:55:1755"}
+{"level":"info","message":"HTTP server created for development","service":"lesavot-api","timestamp":"2025-07-02 03:17:55:1755"}
+{"level":"info","message":"Connecting to PostgreSQL...","service":"lesavot-api","timestamp":"2025-07-02 03:17:55:1755"}
+{"level":"debug","message":"New client connected to PostgreSQL pool","service":"lesavot-api","timestamp":"2025-07-02 03:17:58:1758"}
+{"level":"info","message":"Successfully connected to PostgreSQL database: lesavotdb","service":"lesavot-api","timestamp":"2025-07-02 03:17:58:1758"}
+{"level":"info","message":"Connection test - Time: Wed Jul 02 2025 03:17:58 GMT+0100 (West Africa Standard Time)","service":"lesavot-api","timestamp":"2025-07-02 03:17:58:1758"}
+{"level":"info","message":"PostgreSQL version: PostgreSQL","service":"lesavot-api","timestamp":"2025-07-02 03:17:58:1758"}
+{"level":"info","message":"Initializing PostgreSQL schema...","service":"lesavot-api","timestamp":"2025-07-02 03:17:58:1758"}
+{"level":"info","message":"PostgreSQL connection pool initialized successfully","service":"lesavot-api","timestamp":"2025-07-02 03:17:58:1758"}
+{"level":"info","message":"PostgreSQL schema and indexes initialized successfully","service":"lesavot-api","timestamp":"2025-07-02 03:18:05:185"}
+{"level":"info","message":"Database initialized successfully","service":"lesavot-api","timestamp":"2025-07-02 03:18:05:185"}
+{"level":"info","message":"Server running on port 3000 in development mode","service":"lesavot-api","timestamp":"2025-07-02 03:18:05:185"}
+{"level":"info","message":"API version: v1","service":"lesavot-api","timestamp":"2025-07-02 03:18:05:185"}
+{"level":"info","message":"Database connection established","service":"lesavot-api","timestamp":"2025-07-02 03:18:05:185"}
+{"level":"debug","message":"Client removed from PostgreSQL pool","service":"lesavot-api","timestamp":"2025-07-02 03:18:28:1828"}
+{"level":"warn","message":"Email transporter configuration: EMAIL_USER and EMAIL_PASSWORD not set - OTP emails will be logged instead","service":"lesavot-api","timestamp":"2025-07-02 03:18:36:1836"}
+{"level":"info","message":"HTTP server created for development","service":"lesavot-api","timestamp":"2025-07-02 03:18:36:1836"}
+{"level":"info","message":"Connecting to PostgreSQL...","service":"lesavot-api","timestamp":"2025-07-02 03:18:36:1836"}
+{"level":"debug","message":"New client connected to PostgreSQL pool","service":"lesavot-api","timestamp":"2025-07-02 03:18:38:1838"}
+{"level":"info","message":"PostgreSQL connection pool initialized successfully","service":"lesavot-api","timestamp":"2025-07-02 03:18:38:1838"}
+{"level":"info","message":"Successfully connected to PostgreSQL database: lesavotdb","service":"lesavot-api","timestamp":"2025-07-02 03:18:38:1838"}
+{"level":"info","message":"Connection test - Time: Wed Jul 02 2025 03:18:39 GMT+0100 (West Africa Standard Time)","service":"lesavot-api","timestamp":"2025-07-02 03:18:38:1838"}
+{"level":"info","message":"PostgreSQL version: PostgreSQL","service":"lesavot-api","timestamp":"2025-07-02 03:18:38:1838"}
+{"level":"info","message":"Initializing PostgreSQL schema...","service":"lesavot-api","timestamp":"2025-07-02 03:18:38:1838"}
+{"level":"info","message":"PostgreSQL schema and indexes initialized successfully","service":"lesavot-api","timestamp":"2025-07-02 03:18:46:1846"}
+{"level":"warn","message":"Email transporter configuration: EMAIL_USER and EMAIL_PASSWORD not set - OTP emails will be logged instead","service":"lesavot-api","timestamp":"2025-07-02 03:20:44:2044"}
+{"level":"info","message":"HTTP server created for development","service":"lesavot-api","timestamp":"2025-07-02 03:20:45:2045"}
+{"level":"info","message":"Connecting to PostgreSQL...","service":"lesavot-api","timestamp":"2025-07-02 03:20:45:2045"}
+{"level":"debug","message":"New client connected to PostgreSQL pool","service":"lesavot-api","timestamp":"2025-07-02 03:20:46:2046"}
+{"level":"info","message":"Successfully connected to PostgreSQL database: lesavotdb","service":"lesavot-api","timestamp":"2025-07-02 03:20:47:2047"}
+{"level":"info","message":"Connection test - Time: Wed Jul 02 2025 03:20:47 GMT+0100 (West Africa Standard Time)","service":"lesavot-api","timestamp":"2025-07-02 03:20:47:2047"}
+{"level":"info","message":"PostgreSQL version: PostgreSQL","service":"lesavot-api","timestamp":"2025-07-02 03:20:47:2047"}
+{"level":"info","message":"Initializing PostgreSQL schema...","service":"lesavot-api","timestamp":"2025-07-02 03:20:47:2047"}
+{"level":"info","message":"PostgreSQL connection pool initialized successfully","service":"lesavot-api","timestamp":"2025-07-02 03:20:47:2047"}
+{"level":"info","message":"PostgreSQL schema and indexes initialized successfully","service":"lesavot-api","timestamp":"2025-07-02 03:20:54:2054"}
+{"level":"info","message":"Database initialized successfully","service":"lesavot-api","timestamp":"2025-07-02 03:20:54:2054"}
+{"level":"info","message":"Server running on port 3000 in development mode","service":"lesavot-api","timestamp":"2025-07-02 03:20:54:2054"}
+{"level":"info","message":"API version: v1","service":"lesavot-api","timestamp":"2025-07-02 03:20:54:2054"}
+{"level":"info","message":"Database connection established","service":"lesavot-api","timestamp":"2025-07-02 03:20:54:2054"}
+{"level":"debug","message":"Client removed from PostgreSQL pool","service":"lesavot-api","timestamp":"2025-07-02 03:21:17:2117"}
+{"ip":"::1","level":"info","message":"POST /api/v1/auth/register","service":"lesavot-api","timestamp":"2025-07-02 03:21:21:2121","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"http","message":"::1 - - [02/Jul/2025:02:21:21 +0000] \"POST /api/v1/auth/register HTTP/1.1\" 401 82 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-07-02 03:21:21:2121"}
+{"ip":"::1","level":"info","message":"GET /api/v1/health","service":"lesavot-api","timestamp":"2025-07-02 03:21:33:2133","userAgent":"Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.4202"}
+{"level":"http","message":"::1 - - [02/Jul/2025:02:21:33 +0000] \"GET /api/v1/health HTTP/1.1\" 404 56 \"-\" \"Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.4202\"","service":"lesavot-api","timestamp":"2025-07-02 03:21:33:2133"}
+{"ip":"::1","level":"info","message":"GET /api/health","service":"lesavot-api","timestamp":"2025-07-02 03:22:01:221","userAgent":"Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.4202"}
+{"level":"http","message":"::1 - - [02/Jul/2025:02:22:04 +0000] \"GET /api/health HTTP/1.1\" 200 865 \"-\" \"Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.4202\"","service":"lesavot-api","timestamp":"2025-07-02 03:22:04:224"}
+{"level":"warn","message":"Slow request: GET /api/health took 2889ms","service":"lesavot-api","timestamp":"2025-07-02 03:22:04:224"}
+{"ip":"::1","level":"info","message":"POST /api/auth/register","service":"lesavot-api","timestamp":"2025-07-02 03:22:48:2248","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"http","message":"::1 - - [02/Jul/2025:02:22:48 +0000] \"POST /api/auth/register HTTP/1.1\" 401 82 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-07-02 03:22:48:2248"}
+{"ip":"::1","level":"info","message":"POST /api/auth/signup","service":"lesavot-api","timestamp":"2025-07-02 03:23:24:2324","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"http","message":"::1 - - [02/Jul/2025:02:23:27 +0000] \"POST /api/auth/signup HTTP/1.1\" 201 639 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-07-02 03:23:27:2327"}
+{"level":"warn","message":"Slow request: POST /api/auth/signup took 3431ms","service":"lesavot-api","timestamp":"2025-07-02 03:23:27:2327"}
+{"ip":"::1","level":"info","message":"POST /api/auth/login","service":"lesavot-api","timestamp":"2025-07-02 03:23:27:2327","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"warn","message":"Email transporter not configured, logging OTP instead","service":"lesavot-api","timestamp":"2025-07-02 03:23:28:2328"}
+{"level":"info","message":"OTP for user otptest1751423004275: 830222 (expires in 5 minutes)","service":"lesavot-api","timestamp":"2025-07-02 03:23:28:2328"}
+{"level":"http","message":"::1 - - [02/Jul/2025:02:23:28 +0000] \"POST /api/auth/login HTTP/1.1\" 200 148 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-07-02 03:23:28:2328"}
+{"level":"warn","message":"Slow request: POST /api/auth/login took 1157ms","service":"lesavot-api","timestamp":"2025-07-02 03:23:28:2328"}
+{"ip":"::1","level":"info","message":"POST /api/auth/verify-otp","service":"lesavot-api","timestamp":"2025-07-02 03:23:28:2328","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"ip":"::1","level":"error","message":"Error: Invalid or expired OTP","method":"POST","path":"/api/auth/verify-otp","service":"lesavot-api","stack":"Error: Invalid or expired OTP\n    at C:\\Users\\I AM\\Desktop\\FINAL-LESAVOT-Simple and complete\\web_version\\server\\controllers\\authController.js:186:17\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-07-02 03:23:29:2329","userAgent":"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"}
+{"level":"http","message":"::1 - - [02/Jul/2025:02:23:29 +0000] \"POST /api/auth/verify-otp HTTP/1.1\" 401 304 \"-\" \"node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\"","service":"lesavot-api","timestamp":"2025-07-02 03:23:29:2329"}

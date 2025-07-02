@@ -219,7 +219,7 @@ exports.verifyOtp = catchAsync(async (req, res, next) => {
 
 // User registration
 exports.signup = catchAsync(async (req, res, next) => {
-  const { username, email, password, firstName, lastName } = req.body;
+  const { username, email, password, firstName, lastName, fullName } = req.body;
 
   // Validate input
   if (!username || !email || !password) {
@@ -237,13 +237,24 @@ exports.signup = catchAsync(async (req, res, next) => {
     return next(new AppError('Email already registered', 409));
   }
 
+  // Handle both fullName and firstName/lastName formats
+  let userFirstName = firstName || '';
+  let userLastName = lastName || '';
+
+  if (fullName && !firstName && !lastName) {
+    // Split fullName into firstName and lastName
+    const nameParts = fullName.trim().split(' ');
+    userFirstName = nameParts[0] || '';
+    userLastName = nameParts.slice(1).join(' ') || '';
+  }
+
   // Create new user
   const user = new User({
     username,
     email,
     password,
-    firstName: firstName || '',
-    lastName: lastName || ''
+    firstName: userFirstName,
+    lastName: userLastName
   });
 
   await user.save();
