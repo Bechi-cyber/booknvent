@@ -81,7 +81,7 @@ class Session {
         SELECT id, session_id, user_id, username, session_type, otp_code,
                is_verified, expires_at, created_at
         FROM sessions
-        WHERE session_id = $1 AND expires_at > CURRENT_TIMESTAMP
+        WHERE session_id = $1 AND session_type = 'auth' AND expires_at > CURRENT_TIMESTAMP
       `, [sessionId]);
 
       return result.rows.length > 0 ? new Session(result.rows[0]) : null;
@@ -295,6 +295,21 @@ class Session {
       return result.rowCount > 0;
     } catch (error) {
       logger.error('Error extending session:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Update last activity timestamp
+   */
+  async updateLastActivity() {
+    try {
+      // For now, we'll just extend the session expiry as a form of activity update
+      // In a more complex system, you might have a separate last_activity column
+      await this.extend(24);
+      return true;
+    } catch (error) {
+      logger.error('Error updating last activity:', error);
       throw error;
     }
   }

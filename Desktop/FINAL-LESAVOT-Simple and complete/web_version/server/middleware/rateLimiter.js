@@ -78,7 +78,7 @@ exports.globalLimiter = createRateLimiter({
  */
 exports.authLimiter = createRateLimiter({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10, // 10 requests per 15 minutes
+  max: process.env.NODE_ENV === 'development' ? 100 : 10, // 100 requests in dev, 10 in production
   message: 'Too many authentication attempts, please try again later',
   useErrorHandler: true,
   keyGenerator: (req) => {

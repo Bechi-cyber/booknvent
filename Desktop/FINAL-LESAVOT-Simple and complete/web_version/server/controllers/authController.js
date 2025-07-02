@@ -194,9 +194,7 @@ exports.verifyOtp = catchAsync(async (req, res, next) => {
   const authSession = await Session.createAuthSession(
     user.id,
     user.username,
-    24, // 24 hours
-    req.ip,
-    req.get('User-Agent')
+    24 // 24 hours
   );
 
   // Generate JWT token
